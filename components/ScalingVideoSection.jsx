@@ -127,7 +127,7 @@ const ScalingVideoSection = ({
             {/* Header Section */}
             <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[25vh]">
                 {/* Eyebrow */}
-                <span className="text-xl font-normal uppercase text-[#81e3f8]">
+                <span className="text-xl font-normal uppercase text-[#ff7b00]">
                     {eyebrowText}
                 </span>
 
@@ -137,8 +137,8 @@ const ScalingVideoSection = ({
                     <span className="reveal-word-2 inline-block">Works.</span> <br />
                     <span className="reveal-word-2 inline-block">Yet,</span>&nbsp;
                     <span className="reveal-word-2 inline-block">Something’s</span>&nbsp;
-                    <span className="reveal-word-2 inline-block text-pink-600/75">Missing</span>&nbsp;
-                    <span className="reveal-word-2 inline-block text-pink-600/75">?</span>
+                    <span className="reveal-word-2 inline-block bg-clip-text text-transparent bg-linear-to-r from-[#ffd700] to-[#ff7b00] leading-[1.3]">Missing</span>
+                    <span className="reveal-word-2 inline-block text-[#ff7b00]/95">?</span>
                 </h1>
 
                 {/* Small Box Container */}
@@ -190,10 +190,10 @@ const ScalingVideoSection = ({
                     <span className="reveal-word-2 inline-block">This</span>&nbsp;
                     <span className="reveal-word-2 inline-block">is</span>&nbsp;
                     <span className="reveal-word-2 inline-block">where</span>&nbsp;
-                    <span className="reveal-word-2 inline-block text-[#81e3f8]">AncientAI</span>&nbsp;
+                    <span className="reveal-word-2 inline-block text-[#ff7b00]">AncientAI</span>&nbsp;
                     <span className="reveal-word-2 inline-block ">Matters</span>&nbsp;
-                    <span className="reveal-word-2 inline-block ">To Reclaim Your Life.<br /> But with few Upgrades</span>
-                    <span className="reveal-word-2 inline-block text-gray-500 text-3xl">(No credit cards required!🤪)</span>
+                    <span className="reveal-word-2 inline-block ">To Reclaim Your Life.<br /> But with few Upgrades</span> <br />
+                    <span className="reveal-word-2 inline-block text-gray-500 text-3xl">(No credit cards required!)</span>
                 </h1>
             </section>
             <section ref={marqueeSectionRef} className="relative h-[40vh] w-full overflow-hidden flex items-center justify-center -mt-32 z-0">
@@ -222,7 +222,7 @@ const ScalingVideoSection = ({
                     </svg>
                 </div>
             </section>
-        </div>
+        </div >
     );
 };
 

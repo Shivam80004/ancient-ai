@@ -110,7 +110,7 @@ const HeroBanner = () => {
                             <span
                                 key={word}
                                 ref={el => wordsRef.current[i] = el}
-                                className="rotating-text__word absolute left-0 top-1 whitespace-nowrap font-semibold text-[#81e3f8]!"
+                                className="rotating-text__word absolute left-0 top-1 whitespace-nowrap font-semibold text-[#ff7b00]!"
                             >
                                 {word}
                             </span>

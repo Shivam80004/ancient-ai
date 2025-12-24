@@ -10,6 +10,24 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Primary Brand Colors */
+  --color-bg-deep: #1A1614;
+  /* Deep Charcoal */
+  --color-primary: #8C4A32;
+  /* Burnt Sienna */
+  --color-accent-warm: #D9A05B;
+  /* Golden Ember */
+
+  /* Secondary & Neutral Colors */
+  --color-accent-cool: #A8B9B9;
+  /* Misty Slate */
+  --color-support-rose: #B58271;
+  /* Dusty Rose */
+
+  /* Functional Variations */
+  --text-main: #F5F5F5;
+  --text-muted: var(--color-accent-cool);
 }
 
 @media (prefers-color-scheme: dark) {
