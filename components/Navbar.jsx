@@ -19,22 +19,22 @@ const Navbar = () => {
                 {/* Navigation Links */}
                 <div className="flex items-center gap-2">
                     <Link
-                        href="#"
+                        href="/#experience"
                         className="px-6 py-2 rounded-xl text-white/70 font-popinse font-medium text-sm transition-all duration-300 hover:text-white"
                     >
-                        Full view
+                        Experience
                     </Link>
                     <Link
-                        href="#"
+                        href="/about"
                         className="px-6 py-2 rounded-full text-white/70 font-popinse font-medium text-sm transition-all duration-300 hover:text-white"
                     >
-                        Overview
+                        About Us
                     </Link>
                     <Link
-                        href="#"
+                        href="/#the-illusion"
                         className="px-6 py-2 rounded-full text-white/70 font-popinse font-medium text-sm transition-all duration-300 hover:text-white"
                     >
-                        Gallery
+                        The Illusion
                     </Link>
                 </div>
             </div>

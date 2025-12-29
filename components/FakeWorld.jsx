@@ -63,22 +63,37 @@ const ImageSection = ({ image, title, isHorizontal }) => (
 const FakeWorld = () => {
   const containerRef = useRef(null);
 
-  useEffect(() => {
+  React.useLayoutEffect(() => {
+    if (!containerRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(".fake-card",
+      // Parallax effect for scattered images
+      const images = gsap.utils.toArray(".parallax-image");
+      images.forEach((img) => {
+        const speed = parseFloat(img.dataset.speed) || 0.2;
+        gsap.to(img, {
+          y: -800 * speed, // Amplify scroll speed
+          ease: "none",
+          scrollTrigger: {
+            trigger: img,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          }
+        });
+      });
+
+      // Subtle scale and fade for the text
+      gsap.fromTo(".hero-text-container",
+        { scale: 0.8, opacity: 0 },
         {
-          opacity: 0,
-          y: 60
-        },
-        {
+          scale: 1,
           opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 1.2,
-          ease: "power3.out",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 75%",
+            start: "top 40%",
+            end: "top 10%",
+            scrub: true,
           }
         }
       );
@@ -86,83 +101,59 @@ const FakeWorld = () => {
     return () => ctx.revert();
   }, []);
 
-  const cards = [
-    {
-      image: "/Artificial_energy_from_202512231616.jpeg",
-      title: "Synthetic Vigor",
-      text: "Artificial energy hijacked from caffeine, masking the soul's exhaustion.",
-      date: "05 - 2021",
-      layout: "h-image-first",
-      className: "md:col-span-2 md:row-span-1 h-[400px] md:h-[420px]"
-    },
-    {
-      image: "/Peace_from_weekend_202512231617.jpeg",
-      title: "Escapist Zen",
-      text: "Transactional peace bought from weekend getaways, forgotten by Monday morning.",
-      date: "10 - 2019",
-      layout: "v-image-first",
-      className: "md:col-span-1 md:row-span-2 h-[600px] md:h-full"
-    },
-    {
-      image: "/Confidence_from_filters_202512231618.jpeg",
-      title: "Digital Armor",
-      text: "Confidence manufactured through filters, crumbling without the screen.",
-      date: "02 - 2024",
-      layout: "h-text-first",
-      className: "md:col-span-2 md:row-span-1 h-[350px] md:h-[380px]"
-    },
-    {
-      image: "/Relationships_maintained_by_202512231619.jpeg",
-      title: "Emoji Echoes",
-      text: "Relationships maintained by cold pixels and emojis, starving for presence.",
-      date: "09 - 2023",
-      layout: "h-text-first",
-      className: "md:col-span-3 md:row-span-1 h-[350px] md:h-[380px]"
-    }
+  const images = [
+    { src: "/Artificial_energy_from_202512231616.jpeg", top: "10%", left: "5%", width: "18vw", speed: 0.2, z: "z-10" },
+    { src: "/Peace_from_weekend_202512231617.jpeg", top: "25%", right: "10%", width: "22vw", speed: 0.4, z: "z-30" }, // In front of text
+    { src: "/Confidence_from_filters_202512231618.jpeg", top: "45%", left: "15%", width: "16vw", speed: 0.1, z: "z-10" },
+    { src: "/Relationships_maintained_by_202512231619.jpeg", top: "65%", right: "12%", width: "28vw", speed: 0.3, z: "z-10" },
+    { src: "/Artificial_energy_from_202512231616.jpeg", top: "85%", left: "8%", width: "12vw", speed: 0.5, z: "z-30" },
   ];
 
   return (
-    <section ref={containerRef} className="relative min-h-screen w-full overflow-hidden px-4 md:px-8 py-32">
-      {/* Background Radial Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-40 pointer-events-none"
-        style={{
-          background: 'radial-gradient(50% 50% at 50% 0%, rgba(255, 123, 0, 0.4) 0%, transparent 100%)'
-        }}
-      />
+    <section ref={containerRef} className="relative min-h-[200vh] w-full bg-[#030303] overflow-visible">
 
-      <div className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{ backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
+      {/* Pinned Viewport */}
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* Main Title Area */}
-        <div className="mb-24 text-center space-y-4">
-          <h2 className="text-5xl font-popins font-medium md:text-7xl text-white">
-            Artificial Everywhere.<br />
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-[#ffd700] to-[#ff7b00] ">Real & Authentic?</span> Nowhere.
+        {/* Background Radial Glow (Subtle) */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at center, rgba(255, 123, 0, 0.1) 0%, transparent 80%)'
+          }}
+        />
+
+        {/* Central Text Section */}
+        <div className="hero-text-container z-20 text-center px-4 mix-blend-difference pointer-events-auto">
+          <h2 className="text-6xl md:text-[7vw] font-medium text-white uppercase leading-[0.9] tracking-normal drop-shadow-[0_25px_25px_rgba(0,0,0,0.5)]">
+            Artificial <br /> Everywhere.<br />
+            Authentic? <br /> Nowhere!
           </h2>
-          <p className="mx-auto max-w-2xl text-lg md:text-xl text-gray-400 font-light">
-            We've built a world of high-definition simulations, trading true presence for polished performance.
-          </p>
         </div>
 
-        {/* Dynamic Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-fr">
-          {cards.map((card, i) => (
-            <Card key={i} {...card} />
-          ))}
-        </div>
-
-
-        {/* Closing Text */}
-        <div className="mt-32 text-center">
-          <button className="group relative px-10 py-4 bg-white/5 border border-white/10 rounded-full overflow-hidden transition-all hover:border-white/30 backdrop-blur-md">
-            <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-rose-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <span className="relative text-white font-medium text-lg tracking-wider">
-              RECLAIM REALITY
-            </span>
-          </button>
-        </div>
       </div>
+
+      {/* Scattered Parallax Images */}
+      {images.map((img, i) => (
+        <div
+          key={i}
+          className={`parallax-image absolute overflow-hidden rounded-xl shadow-4xl ${img.z} pointer-events-none`}
+          style={{
+            top: img.top,
+            left: img.left,
+            right: img.right,
+            width: img.width,
+            aspectRatio: "4/3",
+          }}
+          data-speed={img.speed}
+        >
+          <img
+            src={img.src}
+            alt="Scattered Visual"
+            className="w-full h-full object-cover grayscale-[0.5] contrast-125 brightness-90 hover:grayscale-0 transition-all duration-1000"
+          />
+        </div>
+      ))}
+
     </section>
   );
 };

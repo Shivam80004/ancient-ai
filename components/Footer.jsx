@@ -17,23 +17,42 @@ const Footer = () => {
     const footerLinks = [
         {
             title: "SITEMAP",
-            links: ["Home", "Experience", "The Illusion"]
+            links: [
+                { name: "Home", href: "/" },
+                { name: "Experience", href: "/#experience" },
+                { name: "The Illusion", href: "/#the-illusion" },
+                { name: "About Us", href: "/about" }
+            ]
         },
         {
             title: "SOCIALS",
-            links: ["Twitter", "LinkedIn", "Instagram", "GitHub"]
+            links: [
+                { name: "Twitter", href: "#" },
+                { name: "LinkedIn", href: "#" },
+                { name: "Instagram", href: "#" },
+                { name: "GitHub", href: "#" }
+            ]
         },
         {
             title: "LEGAL",
-            links: ["Privacy Policy", "Terms of Service", "Cookie Policy"]
+            links: [
+                { name: "Privacy Policy", href: "#" },
+                { name: "Terms of Service", href: "#" },
+                { name: "Cookie Policy", href: "#" }
+            ]
         },
         {
             title: "CONTACT",
-            links: ["hello@ancient.ai", "Support", "Join the Team"]
+            links: [
+                { name: "hello@ancient.ai", href: "mailto:hello@ancient.ai" },
+                { name: "Support", href: "#" },
+                { name: "Join the Team", href: "#" }
+            ]
         }
     ];
 
-    useEffect(() => {
+    React.useLayoutEffect(() => {
+        if (!footerRef.current) return;
         const ctx = gsap.context(() => {
             // Sunrise Animation
             gsap.fromTo(glowRef.current,
@@ -113,10 +132,10 @@ const Footer = () => {
                                 {section.links.map((link, i) => (
                                     <li key={i}>
                                         <a
-                                            href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+                                            href={link.href}
                                             className="text-sm md:text-base text-white/70 hover:text-white transition-colors duration-300"
                                         >
-                                            {link}
+                                            {link.name}
                                         </a>
                                     </li>
                                 ))}
