@@ -1,5 +1,6 @@
 
 'use client';
+import React from 'react';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger, Flip } from 'gsap/all';
@@ -22,7 +23,7 @@ const ScalingVideoSection = ({
     const textPathRef = useRef(null);
     const marqueeSectionRef = useRef(null);
 
-    useEffect(() => {
+    React.useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             const wrapperElements = wrapperRefs.current.filter(Boolean);
             const targetEl = targetRef.current;
@@ -123,105 +124,107 @@ const ScalingVideoSection = ({
     const content = " Not as belief -> Not as religious dogma -> Simplified & translated for modern life.";
 
     return (
-        <div ref={mainContainerRef} className="relative overflow-hidden bg-black">
-            {/* Header Section */}
-            <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[25vh]">
-                {/* Eyebrow */}
-                <span className="text-xl font-normal uppercase text-[#ff7b00]">
-                    {eyebrowText}
-                </span>
+        <div className="scaling-video-wrapper">
+            <div ref={mainContainerRef} className="relative overflow-hidden bg-black">
+                {/* Header Section */}
+                <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[25vh]">
+                    {/* Eyebrow */}
+                    <span className="text-xl font-normal uppercase text-[#ff7b00]">
+                        {eyebrowText}
+                    </span>
 
-                {/* Main Title */}
-                <h1 ref={header1Ref} className="mb-1 mt-0 max-w-[15em] text-center text-[5em] font-medium leading-none max-md:text-[13.5vw]">
-                    <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
-                    <span className="reveal-word-2 inline-block">Works.</span> <br />
-                    <span className="reveal-word-2 inline-block">Yet,</span>&nbsp;
-                    <span className="reveal-word-2 inline-block">Something’s</span>&nbsp;
-                    <span className="reveal-word-2 inline-block bg-clip-text text-transparent bg-linear-to-r from-[#ffd700] to-[#ff7b00] leading-[1.3]">Missing</span>
-                    <span className="reveal-word-2 inline-block text-[#ff7b00]/95">?</span>
-                </h1>
+                    {/* Main Title */}
+                    <h1 ref={header1Ref} className="mb-1 mt-0 max-w-[15em] text-center text-[5em] font-medium leading-none max-md:text-[13.5vw]">
+                        <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
+                        <span className="reveal-word-2 inline-block">Works.</span> <br />
+                        <span className="reveal-word-2 inline-block">Yet,</span>&nbsp;
+                        <span className="reveal-word-2 inline-block">Something’s</span>&nbsp;
+                        <span className="reveal-word-2 inline-block bg-clip-text text-transparent bg-linear-to-r from-[#ffd700] to-[#ff7b00] leading-[1.3]">Missing</span>
+                        <span className="reveal-word-2 inline-block text-[#ff7b00]/95">?</span>
+                    </h1>
 
-                {/* Small Box Container */}
-                <div className="relative w-80 rounded-2xl max-md:w-60">
-                    {/* Aspect Ratio Spacer (16:9) */}
-                    <div className="pt-[56.25%]" />
+                    {/* Small Box Container */}
+                    <div className="relative w-80 rounded-2xl max-md:w-60">
+                        {/* Aspect Ratio Spacer (16:9) */}
+                        <div className="pt-[56.25%]" />
 
-                    {/* Video Wrapper */}
-                    <div
-                        ref={setWrapperRef(0)}
-                        className="absolute left-0 top-0 h-full w-full"
-                    >
-                        {/* Scaling Video Target */}
+                        {/* Video Wrapper */}
                         <div
-                            ref={targetRef}
-                            className="absolute left-0 top-0 flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-amber-500 will-change-transform [isolation:isolate] [transform:translateX(0)_rotate(0.001deg)] [backface-visibility:hidden]"
+                            ref={setWrapperRef(0)}
+                            className="absolute left-0 top-0 h-full w-full"
                         >
-                            {/* Video */}
-                            <video
-                                autoPlay
-                                muted
-                                playsInline
-                                loop
-                                className="absolute h-full w-full rounded-[inherit] object-cover scale-[1.3]"
+                            {/* Scaling Video Target */}
+                            <div
+                                ref={targetRef}
+                                className="absolute left-0 top-0 flex h-full w-full items-center justify-center overflow-hidden rounded-2xl bg-amber-500 will-change-transform [isolation:isolate] [transform:translateX(0)_rotate(0.001deg)] [backface-visibility:hidden]"
                             >
-                                <source src={videoSrc} type="video/mp4" />
-                            </video>
+                                {/* Video */}
+                                <video
+                                    autoPlay
+                                    muted
+                                    playsInline
+                                    loop
+                                    className="absolute h-full w-full rounded-[inherit] object-cover scale-[1.3]"
+                                >
+                                    <source src={videoSrc} type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Video Section */}
-            <section className="relative flex flex-col items-center justify-center gap-[25vh] px-[5vw] pb-[25vh]">
-                {/* Big Box Container */}
-                <div className="relative w-full rounded-2xl">
-                    {/* Aspect Ratio Spacer (16:9) */}
-                    <div className="pt-[56.25%]" />
+                {/* Video Section */}
+                <section className="relative flex flex-col items-center justify-center gap-[25vh] px-[5vw] pb-[25vh]">
+                    {/* Big Box Container */}
+                    <div className="relative w-full rounded-2xl">
+                        {/* Aspect Ratio Spacer (16:9) */}
+                        <div className="pt-[56.25%]" />
 
-                    {/* Video Wrapper (target for Flip) */}
-                    <div
-                        ref={setWrapperRef(1)}
-                        className="absolute left-0 top-0 h-full w-full"
-                    />
-                </div>
-
-                {/* Secondary Title */}
-                <h1 ref={header2Ref} className="mb-1 mt-0 max-w-[18em] text-center text-[4em] font-medium leading-none max-md:text-[13.5vw] text-white">
-                    <span className="reveal-word-2 inline-block">This</span>&nbsp;
-                    <span className="reveal-word-2 inline-block">is</span>&nbsp;
-                    <span className="reveal-word-2 inline-block">where</span>&nbsp;
-                    <span className="reveal-word-2 inline-block text-[#ff7b00]">AncientAI</span>&nbsp;
-                    <span className="reveal-word-2 inline-block ">Matters</span>&nbsp;
-                    <span className="reveal-word-2 inline-block ">To Reclaim Your Life.<br /> But with few Upgrades</span> <br />
-                    <span className="reveal-word-2 inline-block text-gray-500 text-3xl">(No credit cards required!)</span>
-                </h1>
-            </section>
-            <section ref={marqueeSectionRef} className="relative h-[40vh] w-full overflow-hidden flex items-center justify-center -mt-32 z-0">
-                <div className="absolute top-1/2 left-0 w-full -translate-y-1/2">
-                    <svg
-                        viewBox="0 0 1000 420"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-full h-auto"
-                    >
-                        <path
-                            id="radialPath"
-                            d="M -500 210 S 0 100 500 210 S 1000 100 1500 210"
-                            className="opacity-0"
+                        {/* Video Wrapper (target for Flip) */}
+                        <div
+                            ref={setWrapperRef(1)}
+                            className="absolute left-0 top-0 h-full w-full"
                         />
-                        <text className="fill-white/80 text-[2.1rem] font-medium tracking-wide uppercase [font-family:var(--font-poppins),sans-serif]">
-                            <textPath
-                                ref={textPathRef}
-                                href="#radialPath"
-                                startOffset="100%"
-                                className="whitespace-nowrap"
-                            >
-                                {content}
-                            </textPath>
-                        </text>
-                    </svg>
-                </div>
-            </section>
+                    </div>
+
+                    {/* Secondary Title */}
+                    <h1 ref={header2Ref} className="mb-1 mt-0 max-w-[18em] text-center text-[4em] font-medium leading-none max-md:text-[13.5vw] text-white">
+                        <span className="reveal-word-2 inline-block">This</span>&nbsp;
+                        <span className="reveal-word-2 inline-block">is</span>&nbsp;
+                        <span className="reveal-word-2 inline-block">where</span>&nbsp;
+                        <span className="reveal-word-2 inline-block text-[#ff7b00]">AncientAI</span>&nbsp;
+                        <span className="reveal-word-2 inline-block ">Matters</span>&nbsp;
+                        <span className="reveal-word-2 inline-block ">To Reclaim Your Life.<br /> But with few Upgrades</span> <br />
+                        <span className="reveal-word-2 inline-block text-gray-500 text-3xl">(No credit cards required!)</span>
+                    </h1>
+                </section>
+                <section ref={marqueeSectionRef} className="relative h-[40vh] w-full overflow-hidden flex items-center justify-center -mt-32 z-0">
+                    <div className="absolute top-1/2 left-0 w-full -translate-y-1/2">
+                        <svg
+                            viewBox="0 0 1000 420"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-full h-auto"
+                        >
+                            <path
+                                id="radialPath"
+                                d="M -500 210 S 0 100 500 210 S 1000 100 1500 210"
+                                className="opacity-0"
+                            />
+                            <text className="fill-white/80 text-[2.1rem] font-medium tracking-wide uppercase [font-family:var(--font-poppins),sans-serif]">
+                                <textPath
+                                    ref={textPathRef}
+                                    href="#radialPath"
+                                    startOffset="100%"
+                                    className="whitespace-nowrap"
+                                >
+                                    {content}
+                                </textPath>
+                            </text>
+                        </svg>
+                    </div>
+                </section>
+            </div>
         </div >
     );
 };

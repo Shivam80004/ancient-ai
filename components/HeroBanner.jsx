@@ -10,7 +10,7 @@ const HeroBanner = () => {
     const magneticInnerRef = useRef(null);
     const words = ["Authorised", "Authentic", "Adhyatmik"];
 
-    useEffect(() => {
+    React.useLayoutEffect(() => {
         const wordEls = wordsRef.current;
         const wrapper = wrapperRef.current;
         if (!wordEls.length || !wrapper) return;
@@ -30,11 +30,20 @@ const HeroBanner = () => {
         const firstWidth = wordEls[activeIndex].getBoundingClientRect().width;
         gsap.set(wrapper, { width: firstWidth });
 
+        let timer; // Mutable timer reference for cleanup
+
         const showNext = () => {
+            // Safety check: ensure component is still mounted and refs exist
+            if (!wordEls || !wordEls.length) return;
+
             const nextIndex = (activeIndex + 1) % wordEls.length;
             const prev = wordEls[activeIndex];
             const current = wordEls[nextIndex];
 
+            // Validate elements exist (prevent null access if unmounting)
+            if (!prev || !current) return;
+
+            // Safe access to getBoundingClientRect
             const targetWidth = current.getBoundingClientRect().width;
 
             // Animate wrapper width
@@ -64,10 +73,10 @@ const HeroBanner = () => {
             );
 
             activeIndex = nextIndex;
-            gsap.delayedCall(stepDuration, showNext);
+            timer = gsap.delayedCall(stepDuration, showNext);
         };
 
-        const timer = gsap.delayedCall(stepDuration, showNext);
+        timer = gsap.delayedCall(stepDuration, showNext);
 
 
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -149,7 +158,7 @@ const HeroBanner = () => {
         const cleanupMagnetic = initMagnetic();
 
         return () => {
-            timer.kill();
+            if (timer) timer.kill();
             gsap.killTweensOf([wrapper, ...wordEls]);
             if (cleanupMagnetic) cleanupMagnetic();
         };
