@@ -120,7 +120,7 @@ const Footer = () => {
 
     return (
         <footer ref={footerRef} className="relative bg-[#0a0a0a] text-white pt-32 pb-10 overflow-hidden border-t border-white/5">
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container max-w-7xl mx-auto px-6 relative z-10">
                 {/* Links Grid */}
                 <div ref={linksRef} className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-20 mb-32">
                     {footerLinks.map((section, idx) => (
@@ -156,8 +156,12 @@ const Footer = () => {
 
                     {/* Sunrise Glow - Half Curve Sun */}
                     <div ref={glowRef} className="absolute z-0! top-[10px] w-screen aspect-square pointer-events-none">
-                        <div className="absolute inset-0 bg-linear-to-b from-[#ff720d] via-[#ff720d]/40 to-transparent blur-[100px] rounded-full opacity-60"></div>
-                        <div className="absolute top-0 left-1/2 opacity-10 -translate-x-1/2 w-full h-full rounded-full border-b-4 border-[#ff720d] shadow-[0_-20px_80px_rgba(255,114,13,0.5)]"></div>
+                        <div className="absolute inset-0 blur-[100px] rounded-full opacity-60"
+                            style={{
+                                backgroundImage: 'linear-gradient(261.26deg, #ff6a00 -11.86%, #fc964c -5.96%, #fc964c 5.45%, #f62003 30.99%, #ff6a00 62.85%, #f62003 101.39%, #fd7c34 103.82%)'
+                            }}
+                        ></div>
+                        <div className="absolute top-0 left-1/2 opacity-10 -translate-x-1/2 w-full h-full rounded-full border-b-4 border-[#ff6a00] shadow-[0_-20px_80px_rgba(255,114,13,0.5)]"></div>
                     </div>
                 </div>
 

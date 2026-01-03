@@ -37,28 +37,57 @@ const DeepLayerSection = () => {
             const layers = [layer2Ref.current, layer3Ref.current, layer4Ref.current, layer5Ref.current, layer6Ref.current];
             gsap.set(layers, { autoAlpha: 0, scale: 0.5 });
             gsap.set(layer1Ref.current, { autoAlpha: 1, scale: 1 });
+            gsap.set(layer6Ref.current, { autoAlpha: 0, scale: 1, });
 
             // Helper for transition: Current Layer Out -> Next Layer In
             const transitionLayer = (current, next, bgGradient) => {
-                tl.to(current, {
-                    scale: 3, // Zoom out effect
-                    autoAlpha: 0,
-                    duration: 2,
-                    ease: "power2.inOut"
-                })
-                    .to(next, {
-                        scale: 1,
-                        autoAlpha: 1,
+
+                if (layer1Ref.current == current) {
+
+                    tl.to(current, {
+                        scale: 1, // Zoom out effect
+                        y: -100,
+                        autoAlpha: 0,
                         duration: 2,
                         ease: "power2.inOut"
-                    }, "-=1.5"); // Overlap significantly
+                    })
+                        .to(next, {
+                            scale: 1,
+                            autoAlpha: 1,
+                            duration: 2,
+                            ease: "power2.inOut"
+                        }, "-=1.5"); // Overlap significantly
 
-                if (bgGradient) {
-                    tl.to(bgRef.current, {
-                        background: bgGradient,
-                        duration: 2
-                    }, "<");
+                    // if (bgGradient) {
+                    //     tl.to(bgRef.current, {
+                    //         background: bgGradient,
+                    //         duration: 2
+                    //     }, "<");
+                    // }
                 }
+                else {
+
+                    tl.to(current, {
+                        scale: 3, // Zoom out effect
+                        autoAlpha: 0,
+                        duration: 2,
+                        ease: "power2.inOut"
+                    })
+                        .to(next, {
+                            scale: 1,
+                            autoAlpha: 1,
+                            duration: 2,
+                            ease: "power2.inOut"
+                        }, "-=1.5"); // Overlap significantly
+
+                    // if (bgGradient) {
+                    //     tl.to(bgRef.current, {
+                    //         background: bgGradient,
+                    //         duration: 2
+                    //     }, "<");
+                    // }
+                }
+
             };
 
             // Sequence
@@ -111,29 +140,36 @@ const DeepLayerSection = () => {
     return (
         <div className="deep-layer-wrapper">
             <section ref={sectionRef} className="relative h-screen w-full overflow-hidden bg-black text-white">
-                <div ref={bgRef} className="absolute inset-0 bg-black transition-colors duration-1000"></div>
+                <div ref={bgRef} className="absolute inset-0 transition-colors duration-1000"
+                    style={{
+                        background: "radial-gradient(circle at 50% 200%, #0a0a0a, #0a0a0a 60%, #0A0A0A00 88%), linear-gradient(272deg, rgba(255, 33, 33, 0) -16.91%, #ff3407 -.51%, #fc964c 12.46%, #fc964c 22.5%, #f62f03 46.54%, rgba(246, 32, 3, 0) 71.84%, #fd7c34 112.33%);",
+                    }}
+                ></div>
 
                 {/* Layer 1: Forward */}
-                <div ref={layer1Ref} className={`${textBase} z-10`}>
-                    <p className="text-xl md:text-2xl text-white/60 mb-4 font-light">So...</p>
-                    <h2 className="text-4xl md:text-7xl font-medium leading-tight">
-                        If you really want to move<br />
-                        <span className="text-[#ff7b00]">three steps forward</span>,
-                    </h2>
+                <div ref={layer1Ref} className={`${textBase} z-10 transform -translate-y-40`}>
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">
+                        If you really want to move
+                    </h3>
+                    <h3 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-white">
+                        Three Steps Forward
+                    </h3>
                 </div>
 
                 {/* Layer 2: Deep Choice */}
                 <div ref={layer2Ref} className={`${textBase} z-20`}>
-                    <h2 className="text-4xl md:text-7xl font-medium leading-tight">
-                        you must first go<br />
-                        <span className="text-[#ff7b00]">three steps “deep”</span>.
-                    </h2>
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">
+                        You must first go
+                    </h3>
+                    <h3 className="text-4xl md:text-5xl lg:text-7xl font-semibold text-white">
+                        Three Steps Deep
+                    </h3>
                 </div>
 
                 {/* Layer 3: Body */}
                 <div ref={layer3Ref} className={`${textBase} z-30`}>
-                    <p className="text-xl md:text-3xl text-white/60 mb-6 font-light">Deep into the</p>
-                    <h2 className="text-6xl md:text-9xl font-bold tracking-tighter text-[#ff7b00] mb-8">
+                    <p className="text-xl md:text-3xl text-white/60 mb-2 font-light">Deep into the</p>
+                    <h2 className="text-6xl md:text-9xl font-bold tracking-tighter mb-2">
                         BODY
                     </h2>
                     <p className="text-xl md:text-3xl max-w-2xl mx-auto leading-relaxed">
@@ -143,8 +179,8 @@ const DeepLayerSection = () => {
 
                 {/* Layer 4: Mind */}
                 <div ref={layer4Ref} className={`${textBase} z-40`}>
-                    <p className="text-xl md:text-3xl text-white/60 mb-6 font-light">Deep into the</p>
-                    <h2 className="text-6xl md:text-9xl font-bold tracking-tighter text-[#3b82f6] mb-8">
+                    <p className="text-xl md:text-3xl text-white/60 mb-2 font-light">Deep into the</p>
+                    <h2 className="text-6xl md:text-9xl font-bold tracking-tighter mb-2">
                         MIND
                     </h2>
                     <p className="text-xl md:text-3xl max-w-3xl mx-auto leading-relaxed">
@@ -154,29 +190,32 @@ const DeepLayerSection = () => {
 
                 {/* Layer 5: Self */}
                 <div ref={layer5Ref} className={`${textBase} z-50`}>
-                    <h2 className="text-5xl md:text-8xl font-medium leading-tight mb-8">
-                        Deep into the real <span className="text-[#ffd700]">SELF</span>
+                    <p className="text-xl md:text-3xl text-white/60 mb-3 font-light">Deep into the real</p>
+                    <h2 className="text-6xl md:text-9xl font-bold tracking-tighter mb-2">
+                        SELF
                     </h2>
-                    <p className="text-xl md:text-3xl text-white/50 max-w-2xl mx-auto">
-                        away from apparent identity of self
+                    <p className="text-xl md:text-3xl max-w-3xl mx-auto leading-relaxed">
+                        away from apparent identity of self.
                     </p>
                 </div>
 
                 {/* Layer 6: Conclusion */}
-                <div ref={layer6Ref} className={`${textBase} z-60`}>
-                    <h3 className="text-3xl md:text-5xl font-light leading-snug mb-12 text-gray-200">
-                        Reality still exists.<br />
-                        <span className="text-white font-medium">We checked, tried and tested.</span>
+                <div ref={layer6Ref} className={`${textBase} z-60 max-w-7xl mx-auto`}>
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">
+                        Reality Still Exists.
+                    </h3>
+                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white">
+                        We Checked, Tried and Tested.
                     </h3>
 
                     <div className="flex flex-wrap gap-8 md:gap-16 justify-center items-center mt-12">
-                        <div className="stamp-effect px-8 py-3 border-4 border-[#ff7b00] text-[#ff7b00] text-2xl md:text-4xl font-black uppercase tracking-tighter rotate-[-5deg] bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(255,123,0,0.2)]">
+                        <div className="stamp-effect px-8 py-3 border-4 border-[#c8490fe1] text-white text-2xl md:text-4xl font-black uppercase tracking-tighter rotate-[-5deg] bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(255,123,0,0.2)]">
                             Authentic
                         </div>
-                        <div className="stamp-effect px-8 py-3 border-4 border-[#ff7b00] text-[#ff7b00] text-2xl md:text-4xl font-black uppercase tracking-tighter rotate-[3deg] bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(255,123,0,0.2)]">
+                        <div className="stamp-effect px-8 py-3 border-4 border-[#c8490fe1] text-white text-2xl md:text-4xl font-black uppercase tracking-tighter rotate-[3deg] bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(255,123,0,0.2)]">
                             Authorized
                         </div>
-                        <div className="stamp-effect px-8 py-3 border-4 border-[#ff7b00] text-[#ff7b00] text-2xl md:text-4xl font-black uppercase tracking-tighter rotate-[-2deg] bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(255,123,0,0.2)]">
+                        <div className="stamp-effect px-8 py-3 border-4 border-[#c8490fe1] text-white text-2xl md:text-4xl font-black uppercase tracking-tighter rotate-[-2deg] bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(255,123,0,0.2)]">
                             Adhyatmik
                         </div>
                     </div>
