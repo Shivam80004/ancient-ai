@@ -147,7 +147,7 @@ const DeepLayerSection = () => {
                 ></div>
 
                 {/* Layer 1: Forward */}
-                <div ref={layer1Ref} className={`${textBase} z-10 transform -translate-y-40`}>
+                <div ref={layer1Ref} className={`${textBase} z-10 transform -translate-y-10`}>
                     <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">
                         If you really want to move
                     </h3>

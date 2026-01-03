@@ -133,16 +133,6 @@ const ScalingVideoSection = ({
                         {eyebrowText}
                     </span>
 
-                    {/* Main Title */}
-                    {/* <h1 ref={header1Ref} className="mb-1 mt-0 max-w-[15em] text-center text-[5em] font-normal leading-none max-md:text-[13.5vw]">
-                        <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
-                        <span className="reveal-word-2 inline-block">Works.</span> <br />
-                        <span className="reveal-word-2 inline-block">Yet,</span>&nbsp;
-                        <span className="reveal-word-2 inline-block">Something’s</span>&nbsp;
-                        <span className="reveal-word-2 inline-block bg-clip-text text-transparent bg-linear-to-r from-[#ffd700] to-[#ff7b00] leading-[1.3]">Missing</span>
-                        <span className="reveal-word-2 inline-block text-[#ff7b00]/95">?</span>
-                    </h1> */}
-
                     <h3 ref={header1Ref} className="text-4xl md:text-7xl font-light text-white text-center mb-2">
                         <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
                         <span className="reveal-word-2 inline-block">Works </span> <br />
@@ -183,7 +173,7 @@ const ScalingVideoSection = ({
                 </section>
 
                 {/* Video Section */}
-                <section className="relative flex flex-col items-center justify-center gap-[25vh] px-[5vw] pb-[25vh]">
+                <section className="relative flex flex-col items-center justify-center gap-[25vh] px-[5vw] pb-12 md:pb-[25vh]">
                     {/* Big Box Container */}
                     <div className="relative w-full rounded-2xl">
                         {/* Aspect Ratio Spacer (16:9) */}
@@ -197,7 +187,7 @@ const ScalingVideoSection = ({
                     </div>
 
                     {/* Secondary Title */}
-                    <h3 ref={header2Ref} className="text-3xl md:text-6xl font-light text-white text-center mb-2">
+                    <h3 ref={header2Ref} className="text-2xl md:text-6xl font-light text-white text-center mb-2">
                         <span className="reveal-word-2 inline-block">This</span>&nbsp;
                         <span className="reveal-word-2 inline-block">is</span>&nbsp;
                         <span className="reveal-word-2 inline-block">where</span>&nbsp;

@@ -59,7 +59,7 @@ const CallToAction = () => {
 
                             {/* Gradient Background (Hover State) */}
                             <div
-                                className={`absolute inset-0 transition-opacity duration-700 ${hoveredCard === index ? 'opacity-100' : 'opacity-0'
+                                className={`absolute inset-0 transition-opacity duration-700 ${hoveredCard === index ? 'md:opacity-100 opacity-100' : 'md:opacity-0 opacity-100'
                                     }`}
                                 style={{
                                     background: 'linear-gradient(261.26deg, rgba(246, 32, 3, 0) -11.86%, #fc964c -5.96%, #fc964c 5.45%, #f62003 30.99%, rgba(246, 32, 3, 0) 62.85%, #f62003 101.39%, #fd7c34 103.82%)'
