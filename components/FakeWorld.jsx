@@ -102,32 +102,38 @@ const FakeWorld = () => {
   }, []);
 
   const images = [
-    { src: "/Artificial_energy_from_202512231616.jpeg", top: "10%", left: "5%", width: "18vw", speed: 0.2, z: "z-10" },
-    { src: "/Peace_from_weekend_202512231617.jpeg", top: "25%", right: "10%", width: "22vw", speed: 0.4, z: "z-30" }, // In front of text
-    { src: "/Confidence_from_filters_202512231618.jpeg", top: "45%", left: "15%", width: "16vw", speed: 0.1, z: "z-10" },
-    { src: "/Relationships_maintained_by_202512231619.jpeg", top: "65%", right: "12%", width: "28vw", speed: 0.3, z: "z-10" },
-    { src: "/Artificial_energy_from_202512231616.jpeg", top: "85%", left: "8%", width: "12vw", speed: 0.5, z: "z-30" },
+    { src: "/Artificial_energy_from_202512231616.jpeg", top: "10%", left: "5%", width: "18vw", mobileWidth: "40vw", speed: 0.2, z: "z-10" },
+    { src: "/Peace_from_weekend_202512231617.jpeg", top: "25%", right: "10%", width: "22vw", mobileWidth: "50vw", speed: 0.4, z: "z-30" }, // In front of text
+    { src: "/Confidence_from_filters_202512231618.jpeg", top: "45%", left: "15%", width: "16vw", mobileWidth: "35vw", speed: 0.1, z: "z-10" },
+    { src: "/Relationships_maintained_by_202512231619.jpeg", top: "65%", right: "12%", width: "28vw", mobileWidth: "60vw", speed: 0.3, z: "z-10" },
+    { src: "/Artificial_energy_from_202512231616.jpeg", top: "85%", left: "8%", width: "12vw", mobileWidth: "30vw", speed: 0.5, z: "z-30" },
   ];
 
   return (
     <section ref={containerRef} className="relative min-h-[200vh] w-full bg-[#030303] overflow-visible">
 
       {/* Pinned Viewport */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(255, 123, 0, 0.1) 0%, transparent 80%)'
+        }}>
 
         {/* Background Radial Glow (Subtle) */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none"
+        {/* <div className="absolute inset-0 opacity-60 pointer-events-none blur-[100px] m-64"
           style={{
-            background: 'radial-gradient(circle at center, rgba(255, 123, 0, 0.1) 0%, transparent 80%)'
+            background: 'radial-gradient(circle at 50% 50%, rgba(255,33,33,0) 0%, #ff3407 18%, #fc964c 32%, #fc964c 42%, #f62f03 58%, rgba(246,32,3,0) 75%, #fd7c34 100%)'
           }}
-        />
+        /> */}
 
         {/* Central Text Section */}
-        <div className="hero-text-container z-20 text-center px-4 mix-blend-difference pointer-events-auto">
-          <h2 className="text-6xl md:text-[7vw] font-medium text-white uppercase leading-[0.9] tracking-normal drop-shadow-[0_25px_25px_rgba(0,0,0,0.5)]">
-            Artificial <br /> Everywhere.<br />
-            Authentic? <br /> Nowhere!
-          </h2>
+        <div className="hero-text-container z-20 text-center pointer-events-auto relative p-14 border-[0.5px] border-orange-500/5 rounded-sm backdrop-blur-sm bg-white/1">
+
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-2">
+            Artificial Everywhere.
+          </h3>
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white">
+            Real and Authentic? Nowhere!
+          </h3>
         </div>
 
       </div>
@@ -136,12 +142,13 @@ const FakeWorld = () => {
       {images.map((img, i) => (
         <div
           key={i}
-          className={`parallax-image absolute overflow-hidden rounded-xl shadow-4xl ${img.z} pointer-events-none`}
+          className={`parallax-image parallax-image-${i} absolute z-0 overflow-hidden rounded-xl shadow-4xl ${img.z} pointer-events-none mix-blend-screen`}
           style={{
             top: img.top,
             left: img.left,
             right: img.right,
-            width: img.width,
+            '--desktop-width': img.width,
+            '--mobile-width': img.mobileWidth,
             aspectRatio: "4/3",
           }}
           data-speed={img.speed}
@@ -153,6 +160,18 @@ const FakeWorld = () => {
           />
         </div>
       ))}
+
+      <style jsx>{`
+        .parallax-image {
+          width: var(--desktop-width);
+        }
+        
+        @media (max-width: 768px) {
+          .parallax-image {
+            width: var(--mobile-width);
+          }
+        }
+      `}</style>
 
     </section>
   );

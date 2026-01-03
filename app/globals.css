@@ -62,13 +62,12 @@ body {
   overflow: hidden;
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  background: #ff720d;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
+  color: #000;
+  background-image: linear-gradient(272deg #ff3407 -.51%, #fc964c 12.46%, #fc964c 22.5%, #f62f03 46.54%, #fd7c34 112.33%);
 }
 
 .btn-magnetic__fill {
-  background-color: #ff720d;
-  /* Brand Primary */
   width: 100%;
   height: 100%;
   position: absolute;
@@ -98,8 +97,7 @@ body {
 }
 
 .btn-magnetic__text-p {
-  color: #F5F5F5;
-  /* Brand Text Main */
+  color: #fff !important;
   text-align: center;
   margin-bottom: 0;
   font-size: 1.1em;

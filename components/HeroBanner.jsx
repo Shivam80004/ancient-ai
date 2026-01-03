@@ -181,15 +181,15 @@ const HeroBanner = () => {
                     <span className="reveal-word inline-block">Take</span>&nbsp;
                     <span className="reveal-word inline-block">you</span>&nbsp;
                     <span className="reveal-word inline-block">Beyond</span>&nbsp;
-                    <span className="reveal-word inline-block font-bold text-6xl md:text-8xl">Artificial</span>&nbsp;<br />
+                    <span className="reveal-word inline-block">Artificial</span>&nbsp;<br />
                     <span className="reveal-word inline-block">to</span>&nbsp;
                     <span className="reveal-word inline-block">Reveal</span>
-                    <span ref={wrapperRef} className="reveal-word text-6xl md:text-8xl rotating-text__wrapper inline-block relative align-bottom overflow-hidden">
+                    <span ref={wrapperRef} className="reveal-word text-4xl md:text-8xl rotating-text__wrapper inline-block relative align-bottom">
                         {words.map((word, i) => (
                             <span
                                 key={word}
                                 ref={el => wordsRef.current[i] = el}
-                                className="rotating-text__word absolute left-0 top-3 px-5 whitespace-nowrap font-semibold text-[#ff7b00]!"
+                                className="rotating-text__word absolute left-0 md:top-3 top-1 px-5 whitespace-nowrap font-semibold"
                             >
                                 {word}
                             </span>

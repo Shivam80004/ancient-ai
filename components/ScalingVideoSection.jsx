@@ -129,19 +129,28 @@ const ScalingVideoSection = ({
                 {/* Header Section */}
                 <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[25vh]">
                     {/* Eyebrow */}
-                    <span className="text-xl font-normal uppercase text-[#ff7b00]">
+                    <span className="text-xl font-normal uppercase text-white">
                         {eyebrowText}
                     </span>
 
                     {/* Main Title */}
-                    <h1 ref={header1Ref} className="mb-1 mt-0 max-w-[15em] text-center text-[5em] font-medium leading-none max-md:text-[13.5vw]">
+                    {/* <h1 ref={header1Ref} className="mb-1 mt-0 max-w-[15em] text-center text-[5em] font-normal leading-none max-md:text-[13.5vw]">
                         <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
                         <span className="reveal-word-2 inline-block">Works.</span> <br />
                         <span className="reveal-word-2 inline-block">Yet,</span>&nbsp;
                         <span className="reveal-word-2 inline-block">Something’s</span>&nbsp;
                         <span className="reveal-word-2 inline-block bg-clip-text text-transparent bg-linear-to-r from-[#ffd700] to-[#ff7b00] leading-[1.3]">Missing</span>
                         <span className="reveal-word-2 inline-block text-[#ff7b00]/95">?</span>
-                    </h1>
+                    </h1> */}
+
+                    <h3 ref={header1Ref} className="text-4xl md:text-7xl font-light text-white text-center mb-2">
+                        <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
+                        <span className="reveal-word-2 inline-block">Works </span> <br />
+                        <span className="reveal-word-2 inline-block font-semibold">Yet,</span>&nbsp;
+                        <span className="reveal-word-2 inline-block font-semibold">Something’s</span>&nbsp;
+                        <span className="reveal-word-2 inline-block bg-clip-text font-semibold leading-[1.3]">Missing</span>
+                        <span className="reveal-word-2 inline-block font-semibold">?</span>
+                    </h3>
 
                     {/* Small Box Container */}
                     <div className="relative w-80 rounded-2xl max-md:w-60">
@@ -188,15 +197,16 @@ const ScalingVideoSection = ({
                     </div>
 
                     {/* Secondary Title */}
-                    <h1 ref={header2Ref} className="mb-1 mt-0 max-w-[18em] text-center text-[4em] font-medium leading-none max-md:text-[13.5vw] text-white">
+                    <h3 ref={header2Ref} className="text-3xl md:text-6xl font-light text-white text-center mb-2">
                         <span className="reveal-word-2 inline-block">This</span>&nbsp;
                         <span className="reveal-word-2 inline-block">is</span>&nbsp;
                         <span className="reveal-word-2 inline-block">where</span>&nbsp;
-                        <span className="reveal-word-2 inline-block text-[#ff7b00]">AncientAI</span>&nbsp;
-                        <span className="reveal-word-2 inline-block ">Matters</span>&nbsp;
-                        <span className="reveal-word-2 inline-block ">To Reclaim Your Life.<br /> But with few Upgrades</span> <br />
-                        <span className="reveal-word-2 inline-block text-gray-500 text-3xl">(No credit cards required!)</span>
-                    </h1>
+                        <span className="reveal-word-2 inline-block font-semibold text-[#ff7b00]">AncientAI</span>&nbsp;
+                        <span className="reveal-word-2 inline-block">Matters</span>&nbsp;
+                        <span className="reveal-word-2 inline-block font-semibold">To Reclaim Your Life.<br /></span> <br />
+                        <span className="reveal-word-2 inline-block">But with few Upgrades</span> <br />
+                        <span className="reveal-word-2 inline-block text-gray-500 text-xl">(No credit cards required!)</span>
+                    </h3>
                 </section>
                 <section ref={marqueeSectionRef} className="relative h-[40vh] w-full overflow-hidden flex items-center justify-center -mt-32 z-0">
                     <div className="absolute top-1/2 left-0 w-full -translate-y-1/2">
@@ -211,7 +221,7 @@ const ScalingVideoSection = ({
                                 d="M -500 210 S 0 100 500 210 S 1000 100 1500 210"
                                 className="opacity-0"
                             />
-                            <text className="fill-white/80 text-[2.1rem] font-medium tracking-wide uppercase [font-family:var(--font-poppins),sans-serif]">
+                            <text className="fill-white/80 md:text-[2.1rem] text-[4rem] font-medium tracking-wide uppercase [font-family:var(--font-poppins),sans-serif]">
                                 <textPath
                                     ref={textPathRef}
                                     href="#radialPath"

@@ -4,6 +4,8 @@ import ScalingVideoSection from '../components/ScalingVideoSection'
 import FakeWorld from '../components/FakeWorld'
 import Footer from '../components/Footer'
 import DeepLayerSection from '../components/DeepLayerSection'
+import Testimonials from '../components/Testimonials'
+import CallToAction from '../components/CallToAction'
 
 function page() {
   return (
@@ -22,6 +24,14 @@ function page() {
       </div>
 
       <DeepLayerSection />
+
+      <div id="testimonials">
+        <Testimonials />
+      </div>
+
+      <div id="cta">
+        <CallToAction />
+      </div>
 
       <Footer />
 
