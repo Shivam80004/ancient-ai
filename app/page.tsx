@@ -19,9 +19,9 @@ function page() {
         <ScalingVideoSection />
       </div>
 
-      <div id="the-illusion">
+      {/* <div id="the-illusion">
         <FakeWorld />
-      </div>
+      </div> */}
 
       <DeepLayerSection />
 

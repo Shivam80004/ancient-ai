@@ -8,7 +8,7 @@ const HeroBanner = () => {
     const wordsRef = useRef([]);
     const magneticBtnRef = useRef(null);
     const magneticInnerRef = useRef(null);
-    const words = ["Authorised", "Authentic", "Adhyatmik"];
+    const words = ["AUTHORISED", "AUTHENTIC", "ADHYATMIK"];
 
     React.useLayoutEffect(() => {
         const wordEls = wordsRef.current;
@@ -175,7 +175,7 @@ const HeroBanner = () => {
             </div>
 
             {/* Content Container */}
-            <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
+            {/* <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
                 <h1 className="hero-title text-4xl md:text-7xl font-popinse font-normal text-white">
                     <span className="reveal-word inline-block">We</span>&nbsp;
                     <span className="reveal-word inline-block">Take</span>&nbsp;
@@ -197,9 +197,33 @@ const HeroBanner = () => {
                     </span>
                     <span className="reveal-word ml-2 inline-block">Intelligence</span>
                 </h1>
-                {/* <div className='hero-logo opacity-0 w-180 h-48 mt-7'>
+                <div className='hero-logo opacity-0 w-180 h-48 mt-7'>
                     <img src="/logo.svg" className='brightness-1 invert h-full w-full object-cover pl-3' alt="" />
-                </div> */}
+                </div>
+            </div> */}
+
+            <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
+                <h2 className="hero-title text-4xl md:text-4xl font-popinse font-normal text-white">
+                    We Take you Beyond{" "}
+                    <span className="bg-[linear-gradient(261.26deg,#f6200300_-11.86%,#fc964c_5.45%,#f62003_30.99%,#f62003_101.39%,#fd7c34_103.82%)] bg-clip-text text-transparent font-bold">
+                        Artificial
+                    </span>{" "}
+                    to Reveal
+                </h2>
+                <span ref={wrapperRef} className="reveal-word text-4xl md:text-[12rem] rotating-text__wrapper font-extrabold overflow-hidden inline-block relative align-bottom">
+                    {words.map((word, i) => (
+                        <span
+                            key={word}
+                            ref={el => wordsRef.current[i] = el}
+                            className="rotating-text__word absolute left-0 md:top-3 top-1 px-5 whitespace-nowrap font-bold"
+                        >
+                            {word}
+                        </span>
+                    ))}
+                </span>
+                <h2 className="hero-title text-4xl md:text-6xl font-popinse font-normal text-white">
+                    Intelligence
+                </h2>
             </div>
 
             {/* Bottom Button */}
