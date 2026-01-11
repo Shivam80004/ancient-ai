@@ -204,11 +204,11 @@ const HeroBanner = () => {
 
             <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
                 <h2 className="hero-title text-4xl md:text-4xl font-popinse font-normal text-white">
-                    We Take you Beyond{" "}
+                    We Take You Beyond{" "}
                     <span className="bg-[linear-gradient(261.26deg,#f6200300_-11.86%,#fc964c_5.45%,#f62003_30.99%,#f62003_101.39%,#fd7c34_103.82%)] bg-clip-text text-transparent font-bold">
                         Artificial
                     </span>{" "}
-                    to Reveal
+                    To Reveal
                 </h2>
                 <span ref={wrapperRef} className="reveal-word text-4xl md:text-[12rem] rotating-text__wrapper font-extrabold overflow-hidden inline-block relative align-bottom">
                     {words.map((word, i) => (

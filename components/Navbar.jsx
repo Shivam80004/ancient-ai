@@ -15,22 +15,26 @@ const Navbar = () => {
     };
 
     const navLinks = [
-        { href: '/#experience', label: 'Experience' },
-        { href: '/about', label: 'About Us' },
-        { href: '/#the-illusion', label: 'The Illusion' },
+        { href: '/who-we-are', label: 'Who We Are' },
+        { href: '/mentorship', label: 'Mentorship' },
+        { href: '/courses', label: 'Courses' },
+        { href: '/free-resources', label: 'Free Resources' },
+        { href: '/trips', label: 'Trips' },
+        { href: '/our-inspiration', label: 'Our Inspiration' },
+        { href: '/contact-us', label: 'Contact Us' },
     ];
 
     return (
         <>
             {/* Desktop Navbar */}
-            <nav className="hidden md:flex fixed top-8 left-1/2 -translate-x-1/2 z-50 w-fit px-2 py-2">
+            <nav className="hidden md:flex fixed top-8 left-1/2 -translate-x-1/2 z-50 w-max px-2 py-2">
                 <div className="flex items-center gap-18 px-6 py-2 rounded-2xl bg-white/10 backdrop-blur-sm shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
                     {/* Logo Section */}
                     <Link href="/" className="flex items-center gap-2 group">
                         <img
                             src="/logo.svg"
                             alt="Logo"
-                            className="h-11 w-auto brightness-0 invert transition-transform duration-300"
+                            className="h-11 w-auto transition-transform duration-300"
                         />
                     </Link>
 

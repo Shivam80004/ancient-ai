@@ -150,7 +150,7 @@ const Footer = () => {
                         <img
                             src="/logo.svg"
                             alt="Ancient AI Logo"
-                            className="footer-logo w-full h-auto object-contain brightness-0 invert"
+                            className="footer-logo w-full h-auto object-contain"
                         />
                     </div>
 

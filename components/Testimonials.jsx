@@ -33,10 +33,7 @@ const Testimonials = () => {
         }
     ];
 
-    const partnerLogos = [
-        "IIT Bombay", "MIT Bombay", "ICT Mumbai", "Harvard University", "Stanford University", "Berkeley University",
-        "IIT Bombay", "MIT Bombay", "ICT Mumbai", "Harvard University", "Stanford University", "Berkeley University"
-    ];
+
 
     // Auto-play functionality
     useEffect(() => {
@@ -107,36 +104,7 @@ const Testimonials = () => {
     return (
         <section className="relative py-16 md:py-32 bg-black overflow-hidden">
             {/* Background Marquee Logos - Top */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="marquee-container w-full overflow-hidden">
-                    <div className="marquee-track flex gap-16 animate-marquee">
-                        {partnerLogos.map((logo, i) => (
-                            <div
-                                key={i}
-                                className="text-white/40 text-2xl md:text-4xl font-bold whitespace-nowrap tracking-wider"
-                            >
-                                {logo}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
 
-            {/* Background Marquee Logos - Bottom (reversed) */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none mt-32">
-                <div className="marquee-container w-full overflow-hidden">
-                    <div className="marquee-track flex gap-16 animate-marquee-reverse">
-                        {partnerLogos.map((logo, i) => (
-                            <div
-                                key={i}
-                                className="text-white/40 text-2xl md:text-4xl font-bold whitespace-nowrap tracking-wider"
-                            >
-                                {logo}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
 
             {/* Main Content */}
             <div className="relative z-10 container mx-auto px-4">
@@ -216,42 +184,7 @@ const Testimonials = () => {
                 </div>
             </div>
 
-            <style jsx>{`
-                .marquee-container {
-                    position: relative;
-                }
-                
-                .marquee-track {
-                    display: flex;
-                    width: max-content;
-                }
-                
-                @keyframes marquee {
-                    0% {
-                        transform: translateX(0);
-                    }
-                    100% {
-                        transform: translateX(-50%);
-                    }
-                }
-                
-                @keyframes marquee-reverse {
-                    0% {
-                        transform: translateX(-50%);
-                    }
-                    100% {
-                        transform: translateX(0);
-                    }
-                }
-                
-                .animate-marquee {
-                    animation: marquee 30s linear infinite;
-                }
-                
-                .animate-marquee-reverse {
-                    animation: marquee-reverse 30s linear infinite;
-                }
-            `}</style>
+
         </section>
     );
 };

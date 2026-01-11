@@ -20,7 +20,6 @@ const ScalingVideoSection = ({
     const header1Ref = useRef(null);
     const header2Ref = useRef(null);
     const mainContainerRef = useRef(null);
-    const textPathRef = useRef(null);
     const marqueeSectionRef = useRef(null);
 
     React.useLayoutEffect(() => {
@@ -84,20 +83,64 @@ const ScalingVideoSection = ({
                 );
             });
 
-            // 3. Marquee Pinning & Animation
-            if (marqueeSectionRef.current && textPathRef.current) {
-                gsap.to(textPathRef.current, {
-                    attr: { startOffset: "-80%" },
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: marqueeSectionRef.current,
-                        start: "top 65%",
-                        end: "+=200%",
-                        scrub: 1,
-                        pin: mainContainerRef.current, // Pin the whole section
-                        anticipatePin: 1,
-                    }
-                });
+            // 3. Three-Line Scroll Animation
+            if (marqueeSectionRef.current) {
+                const line1 = marqueeSectionRef.current.querySelector('.line-1');
+                const line2 = marqueeSectionRef.current.querySelector('.line-2');
+                const line3 = marqueeSectionRef.current.querySelector('.line-3');
+
+                if (line1 && line2 && line3) {
+                    // Check if mobile
+                    const isMobile = window.innerWidth < 768;
+
+                    // Line 1 - from right
+                    gsap.fromTo(line1,
+                        { x: '100%', opacity: 0 },
+                        {
+                            x: '0%',
+                            opacity: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: marqueeSectionRef.current,
+                                start: isMobile ? "top 90%" : "top 70%",
+                                end: isMobile ? "top 70%" : "top 40%",
+                                scrub: 1,
+                            }
+                        }
+                    );
+
+                    // Line 2 - from left
+                    gsap.fromTo(line2,
+                        { x: '-100%', opacity: 0 },
+                        {
+                            x: '0%',
+                            opacity: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: marqueeSectionRef.current,
+                                start: isMobile ? "top 70%" : "top 50%",
+                                end: isMobile ? "top 50%" : "top 20%",
+                                scrub: 1,
+                            }
+                        }
+                    );
+
+                    // Line 3 - from right
+                    gsap.fromTo(line3,
+                        { x: '100%', opacity: 0 },
+                        {
+                            x: '0%',
+                            opacity: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: marqueeSectionRef.current,
+                                start: isMobile ? "top 50%" : "top 30%",
+                                end: isMobile ? "top 30%" : "top 0%",
+                                scrub: 1,
+                            }
+                        }
+                    );
+                }
             }
 
             // Handle resize
@@ -120,8 +163,6 @@ const ScalingVideoSection = ({
     const setWrapperRef = (index) => (el) => {
         wrapperRefs.current[index] = el;
     };
-
-    const content = " Not as belief -> Not as religious dogma -> Simplified & translated for modern life.";
 
     return (
         <div className="scaling-video-wrapper">
@@ -198,30 +239,44 @@ const ScalingVideoSection = ({
                         <span className="reveal-word-2 inline-block text-gray-500 text-xl">(No credit cards required!)</span>
                     </h3>
                 </section>
-                <section ref={marqueeSectionRef} className="relative h-[40vh] w-full overflow-hidden flex items-center justify-center -mt-32 z-0">
-                    <div className="absolute top-1/2 left-0 w-full -translate-y-1/2">
-                        <svg
-                            viewBox="0 0 1000 420"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-full h-auto"
-                        >
-                            <path
-                                id="radialPath"
-                                d="M -500 210 S 0 100 500 210 S 1000 100 1500 210"
-                                className="opacity-0"
-                            />
-                            <text className="fill-white/80 md:text-[2.1rem] text-[4rem] font-medium tracking-wide uppercase [font-family:var(--font-poppins),sans-serif]">
-                                <textPath
-                                    ref={textPathRef}
-                                    href="#radialPath"
-                                    startOffset="100%"
-                                    className="whitespace-nowrap"
-                                >
-                                    {content}
-                                </textPath>
-                            </text>
-                        </svg>
+                <section ref={marqueeSectionRef} className="relative md:min-h-[60vh] w-full overflow-hidden flex items-center justify-center md:-mt-32 z-0">
+                    <div className="w-full max-w-7xl mx-auto px-8 space-y-8">
+                        {/* Line 1 - from right */}
+                        <div className="line-1 text-center overflow-hidden">
+                            <h2 className="text-2xl md:text-5xl lg:text-6xl leading-[0.9] font-semibold"
+                                style={{
+                                    background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                }}
+                            >
+                                Not as Belief
+                            </h2>
+                        </div>
+
+                        {/* Line 2 - from left */}
+                        <div className="line-2 text-center overflow-hidden">
+                            <h2 className="text-2xl md:text-5xl lg:text-6xl leading-normal font-semibold rounded-2xl w-fit mx-auto px-3 md:px-7 text-white"
+                                style={{
+                                    background: 'linear-gradient(261.26deg, #fb1e01 -11.86%, #fc964c -5.96% 5.45%, #f62003 30.99%, #f61f0362 62.85%, #f62003 101.39%, #fd7c34 103.82%)',
+                                }}
+                            >
+                                Not as Religious Dogma
+                            </h2>
+                        </div>
+
+                        {/* Line 3 - from right */}
+                        <div className="line-3 text-center overflow-hidden">
+                            <h2 className="text-2xl md:text-5xl lg:text-6xl font-semibold text-white "
+                                style={{
+                                    background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                }}
+                            >
+                                Simplified & Translated for Modern Life
+                            </h2>
+                        </div>
                     </div>
                 </section>
             </div>

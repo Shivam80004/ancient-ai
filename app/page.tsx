@@ -6,6 +6,8 @@ import Footer from '../components/Footer'
 import DeepLayerSection from '../components/DeepLayerSection'
 import Testimonials from '../components/Testimonials'
 import CallToAction from '../components/CallToAction'
+import GallerySection from '../components/GallerySection'
+import MarqueeLogo from '../components/MarqueeLogo'
 
 function page() {
   return (
@@ -19,11 +21,19 @@ function page() {
         <ScalingVideoSection />
       </div>
 
+      <div id="gallery">
+        <GallerySection />
+      </div>
+
       {/* <div id="the-illusion">
         <FakeWorld />
       </div> */}
 
-      <DeepLayerSection />
+      {/* <DeepLayerSection /> */}
+
+      <div id="partners">
+        <MarqueeLogo />
+      </div>
 
       <div id="testimonials">
         <Testimonials />
@@ -33,7 +43,7 @@ function page() {
         <CallToAction />
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
 
     </>
   )
