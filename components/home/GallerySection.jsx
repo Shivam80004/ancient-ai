@@ -9,7 +9,7 @@ const images = [
     { src: '/gellery-img/gallery-img-1.jpg', year: '2015' },
     { src: '/gellery-img/gallery-img-2.webp', year: '2018' },
     { src: '/gellery-img/gallery-img-3.jpg', year: '2019' },
-    { src: '/gellery-img/gallery-img-4.jpg', year: '2020' },
+    { src: '/gellery-img/gallery-img-4.jpeg', year: '2020' },
     { src: '/gellery-img/gallery-img-5.png', year: '2021' },
     { src: '/gellery-img/gallery-img-6.png', year: '2022' },
     { src: '/gellery-img/gallery-img-7.png', year: '2023' },

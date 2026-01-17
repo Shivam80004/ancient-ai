@@ -1,13 +1,10 @@
-import HeroBanner from '../components/HeroBanner'
+import HeroBanner from '../components/home/HeroBanner'
 import React from 'react'
-import ScalingVideoSection from '../components/ScalingVideoSection'
-import FakeWorld from '../components/FakeWorld'
-import Footer from '../components/Footer'
-import DeepLayerSection from '../components/DeepLayerSection'
-import Testimonials from '../components/Testimonials'
-import CallToAction from '../components/CallToAction'
-import GallerySection from '../components/GallerySection'
-import MarqueeLogo from '../components/MarqueeLogo'
+import ScalingVideoSection from '../components/home/ScalingVideoSection'
+import Testimonials from '../components/home/Testimonials'
+import CallToAction from '../components/home/CallToAction'
+import GallerySection from '../components/home/GallerySection'
+import MarqueeLogo from '../components/home/MarqueeLogo'
 
 function page() {
   return (
@@ -42,8 +39,6 @@ function page() {
       <div id="cta">
         <CallToAction />
       </div>
-
-      {/* <Footer /> */}
 
     </>
   )
