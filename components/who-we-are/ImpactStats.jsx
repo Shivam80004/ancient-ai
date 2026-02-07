@@ -65,7 +65,7 @@ const ImpactStats = () => {
     }, []);
 
     return (
-        <section ref={containerRef} className="w-full py-40 text-white flex items-center justify-center"
+        <section ref={containerRef} className="w-full pt-40 text-white flex items-center justify-center"
         // style={{
         //     background: "linear-gradient(0deg, transparent, rgba(255, 123, 0, 0.2), transparent)"
         // }}

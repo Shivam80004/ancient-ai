@@ -77,9 +77,9 @@ const Navbar = () => {
                     {/* Logo Section */}
                     <Link href="/" className="flex items-center gap-2 group mr-4 relative z-20">
                         <img
-                            src="/logo.svg"
+                            src="/logo-plain.png"
                             alt="Logo"
-                            className="h-9 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                            className="h-14 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                         />
                     </Link>
 

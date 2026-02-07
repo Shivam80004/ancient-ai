@@ -53,66 +53,73 @@ const Footer = () => {
 
     React.useLayoutEffect(() => {
         if (!footerRef.current) return;
+
         const ctx = gsap.context(() => {
-            // Sunrise Animation
-            gsap.fromTo(glowRef.current,
-                {
-                    y: 100,
-                    opacity: 0,
-                    scale: 0.8
-                },
-                {
-                    y: 0,
-                    opacity: 0.8,
-                    scale: 1,
-                    duration: 2.5,
-                    ease: "power4.out",
-                    scrollTrigger: {
-                        trigger: footerRef.current,
-                        start: "top 80%",
-                        end: "bottom bottom",
-                        scrub: 1,
-                    }
+            // Create a master timeline with a single ScrollTrigger
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: footerRef.current,
+                    start: "top 80%",
+                    end: "top 20%",
+                    toggleActions: "play none none reverse",
+                    // markers: true, // Uncomment for debugging
                 }
-            );
+            });
 
-            // Logo Reveal
-            gsap.fromTo(logoRef.current,
-                {
-                    y: 200,
-                    opacity: 0,
-                },
-                {
-                    y: 70,
-                    opacity: 1,
-                    duration: 2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: footerRef.current,
-                        start: "50% 70%",
-                    }
-                }
-            );
+            // Links Stagger - Happens first
+            const links = linksRef.current?.querySelectorAll('.footer-column');
+            if (links && links.length > 0) {
+                tl.fromTo(links,
+                    {
+                        y: 30,
+                        opacity: 0
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        duration: 1.2,
+                        ease: "power3.out",
+                    },
+                    0 // Start at the beginning of timeline
+                );
+            }
 
-            // Links Stagger
-            const links = linksRef.current.querySelectorAll('.footer-column');
-            gsap.fromTo(links,
-                {
-                    y: 30,
-                    opacity: 0
-                },
-                {
-                    y: 0,
-                    opacity: 1,
-                    stagger: 0.1,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: linksRef.current,
-                        start: "top 85%",
-                    }
-                }
-            );
+            // Logo Reveal - Happens slightly after
+            if (logoRef.current) {
+                tl.fromTo(logoRef.current,
+                    {
+                        y: 100,
+                        opacity: 0,
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.5,
+                        ease: "power3.out",
+                    },
+                    0.3 // Start 0.3s into the timeline
+                );
+            }
+
+            // Sunrise Glow Animation - Happens with logo
+            if (glowRef.current) {
+                tl.fromTo(glowRef.current,
+                    {
+                        y: 50,
+                        opacity: 0,
+                        scale: 0.8
+                    },
+                    {
+                        y: 0,
+                        opacity: 0.6,
+                        scale: 1,
+                        duration: 1.8,
+                        ease: "power4.out",
+                    },
+                    0.3 // Start with the logo
+                );
+            }
         }, footerRef);
 
         return () => ctx.revert();

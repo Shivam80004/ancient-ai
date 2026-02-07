@@ -4,6 +4,7 @@ import React from 'react';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger, Flip } from 'gsap/all';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
@@ -21,6 +22,7 @@ const ScalingVideoSection = ({
     const header2Ref = useRef(null);
     const mainContainerRef = useRef(null);
     const marqueeSectionRef = useRef(null);
+    const [showTooltip, setShowTooltip] = React.useState(false);
 
     React.useLayoutEffect(() => {
         const ctx = gsap.context(() => {
@@ -174,14 +176,20 @@ const ScalingVideoSection = ({
                         {eyebrowText}
                     </span>
 
-                    <h3 ref={header1Ref} className="text-4xl md:text-7xl font-light text-white text-center mb-2">
-                        <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
-                        <span className="reveal-word-2 inline-block">Works </span> <br />
-                        <span className="reveal-word-2 inline-block font-semibold">Yet,</span>&nbsp;
-                        <span className="reveal-word-2 inline-block font-semibold">Something’s</span>&nbsp;
-                        <span className="reveal-word-2 inline-block bg-clip-text font-semibold leading-[1.3]">Missing</span>
-                        <span className="reveal-word-2 inline-block font-semibold">?</span>
-                    </h3>
+                    <div className="flex flex-col items-center justify-center">
+                        <h3 ref={header1Ref} className="text-4xl md:text-7xl font-light text-white text-center mb-2">
+                            <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
+                            <span className="reveal-word-2 inline-block">Works. </span> <br />
+                            <span className="reveal-word-2 inline-block font-semibold">Yet,</span>&nbsp;
+                            <span className="reveal-word-2 inline-block font-semibold">Something’s</span>&nbsp;
+                            <span className="reveal-word-2 inline-block bg-clip-text font-semibold leading-[1.3]">Missing</span>
+                            <span className="reveal-word-2 inline-block font-semibold">?</span>
+                        </h3>
+
+                        <p className="text-2xl font-normal text-white">
+                            skipping real life, we are dwelling in a world of <span className="font-semibold">Artificials</span>
+                        </p>
+                    </div>
 
                     {/* Small Box Container */}
                     <div className="relative w-80 rounded-2xl max-md:w-60">
@@ -232,11 +240,43 @@ const ScalingVideoSection = ({
                         <span className="reveal-word-2 inline-block">This</span>&nbsp;
                         <span className="reveal-word-2 inline-block">is</span>&nbsp;
                         <span className="reveal-word-2 inline-block">where</span>&nbsp;
-                        <span className="reveal-word-2 inline-block font-semibold text-[#ff7b00]">AncientAI</span>&nbsp;
+                        <span
+                            className='inline-block translate-y-7 pr-3 relative group cursor-pointer'
+                            onMouseEnter={() => setShowTooltip(true)}
+                            onMouseLeave={() => setShowTooltip(false)}
+                        >
+                            <Image src="/logo-plain.png" alt="Logo" width={400} height={200} />
+
+                            {/* Tooltip Dialog */}
+                            <div className={`absolute -top-1 -right-[132%] -translate-x-1/2 flex justify-center items-end transition-all duration-300 ${showTooltip ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-4'}`}>
+                                {/* Arrow */}
+                                {/* <div className="w-40 h-3 bg-red-500 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-white/10"></div> */}
+                                <div className='h-auto w-30 display-block -rotate-30'>
+                                    <svg viewBox="-2 0 36 12" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M0 6 C0 14 10 -2 14 6 C18 14 28 -2 32 6 L28 "
+                                            fill="none"
+                                            stroke="#dadada"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+
+
+                                {/* Dialog Box */}
+                                <div className="transform -translate-x-3 -translate-y-7 border border-white/20 rounded-2xl px-6 py-2 shadow-2xl"
+                                    style={{ background: 'linear-gradient(261.26deg, rgba(246, 32, 3, 0) -11.86%, #fc964c -5.96%, #fc964c 5.45%, #f62003 30.99%, rgba(246, 32, 3, 0) 62.85%, #f62003 101.39%, #fd7c34 103.82%)' }}
+                                >
+                                    <h4 className="text-white font-semibold w-fit text-lg">Adhyatmic Intelligence</h4>
+                                </div>
+                            </div>
+                        </span>
                         <span className="reveal-word-2 inline-block">Matters</span>&nbsp;
                         <span className="reveal-word-2 inline-block font-semibold">To Reclaim Your Life.<br /></span> <br />
                         <span className="reveal-word-2 inline-block">But with few Upgrades</span> <br />
-                        <span className="reveal-word-2 inline-block text-gray-500 text-xl">(No credit cards required!)</span>
+                        <span className="reveal-word-2 inline-block text-gray-500 text-xl">(No credit cards required :P)</span>
                     </h3>
                 </section>
                 <section ref={marqueeSectionRef} className="relative md:min-h-[60vh] w-full overflow-hidden flex items-center justify-center md:-mt-32 z-0">
@@ -256,9 +296,11 @@ const ScalingVideoSection = ({
 
                         {/* Line 2 - from left */}
                         <div className="line-2 text-center overflow-hidden">
-                            <h2 className="text-2xl md:text-5xl lg:text-6xl leading-normal font-semibold rounded-2xl w-fit mx-auto px-3 md:px-7 text-white"
+                            <h2 className="text-2xl md:text-5xl lg:text-6xl leading-normal font-semibold text-white"
                                 style={{
-                                    background: 'linear-gradient(261.26deg, #fb1e01 -11.86%, #fc964c -5.96% 5.45%, #f62003 30.99%, #f61f0362 62.85%, #f62003 101.39%, #fd7c34 103.82%)',
+                                    background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
                                 }}
                             >
                                 Not as Religious Dogma
@@ -267,11 +309,9 @@ const ScalingVideoSection = ({
 
                         {/* Line 3 - from right */}
                         <div className="line-3 text-center overflow-hidden">
-                            <h2 className="text-2xl md:text-5xl lg:text-6xl font-semibold text-white "
+                            <h2 className="text-2xl md:text-5xl lg:text-6xl font-semibold leading-normal rounded-2xl w-fit mx-auto px-2 md:px-3 text-white "
                                 style={{
-                                    background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
+                                    background: 'linear-gradient(261.26deg, #fb1e01 -11.86%, #fc964c -5.96% 5.45%, #f62003 30.99%, #f61f0362 62.85%, #f62003 101.39%, #fd7c34 103.82%)',
                                 }}
                             >
                                 Simplified & Translated for Modern Life

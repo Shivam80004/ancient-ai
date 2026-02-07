@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import gsap from 'gsap';
+import Image from 'next/image';
 
 const CallToAction = () => {
     const [hoveredCard, setHoveredCard] = useState(null);
@@ -43,6 +44,20 @@ const CallToAction = () => {
     return (
         <section className="relative py-20 md:py-32 bg-black overflow-hidden">
             <div className="container mx-auto px-4">
+                <div className="justify-center max-w-[57vw] flex flex-wrap mx-auto">
+                    <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white inline-block">
+                        Ready to enter the revolution
+                    </h3>
+                    <h3 className="text-3xl text-center mt-2 md:text-5xl lg:text-6xl font-light text-white inline-block">
+                        of
+                    </h3>
+                    <span className='transform -translate-y-7 translate-x-3 inline-block'>
+                        <Image src="/logo-plain.png" alt="Revolution" width={350} height={350} />
+                    </span>
+                    <h3 className="text-3xl text-center pl-6 mt-0.5 md:text-5xl lg:text-6xl font-light text-white inline-block">
+                        ?
+                    </h3>
+                </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
                     {cards.map((card, index) => (
                         <div

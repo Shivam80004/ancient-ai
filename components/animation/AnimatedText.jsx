@@ -31,7 +31,7 @@ const AnimatedText = ({ children, className }) => {
                 scrollTrigger: {
                     trigger: element,
                     start: "top 80%",
-                    end: "bottom 80%",
+                    end: "bottom 110%",
                     scrub: true,
                 },
             });

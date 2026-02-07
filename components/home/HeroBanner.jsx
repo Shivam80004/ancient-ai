@@ -115,7 +115,7 @@ const HeroBanner = () => {
                 <h2 className="hero-title text-4xl md:text-4xl font-popinse font-normal text-white">
                     We Take You Beyond{" "}
                     <span className="bg-[linear-gradient(261.26deg,#f6200300_-11.86%,#fc964c_5.45%,#f62003_30.99%,#f62003_101.39%,#fd7c34_103.82%)] bg-clip-text text-transparent font-bold">
-                        Artificial
+                        Artificials
                     </span>{" "}
                     To Reveal
                 </h2>
@@ -137,7 +137,7 @@ const HeroBanner = () => {
 
             {/* Bottom Button */}
             <div className="absolute bottom-20 left-1/2 -translate-x-1/2">
-                <MagneticButton link="#explore" text="Explore more" />
+                <MagneticButton link="#explore" text="Enroll Now" />
             </div>
 
             <style jsx>{`

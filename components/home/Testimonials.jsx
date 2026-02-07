@@ -110,8 +110,8 @@ const Testimonials = () => {
             <div className="relative z-10 container mx-auto px-4">
 
                 <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mb-12 md:mb-28">
-                    Stories of
-                    <span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Transformation</span>
+                    People Sharing Better
+                    <span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Experiences</span>
                 </h3>
 
                 {/* Testimonial Card Container */}
