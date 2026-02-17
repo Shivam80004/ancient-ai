@@ -6,75 +6,59 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const images = [
-    { src: '/gellery-img/gallery-img-1.jpg', year: '2015' },
-    { src: '/gellery-img/gallery-img-2.webp', year: '2018' },
-    { src: '/gellery-img/gallery-img-3.jpg', year: '2019' },
-    { src: '/gellery-img/gallery-img-4.jpeg', year: '2020' },
-    { src: '/gellery-img/gallery-img-5.png', year: '2021' },
-    { src: '/gellery-img/gallery-img-6.png', year: '2022' },
-    { src: '/gellery-img/gallery-img-7.png', year: '2023' },
-    { src: '/gellery-img/gallery-img-8.png', year: '2024' },
-    { src: '/gellery-img/gallery-img-9.jpg', year: '2025' },
+    { src: '/gellery-img/gallery-img-1.jpg', title: 'Avenue' },
+    { src: '/gellery-img/gallery-img-2.webp', title: 'Workshop' },
+    { src: '/gellery-img/gallery-img-3.jpg', title: 'Music' },
+    { src: '/gellery-img/gallery-img-5.png', title: 'Questions' },
+    { src: '/gellery-img/gallery-img-4.jpeg', title: 'Future' },
+    { src: '/gellery-img/gallery-img-6.png', title: 'Hunger' },
+    { src: '/gellery-img/gallery-img-7.png', title: 'Real Friendship' },
+    { src: '/gellery-img/gallery-img-8.png', title: 'Velocity' },
+    { src: '/gellery-img/gallery-img-9.jpg', title: 'Studio' },
+];
+
+const marqueeTexts = [
+    "Tribe", "Seek", "Vibe", "Guide", "Reset", "Ask", "Tribe", "Seek", "Vibe", "Guide", "Reset", "Ask"
 ];
 
 const GallerySection = () => {
     const sectionRef = useRef(null);
-    const col1Ref = useRef(null);
-    const col2Ref = useRef(null);
-    const col3Ref = useRef(null);
+    const textRowRef = useRef(null);
+    const imageRowRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Only apply parallax on larger screens
-            const mm = gsap.matchMedia();
+            const setupMarquee = (target, speed, direction) => {
+                const fromValue = direction === 1 ? 0 : -50;
+                const toValue = direction === -1 ? 0 : -50;
 
-            mm.add("(min-width: 768px)", () => {
-                const scrollConfig = {
-                    trigger: sectionRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1,
-                };
+                gsap.set(target, { xPercent: fromValue });
 
-                // Middle column moves opposite/differently to create depth
-                gsap.fromTo(col2Ref.current,
-                    { y: -50 },
-                    {
-                        y: 50,
-                        ease: "none",
-                        scrollTrigger: scrollConfig
-                    }
-                );
+                const tl = gsap.to(target, {
+                    xPercent: toValue,
+                    repeat: -1,
+                    duration: speed,
+                    ease: "none",
+                    paused: false
+                });
 
-                // Outer columns move slowly
-                gsap.fromTo([col1Ref.current, col3Ref.current],
-                    { y: 50 },
-                    {
-                        y: -50,
-                        ease: "none",
-                        scrollTrigger: scrollConfig
-                    }
-                );
-            });
+                tl.totalProgress(0.5);
+                return tl;
+            };
 
-            // Fade in animation for individual cards with staggered reveal
-            const cards = gsap.utils.toArray('.gallery-card');
-            gsap.fromTo(cards,
-                { opacity: 0, scale: 0.9, y: 30 },
+            const tl1 = setupMarquee(textRowRef.current, 20, 1);
+            const tl2 = setupMarquee(imageRowRef.current, 35, -1);
+
+            // Subtle parallax for the section
+            gsap.fromTo(sectionRef.current,
+                { backgroundColor: 'rgba(5, 5, 5, 1)' },
                 {
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: {
-                        amount: 0.5,
-                        grid: [3, 3],
-                        from: "center"
-                    },
-                    ease: "power2.out",
+                    backgroundColor: 'rgba(10, 10, 12, 1)',
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 60%",
+                        start: "top center",
+                        end: "bottom center",
+                        scrub: true
                     }
                 }
             );
@@ -83,37 +67,51 @@ const GallerySection = () => {
         return () => ctx.revert();
     }, []);
 
-    // Split images into 3 columns for the masonry/parallax effect
-    const col1 = images.filter((_, i) => i % 3 === 0);
-    const col2 = images.filter((_, i) => i % 3 === 1);
-    const col3 = images.filter((_, i) => i % 3 === 2);
-
-    const renderCard = (img, idx) => (
-        <div
-            key={idx}
-            className="gallery-card group relative h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden cursor-pointer backdrop-blur-sm"
+    const renderTextMarquee = () => (
+        <div className="py-4 md:py-8 scale-105 overflow-hidden border-y- border-black/10"
             style={{
-                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.36)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                background: 'rgba(255, 255, 255, 0.01)'
+                background: 'radial-gradient(50% 60% at 50% 100%, #fb1e01 0%, transparent 100%)'
             }}
         >
-            <img
-                src={img.src}
-                alt={`Gallery image ${img.year}`}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+            <div ref={textRowRef} className="flex whitespace-nowrap gap-8 md:gap-16">
+                {[...marqueeTexts, ...marqueeTexts].map((text, idx) => (
+                    <span
+                        key={idx}
+                        className="text-4xl md:text-6xl text-white flex items-center tracking-tighter font-poppins"
+                    >
+                        {text} &nbsp;&nbsp;
+                        <svg className="w-3 h-3 mx-7 fill-current text-white" viewBox="0 0 20 20">
+                            <circle cx="10" cy="10" r="8" />
+                        </svg>
+                        {/* <span className="mx-4 text-white"></span> */}
+                    </span>
+                ))}
+            </div>
+        </div>
+    );
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-
-            {/* <div className="absolute top-4 left-4 transform translate-y-[-10px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <span className="inline-block px-3 py-1 rounded-full text-white text-xs font-medium backdrop-blur-md bg-white/10 border border-white/20">
-                    {img.year}
-                </span>
-            </div> */}
-
-            <div className="absolute bottom-6 left-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-75">
-                <h3 className="text-white text-xl font-light tracking-wide">Memory</h3>
+    const renderImageMarquee = () => (
+        <div className="flex relative whitespace-nowrap overflow-hidden pt-8">
+            <div ref={imageRowRef} className="flex gap-4 md:gap-8 px-2 md:px-4">
+                {[...images, ...images].map((img, idx) => (
+                    <div
+                        key={idx}
+                        className="gallery-card group relative h-[250px] w-[350px] md:h-[400px] md:w-[550px] shrink-0 rounded-2xl overflow-hidden cursor-pointer"
+                        style={{
+                            boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                            border: '1px solid rgba(255, 255, 255, 0.05)'
+                        }}
+                    >
+                        <img
+                            src={img.src}
+                            alt={img.title}
+                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                            <h3 className="text-white text-2xl font-semibold">{img.title}</h3>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
@@ -121,26 +119,16 @@ const GallerySection = () => {
     return (
         <section
             ref={sectionRef}
-            className="w-full py-20 px-4 md:px-8 lg:px-12 overflow-hidden relative min-h-screen content-center"
+            className="w-full mt-14 overflow-hidden relative bg-[#050505] flex flex-col pb-16 z-10 rounded-t-[40px] md:rounded-t-[100px] border-t border-white/10"
+            style={{
+                boxShadow: '0 -20px 50px rgba(0,0,0,0.5)'
+            }}
         >
-            <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-                    {/* Column 1 */}
-                    <div ref={col1Ref} className="flex flex-col gap-6">
-                        {col1.map((img, i) => renderCard(img, i))}
-                    </div>
-
-                    {/* Column 2 - Offset for visual interest */}
-                    <div ref={col2Ref} className="flex flex-col gap-6 md:mt-24">
-                        {col2.map((img, i) => renderCard(img, i))}
-                    </div>
-
-                    {/* Column 3 */}
-                    <div ref={col3Ref} className="flex flex-col gap-6 md:mt-12">
-                        {col3.map((img, i) => renderCard(img, i))}
-                    </div>
-                </div>
-            </div>
+            {/* <div className="container mx-auto px-4 mb-7">
+                <h3 className="text-3xl -rotate-2 text-center md:text-5xl lg:text-6xl font-light text-white mt-6 md:mt-32">People Having Better<span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Experiences</span></h3>
+            </div> */}
+            {renderImageMarquee()}
+            {renderTextMarquee()}
         </section>
     );
 };

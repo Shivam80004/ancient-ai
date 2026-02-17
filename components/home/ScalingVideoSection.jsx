@@ -170,11 +170,11 @@ const ScalingVideoSection = ({
         <div className="scaling-video-wrapper">
             <div ref={mainContainerRef} className="relative overflow-hidden bg-black">
                 {/* Header Section */}
-                <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[25vh]">
+                <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[9vh]">
                     {/* Eyebrow */}
-                    <span className="text-xl font-normal uppercase text-white">
+                    {/* <span className="text-xl font-normal uppercase text-white/60">
                         {eyebrowText}
-                    </span>
+                    </span> */}
 
                     <div className="flex flex-col items-center justify-center">
                         <h3 ref={header1Ref} className="text-4xl md:text-7xl font-light text-white text-center mb-2">
@@ -186,8 +186,8 @@ const ScalingVideoSection = ({
                             <span className="reveal-word-2 inline-block font-semibold">?</span>
                         </h3>
 
-                        <p className="text-2xl font-normal text-white">
-                            skipping real life, we are dwelling in a world of <span className="font-semibold">Artificials</span>
+                        <p className="text-2xl font-normal text-white/60">
+                            skipping real life, we are dwelling in a world of Artificials
                         </p>
                     </div>
 

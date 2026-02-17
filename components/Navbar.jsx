@@ -19,7 +19,7 @@ const Navbar = () => {
     };
 
     const navLinks = [
-        { href: '/who-we-are', label: 'Who We Are' },
+        { href: '/about', label: 'Who We Are' },
         { href: '/mentorship', label: 'Mentorship' },
         { href: '/courses', label: 'Courses' },
         { href: '/free-resources', label: 'Free Resources' },

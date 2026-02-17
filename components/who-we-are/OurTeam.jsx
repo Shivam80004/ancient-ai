@@ -63,7 +63,7 @@ const TeamCard = ({ member, index }) => {
     }, []);
 
     return (
-        <div ref={cardRef} className="h-[85vh] w-[35vw] mx-auto flex items-center justify-center p-6 sticky top-0 bg-black/50 backdrop-blur-sm border-t border-white/10 lg:static lg:bg-transparent lg:border-none">
+        <div ref={cardRef} className="h-[85vh] md:w-[35vw] w-full mx-auto flex items-center justify-center p-6 sticky top-0 bg-black/50 backdrop-blur-sm border-t border-white/10 lg:static lg:bg-transparent lg:border-none">
             <div className="relative h-full w-full overflow-hidden rounded-2xl group">
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -152,16 +152,16 @@ const OurTeam = () => {
                     </div>
 
                     {/* Footer Section for Team List */}
-                    <div className="h-[20vh] flex items-center justify-center p-2 text-center bg-zinc-950"
+                    <div className="h-[20vh] flex items-center justify-center md:p-2 p-5 text-center bg-zinc-950"
                         style={{
                             background: "linear-gradient(90deg, transparent, rgba(255, 123, 0, 0.3), transparent)"
                         }}
                     >
-                        <div className="space-y-2 max-w-lg">
-                            <h3 className="text-3xl md:text-4xl font-semibold text-white/90">
+                        <div className="h-full w-full max-w-lg flex flex-col justify-center">
+                            <h3 className="text-xl md:text-4xl font-semibold text-white/90">
                                 No Gurus, No Influencers!
                             </h3>
-                            <p className="text-xl md:text-xl text-white font-light tracking-tight">
+                            <p className="text- md:text-xl text-white font-light tracking-tight">
                                 Just people doing the work for a higher mission.
                             </p>
                         </div>

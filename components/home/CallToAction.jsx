@@ -44,17 +44,17 @@ const CallToAction = () => {
     return (
         <section className="relative py-20 md:py-32 bg-black overflow-hidden">
             <div className="container mx-auto px-4">
-                <div className="justify-center max-w-[57vw] flex flex-wrap mx-auto">
+                <div className="justify-center md:max-w-[57vw] mb-9 md:flex-nowrap !flex-wrap !flex mx-auto">
                     <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white inline-block">
-                        Ready to enter the revolution
+                        Ready to enter the revolution <span className="md:hidden inline-block">of</span>
                     </h3>
-                    <h3 className="text-3xl text-center mt-2 md:text-5xl lg:text-6xl font-light text-white inline-block">
+                    <h3 className="text-3xl md:inline-block hidden text-center mt-2 md:text-5xl lg:text-6xl font-light text-white">
                         of
                     </h3>
-                    <span className='transform -translate-y-7 translate-x-3 inline-block'>
-                        <Image src="/logo-plain.png" alt="Revolution" width={350} height={350} />
+                    <span className='transform -translate-y-2 translate-x-3 inline-block'>
+                        <Image src="/logo-plain.png" alt="Revolution" width={260} height={250} />
                     </span>
-                    <h3 className="text-3xl text-center pl-6 mt-0.5 md:text-5xl lg:text-6xl font-light text-white inline-block">
+                    <h3 className="text-3xl hidden text-center pl-6 mt-0.5 md:text-5xl lg:text-6xl font-light text-white md:inline-block">
                         ?
                     </h3>
                 </div>

@@ -147,7 +147,7 @@ const Testimonials = () => {
                         {/* <div className="absolute top-0 right-0 w-32 h-1 bg-linear-to-r from-transparent via-orange-500 to-orange-600"></div> */}
 
                         {/* Testimonial Content */}
-                        <div className="relative z-10">
+                        <div className="relative z-10 ">
                             <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed mb-6 md:mb-8 font-light">
                                 {testimonials[currentIndex].quote}
                             </p>
