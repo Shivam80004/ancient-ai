@@ -186,7 +186,7 @@ const ScalingVideoSection = ({
                             <span className="reveal-word-2 inline-block font-semibold">?</span>
                         </h3>
 
-                        <p className="text-2xl font-normal text-white/60">
+                        <p className="md:text-2xl text-xl font-normal text-center text-white/60">
                             skipping real life, we are dwelling in a world of Artificials
                         </p>
                     </div>
@@ -245,10 +245,12 @@ const ScalingVideoSection = ({
                             onMouseEnter={() => setShowTooltip(true)}
                             onMouseLeave={() => setShowTooltip(false)}
                         >
-                            <Image src="/logo-plain.png" alt="Logo" width={400} height={200} />
+                            <div className='relative md:h-22 h-12 w-auto transform -translate-y-4 md:-translate-y-3'>
+                                <Image src="/logo-plain.png" alt="Logo" width={200} height={200} className='h-full w-auto ' />
+                            </div>
 
                             {/* Tooltip Dialog */}
-                            <div className={`absolute -top-1 -right-[132%] -translate-x-1/2 flex justify-center items-end transition-all duration-300 ${showTooltip ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-4'}`}>
+                            <div className={`absolute -top-10 -right-[192%] -translate-x-1/2 flex justify-center items-end transition-all duration-300 ${showTooltip ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-4'}`}>
                                 {/* Arrow */}
                                 {/* <div className="w-40 h-3 bg-red-500 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-white/10"></div> */}
                                 <div className='h-auto w-30 display-block -rotate-30'>
@@ -280,10 +282,10 @@ const ScalingVideoSection = ({
                     </h3>
                 </section>
                 <section ref={marqueeSectionRef} className="relative md:min-h-[60vh] w-full overflow-hidden flex items-center justify-center md:-mt-32 z-0">
-                    <div className="w-full max-w-7xl mx-auto px-8 space-y-8">
+                    <div className="w-full max-w-8xl mx-auto px-8 space-y-8">
                         {/* Line 1 - from right */}
                         <div className="line-1 text-center overflow-hidden">
-                            <h2 className="text-2xl md:text-5xl lg:text-6xl leading-[0.9] font-semibold"
+                            <h2 className="font-array text-2xl md:text-5xl lg:text-7xl leading-[0.9] tracking-wide font-thin"
                                 style={{
                                     background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
                                     WebkitBackgroundClip: 'text',
@@ -296,7 +298,7 @@ const ScalingVideoSection = ({
 
                         {/* Line 2 - from left */}
                         <div className="line-2 text-center overflow-hidden">
-                            <h2 className="text-2xl md:text-5xl lg:text-6xl leading-normal font-semibold text-white"
+                            <h2 className="font-array text-2xl md:text-5xl lg:text-7xl leading-normal tracking-wide font-thin text-white"
                                 style={{
                                     background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
                                     WebkitBackgroundClip: 'text',
@@ -309,7 +311,7 @@ const ScalingVideoSection = ({
 
                         {/* Line 3 - from right */}
                         <div className="line-3 text-center overflow-hidden">
-                            <h2 className="text-2xl md:text-5xl lg:text-6xl font-semibold leading-normal rounded-2xl w-fit mx-auto px-2 md:px-3 text-white "
+                            <h2 className="font-array text-2xl md:text-5xl lg:text-7xl font-thin tracking-wide rounded-2xl w-fit mx-auto px-2 md:px-3 text-white "
                                 style={{
                                     background: 'linear-gradient(261.26deg, #fb1e01 -11.86%, #fc964c -5.96% 5.45%, #f62003 30.99%, #f61f0362 62.85%, #f62003 101.39%, #fd7c34 103.82%)',
                                 }}

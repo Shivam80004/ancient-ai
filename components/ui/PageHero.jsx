@@ -14,11 +14,11 @@ const PageHero = ({ title, subtitle, image }) => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
                 <div className="overflow-hidden mb-3">
                     <RevealText
                         type="chars"
-                        className="text-5xl md:text-7xl font-semibold text-white tracking-tight"
+                        className="text-5xl md:text-[7rem] font-medium text-white tracking-tight text-center px-4"
                         stagger={0.03}
                     >
                         {title}

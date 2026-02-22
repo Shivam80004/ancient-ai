@@ -137,7 +137,7 @@ const HeroBanner = () => {
 
             {/* Bottom Button */}
             <div className="absolute bottom-20 left-1/2 -translate-x-1/2">
-                <MagneticButton link="#explore" text="Enroll Now" />
+                <MagneticButton link="/contact-us" text="Enroll Now" />
             </div>
 
             <style jsx>{`

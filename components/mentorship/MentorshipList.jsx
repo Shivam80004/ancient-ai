@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import './preview-follower.css';
 
@@ -18,42 +19,73 @@ const MentorshipList = ({ items }) => {
 
         let prevIndex = null;
         let firstEntry = true;
+        // Tracks whether the mouse has moved at least once over this page.
+        // Prevents the jarring snap from off-screen → cursor on first move.
+        let hasMovedOnce = false;
 
-        const offset = 100; // Animation distance in %
+        const offset = 100; // Animation distance in percent
         const duration = 0.5;
         const ease = 'power2.inOut';
 
-        // Initial set
-        gsap.set(follower, { xPercent: -50, yPercent: -50 });
+        // Park the follower far off-screen so it doesn't flash at (0, 0) before
+        // the first mousemove fires. xPercent/yPercent keep the centering offset.
+        gsap.set(follower, { xPercent: -50, yPercent: -50, x: -9999, y: -9999 });
 
-        const xTo = gsap.quickTo(follower, 'x', { duration: 0.6, ease: 'power3' });
-        const yTo = gsap.quickTo(follower, 'y', { duration: 0.6, ease: 'power3' });
+        // Tighter duration (0.4s) for a snappier feel that doesn't look "frozen"
+        const xTo = gsap.quickTo(follower, 'x', { duration: 0.4, ease: 'power3' });
+        const yTo = gsap.quickTo(follower, 'y', { duration: 0.4, ease: 'power3' });
+
+        // rAF gate – avoids hammering quickTo on every mousemove during scroll
+        let rafPending = false;
+        let latestX = 0;
+        let latestY = 0;
 
         const onMouseMove = (e) => {
-            xTo(e.clientX);
-            yTo(e.clientY);
+            latestX = e.clientX;
+            latestY = e.clientY;
+
+            // On the very first move: teleport instantly so there's no
+            // 0.4-second slow-pan from (-9999, -9999) to the cursor.
+            if (!hasMovedOnce) {
+                hasMovedOnce = true;
+                gsap.set(follower, { x: latestX, y: latestY });
+                return;
+            }
+
+            if (!rafPending) {
+                rafPending = true;
+                requestAnimationFrame(() => {
+                    xTo(latestX);
+                    yTo(latestY);
+                    rafPending = false;
+                });
+            }
         };
 
         window.addEventListener('mousemove', onMouseMove);
 
+        // ── Item hover handlers ─────────────────────────────────────────────
+        // Store references so they can be removed on cleanup.
+        const itemHandlers = [];
+
         listItems.forEach((item, index) => {
-            item.addEventListener('mouseenter', () => {
+            const onEnter = () => {
                 const forward = prevIndex === null || index > prevIndex;
                 prevIndex = index;
 
-                // Animate out existing visuals
-                follower.querySelectorAll('[data-follower-visual]').forEach(el => {
+                // Animate out any existing visuals
+                follower.querySelectorAll('[data-follower-visual]').forEach((el) => {
                     gsap.killTweensOf(el);
                     gsap.to(el, {
                         yPercent: forward ? -offset : offset,
                         duration,
                         ease,
                         overwrite: 'auto',
-                        onComplete: () => el.remove()
+                        onComplete: () => el.remove(),
                     });
                 });
 
-                // Clone & insert new visual
+                // Clone the item's visual and inject into the follower
                 const visual = item.querySelector('[data-follower-visual]');
                 if (!visual) return;
 
@@ -61,28 +93,17 @@ const MentorshipList = ({ items }) => {
                 followerInner.appendChild(clone);
 
                 if (!firstEntry) {
-                    gsap.fromTo(clone,
+                    gsap.fromTo(
+                        clone,
                         { yPercent: forward ? offset : -offset },
                         { yPercent: 0, duration, ease, overwrite: 'auto' }
                     );
                 } else {
                     firstEntry = false;
                 }
-            });
+            };
 
-            item.addEventListener('mouseleave', () => {
-                // In exact logic provided, mouseleave on item animates out the CURRENT one?
-                // The provided code does:
-                /*
-                item.addEventListener('mouseleave', () => {
-                    const el = follower.querySelector('[data-follower-visual]');
-                    // ... animate out
-                });
-                */
-                // But usually we want it to stay until we move to next, OR leave the collection.
-                // The original code has explicit mouseleave logic, let's keep it but check behavior.
-                // Actually the original code clears it on item leave.
-
+            const onLeave = () => {
                 const el = follower.querySelector('[data-follower-visual]');
                 if (!el) return;
                 gsap.killTweensOf(el);
@@ -91,14 +112,20 @@ const MentorshipList = ({ items }) => {
                     duration,
                     ease,
                     overwrite: 'auto',
-                    onComplete: () => el.remove()
+                    onComplete: () => el.remove(),
                 });
-            });
+            };
+
+            item.addEventListener('mouseenter', onEnter);
+            item.addEventListener('mouseleave', onLeave);
+            itemHandlers.push({ item, enter: onEnter, leave: onLeave });
         });
 
+        // ── Collection leave ────────────────────────────────────────────────
         const collection = wrap.querySelector('[data-follower-collection]');
+
         const onCollectionLeave = () => {
-            follower.querySelectorAll('[data-follower-visual]').forEach(el => {
+            follower.querySelectorAll('[data-follower-visual]').forEach((el) => {
                 gsap.killTweensOf(el);
                 gsap.delayedCall(duration, () => el.remove());
             });
@@ -110,12 +137,22 @@ const MentorshipList = ({ items }) => {
             collection.addEventListener('mouseleave', onCollectionLeave);
         }
 
+        // ── Cleanup ─────────────────────────────────────────────────────────
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
-            if (collection) collection.removeEventListener('mouseleave', onCollectionLeave);
-            // Cleanup items listeners? ideally yes but for simplicity/re-render we rely on ref
-        };
 
+            if (collection) {
+                collection.removeEventListener('mouseleave', onCollectionLeave);
+            }
+
+            itemHandlers.forEach(({ item, enter, leave }) => {
+                item.removeEventListener('mouseenter', enter);
+                item.removeEventListener('mouseleave', leave);
+            });
+
+            // Kill any lingering tweens on the follower itself
+            gsap.killTweensOf(follower);
+        };
     }, [items]);
 
     return (
@@ -132,7 +169,7 @@ const MentorshipList = ({ items }) => {
                 <div className="preview-list">
                     {items.map((item, i) => (
                         <div key={i} data-follower-item="" className="preview-item group">
-                            <a href={item.link || "#"} className="preview-item__inner w-inline-block">
+                            <Link href={item.link || "#"} className="preview-item__inner w-inline-block">
                                 <div className="preview-item__row">
                                     <div className="preview-item__col is--large">
                                         <h2 className="preview-item__heading font-light tracking-tight group-hover:text-orange-500 transition-colors duration-300">
@@ -149,11 +186,15 @@ const MentorshipList = ({ items }) => {
                                         <p className="preview-item__text">Mentorship</p>
                                     </div>
                                 </div>
-                                {/* Visual for the follower */}
+                                {/* Visual for the follower — hidden from normal flow */}
                                 <div data-follower-visual="" className="preview-item__visual">
-                                    <img src={item.thumbnail || "/images/placeholder.jpg"} alt={item.title} className="preview-item__visual-img" />
+                                    <img
+                                        src={item.thumbnail || "/images/placeholder.jpg"}
+                                        alt={item.title}
+                                        className="preview-item__visual-img"
+                                    />
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                     ))}
                 </div>

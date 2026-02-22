@@ -20,10 +20,10 @@ const Navbar = () => {
 
     const navLinks = [
         { href: '/about', label: 'Who We Are' },
-        { href: '/mentorship', label: 'Mentorship' },
+        { href: '/mentorship', label: 'Events and Mentorship' },
         { href: '/courses', label: 'Courses' },
         { href: '/free-resources', label: 'Free Resources' },
-        { href: '/trips', label: 'Trips' },
+        { href: '/retreats', label: 'Retreats' },
         { href: '/our-inspiration', label: 'Our Inspiration' },
         { href: '/contact-us', label: 'Contact Us' },
     ];

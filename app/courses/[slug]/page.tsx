@@ -78,9 +78,9 @@ const CourseDetailPage = () => {
                     </p>
 
                     <div className="mt-12 flex justify-center">
-                        <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-orange-600 hover:text-white transition-colors duration-300">
+                        <Link href="/contact-us" className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-orange-600 hover:text-white transition-colors duration-300">
                             Enroll Now
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>

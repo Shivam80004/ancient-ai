@@ -1,37 +1,47 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React from 'react';
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }) {
-    React.useLayoutEffect(() => {
-        // Register GSAP ScrollTrigger
-        gsap.registerPlugin(ScrollTrigger);
+    useEffect(() => {
+        // Synchronous require so Lenis is instantiated before any user interaction.
+        // Next.js bundles this at build time — no async network gap.
+        const LenisModule = require('lenis');
+        const Lenis = LenisModule.default || LenisModule;
 
-        // Sync Lenis with GSAP ScrollTrigger
-        const Lenis = require('lenis').default || require('lenis');
-        const lenis = new Lenis();
-
-        lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 2,
         });
 
-        gsap.ticker.lagSmoothing(0);
+        // Official Lenis v1 + GSAP pattern:
+        // Drive Lenis with its own native RAF, and update ScrollTrigger inside it.
+        // This avoids the timing desync that happens when using gsap.ticker.
+        let rafId;
+        function raf(time) {
+            lenis.raf(time);
+            ScrollTrigger.update();
+            rafId = requestAnimationFrame(raf);
+        }
+        rafId = requestAnimationFrame(raf);
+
+        // After Lenis+RAF is running, refresh all ScrollTrigger instances so they
+        // recalculate their positions using Lenis scroll state (not raw window.scrollY).
+        // Without this, RevealText / parallax triggers are offset on first scroll.
+        ScrollTrigger.refresh();
 
         return () => {
+            cancelAnimationFrame(rafId);
             lenis.destroy();
-            gsap.ticker.remove(lenis.raf);
         };
     }, []);
 
-    return (
-        <>
-            {children}
-        </>
-    );
+    return <>{children}</>;
 }

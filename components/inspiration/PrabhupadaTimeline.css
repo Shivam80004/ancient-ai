@@ -1,0 +1,250 @@
+/* ── Prabhupada Timeline ── */
+
+.prabhupada-timeline {
+    position: relative;
+    padding: 6rem 1.5rem 8rem;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Header */
+.timeline-header {
+    text-align: center;
+    max-width: 78rem;
+    margin: 0 auto 5rem;
+}
+
+.timeline-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fc964c;
+    margin-bottom: 1rem;
+    padding: 0.4em 1em;
+    border: 1px solid rgba(252, 150, 76, 0.25);
+    border-radius: 100em;
+    backdrop-filter: blur(6px);
+}
+
+.timeline-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 1.25rem;
+}
+
+.timeline-title-highlight {
+    font-weight: 700;
+    background: linear-gradient(90deg, #fc964c, #f62003);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.timeline-subtitle {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.7;
+    max-width: 36rem;
+    margin: 0 auto;
+}
+
+/* Container */
+.timeline-container {
+    position: relative;
+    max-width: 72rem;
+    margin: 0 auto;
+}
+
+/* SVG path — sits behind everything */
+.timeline-svg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    display: none;
+    /* hidden on mobile */
+}
+
+@media (min-width: 768px) {
+    .timeline-svg {
+        display: block;
+    }
+}
+
+/* Items list */
+.timeline-items {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+@media (min-width: 768px) {
+    .timeline-items {
+        gap: 6rem;
+    }
+}
+
+/* Individual item */
+.timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/* Mobile: stack everything */
+@media (max-width: 767px) {
+    .timeline-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* Desktop: left items have card on left, right items on right */
+@media (min-width: 768px) {
+    .timeline-item--left {
+        justify-content: flex-start;
+        padding-right: 52%;
+    }
+
+    .timeline-item--right {
+        justify-content: flex-end;
+        padding-left: 52%;
+    }
+}
+
+/* Center dot */
+.timeline-dot-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .timeline-dot-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fc964c, #f62003);
+    box-shadow: 0 0 20px rgba(246, 32, 3, 0.4),
+        0 0 40px rgba(252, 150, 76, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Year badge */
+.timeline-year {
+    position: absolute;
+    left: 50%;
+    top: -0.5rem;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #fc964c;
+    background: rgba(252, 150, 76, 0.08);
+    border: 1px solid rgba(252, 150, 76, 0.2);
+    border-radius: 100em;
+    padding: 0.35em 1em;
+    white-space: nowrap;
+    z-index: 4;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .timeline-year {
+        display: block;
+    }
+}
+
+/* Card */
+.timeline-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.4s ease;
+    width: 100%;
+}
+
+.timeline-card:hover {
+    border-color: rgba(252, 150, 76, 0.25);
+}
+
+.timeline-card__image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.timeline-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.timeline-card:hover .timeline-card__image img {
+    transform: scale(1.05);
+}
+
+.timeline-card__content {
+    padding: 1.5rem 1.75rem 2rem;
+}
+
+.timeline-card__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+}
+
+.timeline-card__description {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Mobile year shown inside card */
+@media (max-width: 767px) {
+    .timeline-card__content::before {
+        content: attr(data-year);
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: #fc964c;
+        background: rgba(252, 150, 76, 0.08);
+        border: 1px solid rgba(252, 150, 76, 0.2);
+        border-radius: 100em;
+        padding: 0.3em 0.8em;
+        margin-bottom: 0.75rem;
+    }
+
+    .timeline-card {
+        max-width: 28rem;
+    }
+}

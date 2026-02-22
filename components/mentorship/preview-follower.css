@@ -119,7 +119,11 @@
     position: fixed;
     inset: 0% auto auto 0%;
     overflow: hidden;
+    /* Pre-promote to GPU layer → eliminates first-animation repaint cost */
+    will-change: transform;
+    transform: translateZ(0);
 }
+
 
 .preview-follower__label {
     z-index: 2;

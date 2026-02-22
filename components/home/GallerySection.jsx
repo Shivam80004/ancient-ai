@@ -6,19 +6,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const images = [
-    { src: '/gellery-img/gallery-img-1.jpg', title: 'Avenue' },
-    { src: '/gellery-img/gallery-img-2.webp', title: 'Workshop' },
+    { src: '/gellery-img/gallery-img-1.jpg', title: 'Retreats' },
+    { src: '/gellery-img/gallery-img-2.webp', title: 'Workshops' },
     { src: '/gellery-img/gallery-img-3.jpg', title: 'Music' },
     { src: '/gellery-img/gallery-img-5.png', title: 'Questions' },
     { src: '/gellery-img/gallery-img-4.jpeg', title: 'Future' },
-    { src: '/gellery-img/gallery-img-6.png', title: 'Hunger' },
+    { src: '/gellery-img/gallery-img-6.png', title: 'University Talks ' },
     { src: '/gellery-img/gallery-img-7.png', title: 'Real Friendship' },
-    { src: '/gellery-img/gallery-img-8.png', title: 'Velocity' },
-    { src: '/gellery-img/gallery-img-9.jpg', title: 'Studio' },
+    { src: '/gellery-img/gallery-img-8.png', title: 'Experiences' },
+    { src: '/gellery-img/gallery-img-9.jpg', title: 'Events' },
 ];
 
 const marqueeTexts = [
-    "Tribe", "Seek", "Vibe", "Guide", "Reset", "Ask", "Tribe", "Seek", "Vibe", "Guide", "Reset", "Ask"
+    "", "Wisdom", "Depth", "Consciousness", "Love", "Trust", "Bliss", "Purpose", "Quest", "Vibes", "Harmony", "Integrity", "Spiritual"
 ];
 
 const GallerySection = () => {
@@ -105,7 +105,7 @@ const GallerySection = () => {
                         <img
                             src={img.src}
                             alt={img.title}
-                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                            className="w-full h-full object-cover md:grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
                             <h3 className="text-white text-2xl font-semibold">{img.title}</h3>
@@ -119,14 +119,14 @@ const GallerySection = () => {
     return (
         <section
             ref={sectionRef}
-            className="w-full mt-14 overflow-hidden relative bg-[#050505] flex flex-col pb-16 z-10 rounded-t-[40px] md:rounded-t-[100px] border-t border-white/10"
+            className="w-full mt-32 overflow-hidden relative bg-black flex flex-col pb-16 z-10 rounded-t-[40px] md:rounded-t-[100px] "
             style={{
                 boxShadow: '0 -20px 50px rgba(0,0,0,0.5)'
             }}
         >
-            {/* <div className="container mx-auto px-4 mb-7">
-                <h3 className="text-3xl -rotate-2 text-center md:text-5xl lg:text-6xl font-light text-white mt-6 md:mt-32">People Having Better<span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Experiences</span></h3>
-            </div> */}
+            <div className="container mx-auto px-4 mb-7">
+                <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mt-6 md:mt-32">People Having Better<span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Experiences</span></h3>
+            </div>
             {renderImageMarquee()}
             {renderTextMarquee()}
         </section>

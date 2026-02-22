@@ -12,14 +12,12 @@ const RevealText = ({ children, className = "", type = "words", delay = 0, stagg
         const ctx = gsap.context(() => {
             const elements = elRef.current.querySelectorAll('.reveal-inner');
 
-            // Initial state
             gsap.set(elements, {
-                y: "100%",
+                y: "110%",
                 opacity: 0,
                 rotate: type === "chars" ? 5 : 0
             });
 
-            // Animation
             gsap.to(elements, {
                 y: "0%",
                 opacity: 1,
@@ -39,31 +37,59 @@ const RevealText = ({ children, className = "", type = "words", delay = 0, stagg
         return () => ctx.revert();
     }, [type, stagger, delay]);
 
-    // Splitting logic
     const text = typeof children === 'string' ? children : '';
-    let content;
 
     if (type === "chars") {
-        content = text.split("").map((char, i) => (
-            <span key={i} className="inline-block overflow-hidden align-top">
-                <span className="reveal-inner inline-block" style={{ whiteSpace: "pre" }}>
+        const chars = text.split("").map((char, i) => (
+            <span
+                key={i}
+                style={{
+                    display: 'inline-block',
+                    overflow: 'hidden',
+                    verticalAlign: 'bottom',
+                    // Each character must never break — it wraps as a unit
+                    whiteSpace: 'pre',
+                }}
+            >
+                <span className="reveal-inner" style={{ display: 'inline-block' }}>
                     {char}
                 </span>
             </span>
         ));
-    } else {
-        content = text.split(" ").map((word, i) => (
-            <span key={i} className="inline-block overflow-hidden align-top mr-[0.25em]">
-                <span className="reveal-inner inline-block">
-                    {word}
-                </span>
-            </span>
-        ));
+
+        return (
+            <div ref={elRef} className={className}>
+                {chars}
+            </div>
+        );
     }
 
+    // ── Word mode ────────────────────────────────────────────────────────────
+    // Each word is an inline-block with overflow-hidden for the slide-up mask.
+    // `whiteSpace: nowrap` on the outer span guarantees the ENTIRE word moves
+    // to the next line as one unit — it can never split mid-word.
+    const words = text.split(" ").map((word, i) => (
+        <span
+            key={i}
+            style={{
+                display: 'inline-block',
+                overflow: 'hidden',
+                verticalAlign: 'bottom',
+                // This is the key fix: the word will NEVER be broken across lines.
+                // The browser wraps the whole span to the next line as a unit.
+                whiteSpace: 'nowrap',
+                marginRight: '0.3em',
+            }}
+        >
+            <span className="reveal-inner" style={{ display: 'inline-block' }}>
+                {word}
+            </span>
+        </span>
+    ));
+
     return (
-        <div ref={elRef} className={className} style={{ lineHeight: 1.2 }}>
-            {content}
+        <div ref={elRef} className={className}>
+            {words}
         </div>
     );
 };

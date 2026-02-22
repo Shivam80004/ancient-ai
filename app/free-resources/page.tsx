@@ -10,7 +10,7 @@ const RESOURCES = [
         category: "PDF Download",
         image: "/gellery-img/gallery-img-5.png",
         type: "pdf",
-        className: "md:col-span-2 md:row-span-2"
+        className: "md:col-span-2 md:row-span-1"
     },
     {
         title: "Kirtan Playlist",
@@ -50,7 +50,7 @@ const RESOURCES = [
         category: "Audio/PDF",
         image: "/gellery-img/gallery-img-6.png",
         type: "audio",
-        className: "md:col-span-2 md:row-span-1"
+        className: "md:col-span-2 md:row-span-1 h-max"
     }
 ];
 

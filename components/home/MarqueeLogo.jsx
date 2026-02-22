@@ -86,9 +86,10 @@ const MarqueeLogo = () => {
     return (
         <section className="w-full py-20 bg-black flex flex-col justify-center overflow-hidden">
 
-            <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mt-8 md:mt-20 mb-6 md:mb-12">
-                Trusted by <span className="font-semibold text-white">Leading Institutions</span>
+            <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mt-8 md:mt-20 pb-4 px-2">
+                People Supporting <span className="font-semibold text-white">Better Experiences</span>
             </h3>
+            <p className="text-center text-white/80 text-lg md:text-xl font-light tracking-wide leading-tight mb-6 md:mb-12">Appreciated by professionals across diverse leading institutions</p>
             {/* Gradient fade on edges */}
             <div className="relative w-full max-w-[1920px] mx-auto">
                 {/* Row 1 - Left */}

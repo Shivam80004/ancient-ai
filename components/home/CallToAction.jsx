@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const CallToAction = () => {
     const [hoveredCard, setHoveredCard] = useState(null);
@@ -31,13 +32,15 @@ const CallToAction = () => {
             title: "Community of",
             titleHighlight: "like-minded individuals",
             description: "Connect with a vibrant community that shares your passion for growth and spiritual awakening",
-            buttonText: "Join Community"
+            buttonText: "Join Community",
+            link: "/contact-us",
         },
         {
             title: "Weekly",
-            titleHighlight: "Seminars",
+            titleHighlight: "Masterclass",
             description: "Attend transformative sessions with experts who guide you deeper into ancient wisdom",
-            buttonText: "View Schedule"
+            buttonText: "Register Now",
+            link: "https://luma.com/v1c0ijh0",
         }
     ];
 
@@ -60,8 +63,10 @@ const CallToAction = () => {
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
                     {cards.map((card, index) => (
-                        <div
+                        <Link
                             key={index}
+                            href={card.link}
+                            {...(card.link.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                             className="cta-card relative h-[500px] md:h-[600px] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 border border-white/10"
                             onMouseEnter={(e) => handleMouseEnter(index, e)}
                             onMouseLeave={handleMouseLeave}
@@ -97,7 +102,7 @@ const CallToAction = () => {
                                 </p>
 
                                 {/* CTA Button */}
-                                <button
+                                <div
                                     className={`
                                         relative px-8 py-3 rounded-full font-medium text-base
                                         transition-all duration-300
@@ -108,7 +113,7 @@ const CallToAction = () => {
                                     `}
                                 >
                                     {card.buttonText}
-                                </button>
+                                </div>
                             </div>
 
                             {/* Decorative Elements */}
@@ -116,7 +121,7 @@ const CallToAction = () => {
                                 }`} />
                             <div className={`absolute bottom-0 left-0 w-40 h-40 bg-orange-500/5 rounded-full blur-3xl transition-opacity duration-700 ${hoveredCard === index ? 'opacity-0' : 'opacity-100'
                                 }`} />
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
