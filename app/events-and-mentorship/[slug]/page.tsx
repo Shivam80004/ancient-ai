@@ -47,7 +47,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
 
                 {/* Back button */}
                 <Link
-                    href="/mentorship"
+                    href="/events-and-mentorship"
                     className="absolute top-8 left-6 md:left-12 z-20 flex items-center gap-2 text-white/60 hover:text-white text-sm tracking-widest uppercase transition-colors duration-300 group"
                 >
                     <svg
@@ -82,7 +82,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
                                 key={label}
                                 className="flex flex-col px-5 py-3 rounded-full border border-white/15 bg-white/5 backdrop-blur-sm"
                             >
-                                <span className="text-[10px] tracking-[0.2em] uppercase text-white/40">{label}</span>
+                                <span className="text-sm tracking-[0.2em] uppercase text-white/40">{label}</span>
                                 <span className="text-sm font-medium text-white mt-0.5">{value}</span>
                             </div>
                         ))}
@@ -101,7 +101,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
                     <div>
                         {/* About */}
                         <div className="mb-16">
-                            <span className="text-[10px] tracking-[0.3em] uppercase text-orange-400 mb-4 block">About the Program</span>
+                            <span className="text-lg md:text-2xl tracking-[0.3em] uppercase text-orange-400 mb-4 block">About the Program</span>
                             <p className="text-lg md:text-xl text-white/75 font-light leading-relaxed">
                                 {program.longDescription}
                             </p>
@@ -112,7 +112,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
 
                         {/* Who is it for */}
                         <div className="mb-16">
-                            <span className="text-[10px] tracking-[0.3em] uppercase text-orange-400 mb-4 block">Who Is This For?</span>
+                            <span className="text-lg md:text-2xl tracking-[0.3em] uppercase text-orange-400 mb-4 block">Who Is This For?</span>
                             <p className="text-lg text-white/70 font-light leading-relaxed">
                                 {program.whoIsItFor}
                             </p>
@@ -123,7 +123,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
 
                         {/* Highlights */}
                         <div>
-                            <span className="text-[10px] tracking-[0.3em] uppercase text-orange-400 mb-6 block">What's Included</span>
+                            <span className="text-lg md:text-2xl tracking-[0.3em] uppercase text-orange-400 mb-6 block">What's Included</span>
                             <ul className="space-y-4">
                                 {program.highlights.map((h, i) => (
                                     <li key={i} className="flex items-start gap-4 group">
@@ -183,7 +183,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
 
                         {/* Back link below card */}
                         <Link
-                            href="/mentorship"
+                            href="/events-and-mentorship"
                             className="mt-6 flex items-center gap-2 text-white/30 hover:text-white/60 text-xs tracking-widest uppercase transition-colors duration-300 group"
                         >
                             <svg className="w-3 h-3 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +197,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
 
             {/* ── Other Programs ─────────────────────────────────────────────── */}
             <section className="border-t border-white/8 py-20 px-6 md:px-16 max-w-6xl mx-auto">
-                <span className="text-[10px] tracking-[0.3em] uppercase text-white/40 mb-10 block">Other Programs</span>
+                <span className="text-lg md:text-2xl tracking-[0.3em] uppercase text-white mb-10 block">Other Programs</span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {MENTORSHIPS.filter((m) => m.slug !== program.slug).map((m) => (
                         <Link
@@ -213,7 +213,7 @@ export default async function MentorshipProgramPage({ params }: Props) {
                                 />
                             </div>
                             <div className="p-5">
-                                <span className="text-[10px] tracking-[0.2em] uppercase text-orange-400/70">{m.category}</span>
+                                <span className="text-sm tracking-[0.2em] uppercase text-orange-400/70">{m.category}</span>
                                 <h3 className="text-lg font-light text-white mt-1 group-hover:text-orange-300 transition-colors duration-300">{m.title}</h3>
                                 <p className="text-sm text-white/40 mt-2 line-clamp-2">{m.description}</p>
                                 <span className="mt-4 inline-flex items-center gap-1.5 text-xs text-white/40 group-hover:text-orange-400 transition-colors duration-300">

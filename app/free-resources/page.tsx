@@ -6,52 +6,40 @@ import ResourceCard from '@/components/resources/ResourceCard';
 const RESOURCES = [
     {
         title: "Gita Cheat Sheet",
-        description: "Quick reference guide to the key verses and concepts of the Bhagavad Gita. Perfect for daily inspiration.",
+        description: "A crisp, visual reference to the Bhagavad Gita's most powerful verses — distilled so you can carry the wisdom anywhere.",
         category: "PDF Download",
         image: "/gellery-img/gallery-img-5.png",
         type: "pdf",
+        link: "#",
         className: "md:col-span-2 md:row-span-1"
     },
     {
         title: "Kirtan Playlist",
-        description: "Curated selection of soul-stirring kirtans to uplift your consciousness.",
+        description: "Carefully curated soul-stirring kirtans from HKM Mumbai — perfect for meditation, morning sadhana, or anytime you need to reset.",
         category: "Audio",
         image: "/gellery-img/gallery-img-3.jpg",
         type: "audio",
-        className: "md:col-span-1 md:row-span-1"
+        link: "https://www.youtube.com/@HKMMumbai",
+        className: "md:col-span-2 md:row-span-1"
     },
     {
-        title: "Introduction to Vedanta eBook",
-        description: "A comprehensive starter guide to Vedic philosophy.",
-        category: "eBook",
+        title: "Bhagavad Gita PDF",
+        description: "The complete Bhagavad Gita As It Is by Srila Prabhupada — free to read, study, and share. The most translated spiritual text in history.",
+        category: "PDF Download",
         image: "/images/1-gita.png",
-        type: "ebook",
-        className: "md:col-span-1 md:row-span-1"
+        type: "pdf",
+        link: "https://www.vedabase.com/en/bg",
+        className: "md:col-span-2 md:row-span-1"
     },
     {
-        title: "Meditation Timer & Guide",
-        description: "Tools to help you start your daily meditation practice with guided sessions and ambient sounds.",
-        category: "Tool",
-        image: "/gellery-img/gallery-img-8.png",
-        type: "tool",
-        className: "md:col-span-1 md:row-span-1"
-    },
-    {
-        title: "Ayurveda Basics Workshop",
-        description: "Learn the fundamentals of Ayurveda for balanced living and holistic health.",
-        category: "Video Course",
+        title: "Mini Documentary Series",
+        description: "Short, impactful films on Vedic philosophy, monk life, and spiritual transformation — produced by HKM Mumbai.",
+        category: "Video Series",
         image: "/gellery-img/gallery-img-2.webp",
         type: "video",
-        className: "md:col-span-1 md:row-span-1"
+        link: "https://www.youtube.com/@HKMMumbai",
+        className: "md:col-span-2 md:row-span-1"
     },
-    {
-        title: "Sanskrit Pronunciation Guide",
-        description: "Master the sounds of the sacred language with this easy-to-follow audio guide.",
-        category: "Audio/PDF",
-        image: "/gellery-img/gallery-img-6.png",
-        type: "audio",
-        className: "md:col-span-2 md:row-span-1 h-max"
-    }
 ];
 
 export default function FreeResourcesPage() {
@@ -83,6 +71,7 @@ export default function FreeResourcesPage() {
                                     description={item.description}
                                     category={item.category}
                                     image={item.image}
+                                    link={item.link}
                                     type={item.type as any}
                                 />
                             </div>

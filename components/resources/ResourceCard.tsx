@@ -54,6 +54,8 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ title, description, categor
     return (
         <a
             href={link}
+            target={link !== '#' ? '_blank' : undefined}
+            rel={link !== '#' ? 'noopener noreferrer' : undefined}
             className="block group w-full"
         >
             <div ref={cardRef} className="h-[430px] relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 flex flex-col hover:border-white/20 transition-colors duration-500 shadow-xl">

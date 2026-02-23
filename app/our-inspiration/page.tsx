@@ -17,7 +17,7 @@ export default function InspirationPage() {
                 <div className="absolute inset-0 left-1/2 transform -translate-x-[10%] z-10 flex items-center justify-center">
                     <RevealText
                         type="chars"
-                        className="text-5xl md:text-[6rem] font-bold text-white tracking-tight text-center px-4"
+                        className="text-5xl md:text-[5rem] font-medium text-white tracking-tight text-center px-4"
                         stagger={0.03}
                     >
                         Our Inspiration

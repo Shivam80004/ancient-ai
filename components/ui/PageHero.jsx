@@ -14,7 +14,7 @@ const PageHero = ({ title, subtitle, image }) => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+            <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
                 <div className="overflow-hidden mb-3">
                     <RevealText
                         type="chars"
