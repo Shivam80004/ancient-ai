@@ -9,7 +9,7 @@ import Image from 'next/image';
 gsap.registerPlugin(ScrollTrigger, Flip);
 
 const ScalingVideoSection = ({
-    videoSrc = "/videos/empty.mp4",
+    videoSrc = "/videos/empty.webm",
     eyebrowText = "[ Why ANCIENT AI? ]",
     headerTitle = "Everything Works. Yet, Something’s Missing ?",
     secondaryTitle = "This is where AncientAI matters To Reclaim Your Life. But with few Upgrades (No credit cards required!)",
