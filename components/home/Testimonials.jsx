@@ -229,7 +229,7 @@ const Testimonials = () => {
                     {/* Persona Badge - Floating Bottom Element */}
                     {/* Stat Card Widget - Floating Bottom */}
                     <div
-                        className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 rounded-2xl overflow-hidden"
+                        className="absolute top-4 right-4 md:top-[80%] md:right-6 z-20 rounded-2xl overflow-hidden transform -translate-y-1/2 md:-translate-y-0"
                         style={{
                             background: 'rgba(0, 0, 0, 0.45)',
                             backdropFilter: 'blur(24px) saturate(180%)',
@@ -255,7 +255,7 @@ const Testimonials = () => {
                             }}
                         />
 
-                        <div className="relative z-10 px-7 md:px-9 py-5 md:py-6 min-w-[220px] md:min-w-[280px]">
+                        <div className="relative z-10 px-3 md:px-9 py-4 md:py-6 min-w-[150px] md:min-w-[280px]">
                             {/* Top Label Row */}
                             <div className="flex items-center gap-2.5 mb-3">
                                 {/* Bar chart icon */}
@@ -265,7 +265,7 @@ const Testimonials = () => {
                                     <div className="w-[3px] h-full rounded-full bg-orange-500" />
                                 </div>
 
-                                <span className="text-sm md:text-base font-semibold tracking-tight">
+                                <span className="text-xs md:text-base font-semibold tracking-tight">
                                     {testimonials[currentIndex].statLabel}
                                 </span>
 
@@ -286,14 +286,14 @@ const Testimonials = () => {
                             </div>
 
                             {/* Big Stat Value */}
-                            <div className="text-4xl md:text-5xl font-bold text-accent-warm tracking-tight leading-none mb-2"
+                            <div className="text-xl md:text-5xl font-bold text-accent-warm tracking-tight leading-none mb-2"
                                 style={{ fontFamily: 'var(--font-geist-sans), system-ui, sans-serif' }}
                             >
                                 {testimonials[currentIndex].statValue}
                             </div>
 
                             {/* Change indicator */}
-                            <p className="text-xs md:text-sm text-white/50 font-medium">
+                            <p className="text-xs md:block hidden md:text-sm text-white/50 font-medium">
                                 <span className="text-green-400 font-semibold">↑ </span>
                                 {testimonials[currentIndex].statChange}
                             </p>

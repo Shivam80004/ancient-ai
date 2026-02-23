@@ -79,7 +79,7 @@ const Navbar = () => {
                         <img
                             src="/logo-plain.png"
                             alt="Logo"
-                            className="h-14 w-auto opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                            className="h-14 w-auto opacity-100 transition-opacity duration-300"
                         />
                     </Link>
 
@@ -128,7 +128,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
                         <img
-                            src="/logo.svg"
+                            src="/logo-plain.png"
                             alt="Logo"
                             className="h-8 w-auto brightness-0 invert opacity-90"
                         />

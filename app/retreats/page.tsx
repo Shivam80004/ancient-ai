@@ -34,7 +34,7 @@ export default function TripsPage() {
                 </div>
 
                 {/* Subtitle — centered below the title */}
-                <div className="absolute mix-blend-difference top-1/2 left-0 right-0 z-20 flex items-center justify-center px-4">
+                <div className="absolute mix-blend-difference md:top-1/2 top-[45%] left-0 right-0 z-20 flex items-center justify-center px-4">
                     <RevealText
                         type="words"
                         className="text-xl md:text-2xl text-white/80 font-light leading-relaxed text-center max-w-xl"

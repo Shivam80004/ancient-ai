@@ -16,7 +16,7 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
 
                 {/* Content */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center px-4 max-w-4xl mx-auto">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center px-4 w-full">
                     <div className="overflow-hidden mb-3">
                         <RevealText
                             type="chars"
@@ -27,7 +27,7 @@ export default function ContactPage() {
                         </RevealText>
                     </div>
 
-                    <div className="max-w-xl mx-auto">
+                    <div className="mx-auto">
                         <RevealText
                             type="words"
                             className="text-xl md:text-2xl text-white/80 font-light leading-relaxed"
@@ -42,7 +42,7 @@ export default function ContactPage() {
 
             </div>
 
-            <section className="py-20 px-4 md:px-8 max-w-2xl mx-auto">
+            <section className="py-0 px-4 md:px-8 max-w-2xl mx-auto">
                 <form className="space-y-6 bg-white/5 p-8 md:p-12 rounded-3xl border border-accent-warm/30 backdrop-blur-sm">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">

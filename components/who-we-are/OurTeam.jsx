@@ -8,29 +8,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TEAM_MEMBERS = [
     {
-        name: "Anuttam Haridas",
-        role: "Chief Monk Officer (CMO)",
+        name: "Anuttam Hari Das",
+        role: "Co-Founder and Chief Monk Officer (CMO)",
         desc: "Works on the hardest problem of all — the human mind",
         image: "/images/team-1.png"
     },
     {
         name: "Roshan Saw",
-        role: "Visual Sense Architect",
-        subRole: "(formerly known as “Graphic Designer”)",
+        role: "Co-Founder and COO",
         desc: "Turns depth into form — without diluting meaning.",
         image: "/images/team-3.png"
     },
     {
         name: "Shivam Gupta",
-        role: "Attention Architect",
+        role: "Co-Founder and CTO",
         desc: "Designs digital spaces that slow you down.",
-        image: "/images/team-2.png"
-    },
-    {
-        name: "Shivam Gupta",
-        role: "Language & Sensemaker",
-        subRole: "(Content Creator)",
-        desc: "Finds words for things people feel but can’t explain.",
         image: "/images/team-2.png"
     }
 ];

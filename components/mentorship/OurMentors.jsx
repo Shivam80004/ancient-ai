@@ -8,22 +8,46 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MENTORS = [
     {
-        name: "Anuttam Haridas",
-        role: "Chief Monk Officer",
-        desc: "Works on the hardest problem of all — the human mind. A guide through ancient Vedic wisdom.",
-        image: "/images/team-1.png",
+        name: "Ashesh Govind Dasa",
+        role: "Chief Monk Mentor",
+        desc: "Guide through ancient Vedic wisdom",
+        image: "/images/mentors/mentor-1.png",
+        link: "https://taponn.me/AsheshAAI",
     },
     {
-        name: "Roshan Saw",
-        role: "Spiritual Architect",
-        desc: "Turns depth into form — without diluting meaning. Bridges art and ancient philosophy.",
-        image: "/images/team-3.png",
+        name: "Shubham Mahawar",
+        role: "Chief Mentor",
+        desc: "Learns from the best and teaches the best",
+        image: "/images/mentors/mentor-2.jpeg",
+        link: "https://taponn.me/ShubhamAAI",
     },
     {
-        name: "Shivam Gupta",
-        role: "Attention Architect",
-        desc: "Designs digital spaces that slow you down and bring you back to what truly matters.",
-        image: "/images/team-2.png",
+        name: "Gourav Gupta",
+        role: "Chief Mentor",
+        desc: "Experienced in ancient Vedic wisdom",
+        image: "/images/mentors/mentor-3.jpeg",
+        link: "https://taponn.me/GauravAAI",
+    },
+    {
+        name: "Mukunda Javanjal",
+        role: "Chief Mentor",
+        desc: "Highly experienced in ancient Vedic wisdom",
+        image: "/images/mentors/mentor-4.jpeg",
+        link: "https://taponn.me/MukundAAI",
+    },
+    {
+        name: "Ujjwal V Chavan",
+        role: "Chief Mentor",
+        desc: "Highly experienced in ancient Vedic wisdom",
+        image: "/images/mentors/mentor-5.jpeg",
+        link: "https://taponn.me/UjjwalAAI",
+    },
+    {
+        name: "Vedant Zodgekar",
+        role: "Chief Mentor",
+        desc: "Highly experienced in Vedic wisdom",
+        image: "/images/mentors/mentor-6.jpeg",
+        link: "https://taponn.me/VedantAAI",
     },
 ];
 
@@ -56,7 +80,13 @@ const MentorCard = ({ mentor, index }) => {
 
     return (
         <div ref={cardRef} className="h-[70vh] w-full flex items-center justify-center">
-            <div className="relative h-full w-full overflow-hidden rounded-2xl group">
+            <a
+                href={mentor.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative h-full w-full overflow-hidden rounded-2xl group block cursor-pointer"
+                aria-label={`View ${mentor.name}'s profile`}
+            >
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <Image
@@ -71,7 +101,7 @@ const MentorCard = ({ mentor, index }) => {
                 {/* Content Overlay */}
                 <div
                     ref={contentRef}
-                    className="absolute inset-0 flex text-center flex-col justify-end p-8 z-10"
+                    className="absolute inset-0 flex text-center flex-col justify-end md:p-8 p-4 z-10"
                 >
                     <div className="space-y-2">
                         <div>
@@ -84,12 +114,20 @@ const MentorCard = ({ mentor, index }) => {
                                 </p>
                             </div>
                         </div>
-                        <p className="text-sm text-white/70 leading-relaxed font-light pt-1 border-t border-white/10">
+                        {/* <p className="text-sm text-white/70 leading-relaxed font-light pt-1 border-t border-white/10">
                             {mentor.desc}
-                        </p>
+                        </p> */}
+
+                        {/* View Profile CTA */}
+                        <div className="pt-3 flex items-center justify-center gap-2 opacity-100 md:opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span className="text-sm font-semibold tracking-widest uppercase bg-gradient-to-b from-accent-warm to-accent-warm/60 px-2 py-2 rounded-lg text-white">
+                                Connect Mentor
+                            </span>
+                            {/* <span className="text-orange-400 text-sm">→</span> */}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     );
 };

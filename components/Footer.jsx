@@ -19,34 +19,37 @@ const Footer = () => {
             title: "SITEMAP",
             links: [
                 { name: "Home", href: "/" },
-                { name: "Experience", href: "/#experience" },
-                { name: "The Illusion", href: "/#the-illusion" },
-                { name: "About Us", href: "/about" }
+                { name: "Who We Are", href: "/about" },
+                { name: "Events & Mentorship", href: "/events-and-mentorship" },
+                { name: "Courses", href: "/courses" },
+                { name: "Free Resources", href: "/free-resources" },
+                { name: "Retreats", href: "/retreats" },
+                { name: "Our Inspiration", href: "/our-inspiration" },
+                { name: "Contact Us", href: "/contact-us" },
             ]
         },
-        {
-            title: "SOCIALS",
-            links: [
-                { name: "Twitter", href: "#" },
-                { name: "LinkedIn", href: "#" },
-                { name: "Instagram", href: "#" },
-                { name: "GitHub", href: "#" }
-            ]
-        },
+        // {
+        //     title: "SOCIALS",
+        //     links: [
+        //         { name: "Twitter", href: "#" },
+        //         { name: "LinkedIn", href: "#" },
+        //         { name: "Instagram", href: "#" },
+        //         { name: "YouTube", href: "#" },
+        //     ]
+        // },
         {
             title: "LEGAL",
             links: [
-                { name: "Privacy Policy", href: "#" },
-                { name: "Terms of Service", href: "#" },
-                { name: "Cookie Policy", href: "#" }
+                { name: "Privacy Policy", href: "/privacy-policy" },
+                { name: "Terms of Service", href: "/terms-of-service" },
+                { name: "Cookie Policy", href: "/cookie-policy" },
             ]
         },
         {
             title: "CONTACT",
             links: [
-                { name: "hello@ancient.ai", href: "mailto:hello@ancient.ai" },
-                { name: "Support", href: "#" },
-                { name: "Join the Team", href: "#" }
+                { name: "support@ancient.ai", href: "mailto:support@ancient.ai" },
+                { name: "Join the Team", href: "/contact-us" },
             ]
         }
     ];
@@ -129,7 +132,7 @@ const Footer = () => {
         <footer ref={footerRef} className="relative bg-[#0a0a0a] text-white pt-32 pb-10 overflow-hidden border-t border-white/5">
             <div className="container max-w-7xl mx-auto px-6 relative z-10">
                 {/* Links Grid */}
-                <div ref={linksRef} className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-20 mb-32">
+                <div ref={linksRef} className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-20 mb-32">
                     {footerLinks.map((section, idx) => (
                         <div key={idx} className="footer-column flex flex-col gap-6">
                             <h4 className="text-xs font-bold tracking-widest text-white/40 uppercase">
@@ -174,12 +177,13 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="relative z-30 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] md:text-xs text-white/30 uppercase tracking-[0.2em]">
-                    <p>© 2025 Ancient AI. All rights reserved.</p>
-                    <div className="flex gap-8">
+                    <p>© 2026 Ancient AI. All rights reserved.</p>
+                    {/* Social links — coming soon */}
+                    {/* <div className="flex gap-8">
                         <a href="#" className="hover:text-white transition-colors">Twitter</a>
                         <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
                         <a href="#" className="hover:text-white transition-colors">GitHub</a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

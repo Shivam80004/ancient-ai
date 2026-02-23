@@ -46,7 +46,7 @@ const GallerySection = () => {
                 return tl;
             };
 
-            const tl1 = setupMarquee(textRowRef.current, 20, 1);
+            const tl1 = setupMarquee(textRowRef.current, 5, 1);
             const tl2 = setupMarquee(imageRowRef.current, 35, -1);
 
             // Subtle parallax for the section
@@ -119,7 +119,7 @@ const GallerySection = () => {
     return (
         <section
             ref={sectionRef}
-            className="w-full mt-32 overflow-hidden relative bg-black flex flex-col pb-16 z-10 rounded-t-[40px] md:rounded-t-[100px] "
+            className="w-full md:mt-32 mt-20 overflow-hidden relative bg-black flex flex-col pb-16 z-10 rounded-t-[40px] md:rounded-t-[100px] "
             style={{
                 boxShadow: '0 -20px 50px rgba(0,0,0,0.5)'
             }}

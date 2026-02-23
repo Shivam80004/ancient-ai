@@ -22,17 +22,20 @@ const ScalingVideoSection = ({
     const header2Ref = useRef(null);
     const mainContainerRef = useRef(null);
     const marqueeSectionRef = useRef(null);
+    const mobileVideoRef = useRef(null);
     const [showTooltip, setShowTooltip] = React.useState(false);
 
     React.useLayoutEffect(() => {
         const ctx = gsap.context(() => {
+            const isMobile = window.innerWidth < 768;
             const wrapperElements = wrapperRefs.current.filter(Boolean);
             const targetEl = targetRef.current;
 
-            if (!wrapperElements.length || !targetEl) return;
-
-            // 1. Flip Timeline (Scaling Video)
+            // 1. Flip Timeline (Scaling Video) — desktop only
             const createFlipTimeline = () => {
+                if (isMobile) return; // skip on mobile
+                if (!wrapperElements.length || !targetEl) return;
+
                 if (timelineRef.current) {
                     timelineRef.current.kill();
                     gsap.set(targetEl, { clearProps: "all" });
@@ -61,6 +64,25 @@ const ScalingVideoSection = ({
                     }
                 });
             };
+
+            // 1b. Mobile fade-in for full-width video
+            if (isMobile && mobileVideoRef.current) {
+                gsap.fromTo(
+                    mobileVideoRef.current,
+                    { opacity: 0, y: 30 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: mobileVideoRef.current,
+                            start: "top 85%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                );
+            }
 
             createFlipTimeline();
 
@@ -170,7 +192,7 @@ const ScalingVideoSection = ({
         <div className="scaling-video-wrapper">
             <div ref={mainContainerRef} className="relative overflow-hidden bg-black">
                 {/* Header Section */}
-                <section className="relative flex min-h-screen flex-col items-center justify-center gap-12 px-[5vw] pb-[20vh] pt-[9vh]">
+                <section className="relative flex md:min-h-screen flex-col md:items-center md:justify-center gap-12 px-[5vw] md:pb-[20vh] pb-10 pt-[9vh]">
                     {/* Eyebrow */}
                     {/* <span className="text-xl font-normal uppercase text-white/60">
                         {eyebrowText}
@@ -191,8 +213,25 @@ const ScalingVideoSection = ({
                         </p>
                     </div>
 
-                    {/* Small Box Container */}
-                    <div className="relative w-80 rounded-2xl max-md:w-60">
+                    {/* Mobile-only: Full-Width Fade-In Video */}
+                    <div
+                        ref={mobileVideoRef}
+                        className="md:hidden relative w-full rounded-2xl overflow-hidden opacity-0"
+                        style={{ aspectRatio: '16/9' }}
+                    >
+                        <video
+                            autoPlay
+                            muted
+                            playsInline
+                            loop
+                            className="absolute inset-0 h-full w-full object-cover"
+                        >
+                            <source src={videoSrc} type="video/mp4" />
+                        </video>
+                    </div>
+
+                    {/* Desktop-only: Small Box Container (Flip animation target) */}
+                    <div className="hidden md:block relative w-80 rounded-2xl">
                         {/* Aspect Ratio Spacer (16:9) */}
                         <div className="pt-[56.25%]" />
 
@@ -224,7 +263,7 @@ const ScalingVideoSection = ({
                 {/* Video Section */}
                 <section className="relative flex flex-col items-center justify-center gap-[25vh] px-[5vw] pb-12 md:pb-[25vh]">
                     {/* Big Box Container */}
-                    <div className="relative w-full rounded-2xl">
+                    <div className="relative w-full rounded-2xl md:block hidden">
                         {/* Aspect Ratio Spacer (16:9) */}
                         <div className="pt-[56.25%]" />
 
