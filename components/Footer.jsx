@@ -9,8 +9,8 @@ if (typeof window !== 'undefined') {
 }
 
 const Footer = () => {
-    const footerRef = useRef(null);
-    const logoRef = useRef(null);
+    // const footerRef = useRef(null);
+    // const logoRef = useRef(null);
 
     const footerLinks = [
         {
@@ -52,42 +52,42 @@ const Footer = () => {
         }
     ];
 
-    React.useLayoutEffect(() => {
-        if (!footerRef.current) return;
+    // React.useLayoutEffect(() => {
+    //     if (!footerRef.current) return;
 
-        const ctx = gsap.context(() => {
-            // Create a master timeline with a single ScrollTrigger
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: footerRef.current,
-                    start: "top 0%",
-                    end: "top 20%",
-                    toggleActions: "play none none reverse",
-                }
-            });
+    //     const ctx = gsap.context(() => {
+    //         // Create a master timeline with a single ScrollTrigger
+    //         const tl = gsap.timeline({
+    //             scrollTrigger: {
+    //                 trigger: footerRef.current,
+    //                 start: "top 0%",
+    //                 end: "top 20%",
+    //                 toggleActions: "play none none reverse",
+    //             }
+    //         });
 
-            // Logo Reveal - Fade up
-            if (logoRef.current) {
-                tl.fromTo(logoRef.current,
-                    {
-                        y: 100,
-                        opacity: 0,
-                    },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.5,
-                        ease: "power3.out",
-                    }
-                );
-            }
-        }, footerRef);
+    //         // Logo Reveal - Fade up
+    //         if (logoRef.current) {
+    //             tl.fromTo(logoRef.current,
+    //                 {
+    //                     y: 100,
+    //                     opacity: 0,
+    //                 },
+    //                 {
+    //                     y: 0,
+    //                     opacity: 1,
+    //                     duration: 1.5,
+    //                     ease: "power3.out",
+    //                 }
+    //             );
+    //         }
+    //     }, footerRef);
 
-        return () => ctx.revert();
-    }, []);
+    //     return () => ctx.revert();
+    // }, []);
 
     return (
-        <footer ref={footerRef} className="relative bg-[#0a0a0a] text-white pt-32 pb-10 overflow-hidden border-t border-white/5">
+        <footer className="relative bg-[#0a0a0a] text-white pt-32 pb-10 overflow-hidden border-t border-white/5">
             <div className="container max-w-7xl mx-auto px-6 relative z-10">
                 {/* Links Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-20 mb-32">
@@ -114,7 +114,7 @@ const Footer = () => {
 
                 {/* Big Logo */}
                 <div className="relative mt-20 flex flex-col items-center">
-                    <div ref={logoRef} className="relative z-10 w-full max-w-6xl mx-auto overflow-hidden">
+                    <div className="relative z-10 w-full max-w-6xl mx-auto overflow-hidden">
                         <img
                             src="/logo.svg"
                             alt="Ancient AI Logo"
