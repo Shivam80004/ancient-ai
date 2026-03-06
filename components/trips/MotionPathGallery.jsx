@@ -186,7 +186,7 @@ const MotionPathGallery = ({ items = DEFAULT_ITEMS, title = 'RETREATS' }) => {
                         <div className="motionpath-content-list">
                             {items.map((item, index) => (
                                 <Link
-                                    href={`/trips/${item.slug}`}
+                                    href={`/retreats/${item.slug}`}
                                     data-motionpath="item"
                                     className="motionpath-content-item"
                                     key={index}

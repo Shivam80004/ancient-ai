@@ -11,8 +11,6 @@ if (typeof window !== 'undefined') {
 const Footer = () => {
     const footerRef = useRef(null);
     const logoRef = useRef(null);
-    const glowRef = useRef(null);
-    const linksRef = useRef(null);
 
     const footerLinks = [
         {
@@ -62,33 +60,13 @@ const Footer = () => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: footerRef.current,
-                    start: "top 80%",
+                    start: "top 0%",
                     end: "top 20%",
                     toggleActions: "play none none reverse",
-                    // markers: true, // Uncomment for debugging
                 }
             });
 
-            // Links Stagger - Happens first
-            const links = linksRef.current?.querySelectorAll('.footer-column');
-            if (links && links.length > 0) {
-                tl.fromTo(links,
-                    {
-                        y: 30,
-                        opacity: 0
-                    },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        stagger: 0.1,
-                        duration: 1.2,
-                        ease: "power3.out",
-                    },
-                    0 // Start at the beginning of timeline
-                );
-            }
-
-            // Logo Reveal - Happens slightly after
+            // Logo Reveal - Fade up
             if (logoRef.current) {
                 tl.fromTo(logoRef.current,
                     {
@@ -100,27 +78,7 @@ const Footer = () => {
                         opacity: 1,
                         duration: 1.5,
                         ease: "power3.out",
-                    },
-                    0.3 // Start 0.3s into the timeline
-                );
-            }
-
-            // Sunrise Glow Animation - Happens with logo
-            if (glowRef.current) {
-                tl.fromTo(glowRef.current,
-                    {
-                        y: 50,
-                        opacity: 0,
-                        scale: 0.8
-                    },
-                    {
-                        y: 0,
-                        opacity: 0.6,
-                        scale: 1,
-                        duration: 1.8,
-                        ease: "power4.out",
-                    },
-                    0.3 // Start with the logo
+                    }
                 );
             }
         }, footerRef);
@@ -132,7 +90,7 @@ const Footer = () => {
         <footer ref={footerRef} className="relative bg-[#0a0a0a] text-white pt-32 pb-10 overflow-hidden border-t border-white/5">
             <div className="container max-w-7xl mx-auto px-6 relative z-10">
                 {/* Links Grid */}
-                <div ref={linksRef} className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-20 mb-32">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-20 mb-32">
                     {footerLinks.map((section, idx) => (
                         <div key={idx} className="footer-column flex flex-col gap-6">
                             <h4 className="text-xs font-bold tracking-widest text-white/40 uppercase">
@@ -154,7 +112,7 @@ const Footer = () => {
                     ))}
                 </div>
 
-                {/* Big Logo with Sun Rise Effect */}
+                {/* Big Logo */}
                 <div className="relative mt-20 flex flex-col items-center">
                     <div ref={logoRef} className="relative z-10 w-full max-w-6xl mx-auto overflow-hidden">
                         <img
@@ -163,9 +121,8 @@ const Footer = () => {
                             className="footer-logo w-full h-auto object-contain"
                         />
                     </div>
-
                     {/* Sunrise Glow - Half Curve Sun */}
-                    <div ref={glowRef} className="absolute z-0! top-[10px] w-screen aspect-square pointer-events-none">
+                    <div className="absolute z-0! top-[10px] w-screen aspect-square pointer-events-none">
                         <div className="absolute inset-0 blur-[100px] rounded-full opacity-60"
                             style={{
                                 backgroundImage: 'linear-gradient(261.26deg, #ff6a00 -11.86%, #fc964c -5.96%, #fc964c 5.45%, #f62003 30.99%, #ff6a00 62.85%, #f62003 101.39%, #fd7c34 103.82%)'
@@ -173,6 +130,7 @@ const Footer = () => {
                         ></div>
                         <div className="absolute top-0 left-1/2 opacity-10 -translate-x-1/2 w-full h-full rounded-full border-b-4 border-[#ff6a00] shadow-[0_-20px_80px_rgba(255,114,13,0.5)]"></div>
                     </div>
+
                 </div>
 
                 {/* Bottom Bar */}

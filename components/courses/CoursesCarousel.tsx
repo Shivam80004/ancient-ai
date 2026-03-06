@@ -199,7 +199,7 @@ const CoursesCarousel: React.FC<CoursesCarouselProps> = ({ courses }) => {
 
             <div
                 ref={wheelRef}
-                className="relative w-[300px] h-[450px] md:w-[400px] md:h-[350px] transform-style-3d"
+                className="relative w-[300px] h-[450px] md:w-[400px] md:h-[300px] transform-style-3d"
             >
                 {courses.map((course, i) => (
                     <div

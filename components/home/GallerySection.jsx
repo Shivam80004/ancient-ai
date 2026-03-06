@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitText from '../ui/SplitText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +19,7 @@ const images = [
 ];
 
 const marqueeTexts = [
-    "", "Wisdom", "Depth", "Consciousness", "Love", "Trust", "Bliss", "Purpose", "Quest", "Vibes", "Harmony", "Integrity", "Spiritual"
+    "Wisdom", "Depth", "Consciousness", "Love", "Trust", "Bliss", "Purpose", "Quest", "Vibes", "Harmony", "Integrity", "Spiritual"
 ];
 
 const GallerySection = () => {
@@ -46,7 +47,7 @@ const GallerySection = () => {
                 return tl;
             };
 
-            const tl1 = setupMarquee(textRowRef.current, 5, 1);
+            const tl1 = setupMarquee(textRowRef.current, 65, 1);
             const tl2 = setupMarquee(imageRowRef.current, 35, -1);
 
             // Subtle parallax for the section
@@ -68,12 +69,12 @@ const GallerySection = () => {
     }, []);
 
     const renderTextMarquee = () => (
-        <div className="py-4 md:py-8 scale-105 overflow-hidden border-y- border-black/10"
+        <div className="py-4 md:py-8 scale-105 overflow-hidden border-black/10"
             style={{
                 background: 'radial-gradient(50% 60% at 50% 100%, #fb1e01 0%, transparent 100%)'
             }}
         >
-            <div ref={textRowRef} className="flex whitespace-nowrap gap-8 md:gap-16">
+            <div ref={textRowRef} className="flex w-max whitespace-nowrap gap-8 md:gap-16">
                 {[...marqueeTexts, ...marqueeTexts].map((text, idx) => (
                     <span
                         key={idx}
@@ -92,7 +93,7 @@ const GallerySection = () => {
 
     const renderImageMarquee = () => (
         <div className="flex relative whitespace-nowrap overflow-hidden pt-8">
-            <div ref={imageRowRef} className="flex gap-4 md:gap-8 px-2 md:px-4">
+            <div ref={imageRowRef} className="flex w-max gap-4 md:gap-8 px-2 md:px-4">
                 {[...images, ...images].map((img, idx) => (
                     <div
                         key={idx}
@@ -124,8 +125,14 @@ const GallerySection = () => {
                 boxShadow: '0 -20px 50px rgba(0,0,0,0.5)'
             }}
         >
-            <div className="container mx-auto px-4 mb-7">
-                <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mt-6 md:mt-32">People Having Better<span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Experiences</span></h3>
+            <div className="container mx-auto px-4 mb-7 flex justify-center mt-6 md:mt-32">
+                <SplitText
+                    text="People Having Better "
+                    highlightText="Experiences"
+                    className="text-3xl text-center md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4"
+                    highlightClassName="font-semibold text-white ml-2"
+                    duration={1}
+                />
             </div>
             {renderImageMarquee()}
             {renderTextMarquee()}

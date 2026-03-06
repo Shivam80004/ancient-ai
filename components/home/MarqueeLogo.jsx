@@ -2,6 +2,8 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
+import SplitText from '../ui/SplitText';
+import RevealText from '../animation/RevealText';
 
 const logosRow1 = [
     { name: "Accenture", src: "/logos/Accenture.svg.png" },
@@ -86,10 +88,23 @@ const MarqueeLogo = () => {
     return (
         <section className="w-full py-20 bg-black flex flex-col justify-center overflow-hidden">
 
-            <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mt-8 md:mt-20 pb-4 px-2">
-                People Supporting <span className="font-semibold text-white">Better Experiences</span>
-            </h3>
-            <p className="text-center text-white/80 text-lg md:text-xl font-light tracking-wide leading-tight mb-6 md:mb-12">Appreciated by professionals across diverse leading institutions</p>
+            <SplitText
+                text="People Supporting Better"
+                className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mt-8 md:mt-20 pb-4 px-2"
+                highlightText="Experiences"
+                highlightClassName="font-semibold text-white ml-2"
+                duration={1}
+            />
+            {/* <SplitText
+                text="Appreciated by professionals across diverse leading institutions"
+                className="text-center text-white/80 text-lg md:text-xl font-light tracking-wide leading-tight mb-6 md:mb-12"
+                highlightText=""
+                highlightClassName=""
+                duration={0.1}
+                y={2}
+                delay={0.2}
+            /> */}
+            <RevealText y='30' delay={0.2} className='text-center text-white/80 text-lg md:text-xl font-light tracking-wide leading-tight mb-6 md:mb-12'>Appreciated by professionals across diverse leading institutions</RevealText>
             {/* Gradient fade on edges */}
             <div className="relative w-full max-w-[1920px] mx-auto">
                 {/* Row 1 - Left */}

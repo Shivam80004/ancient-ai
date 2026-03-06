@@ -285,7 +285,7 @@ const ScalingVideoSection = ({
                             onMouseLeave={() => setShowTooltip(false)}
                         >
                             <div className='relative md:h-22 h-12 w-auto transform -translate-y-4 md:-translate-y-3'>
-                                <Image src="/logo-plain.png" alt="Logo" width={200} height={200} className='h-full w-auto ' />
+                                <Image src="/logo-plain.png" alt="Logo" width={200} height={200} className='h-full w-auto' style={{ width: 'auto' }} />
                             </div>
 
                             {/* Tooltip Dialog */}
@@ -295,7 +295,7 @@ const ScalingVideoSection = ({
                                 <div className='h-auto w-30 display-block -rotate-30'>
                                     <svg viewBox="-2 0 36 12" xmlns="http://www.w3.org/2000/svg">
                                         <path
-                                            d="M0 6 C0 14 10 -2 14 6 C18 14 28 -2 32 6 L28 "
+                                            d="M0 6 C0 14 10 -2 14 6 C18 14 28 -2 32 6"
                                             fill="none"
                                             stroke="#dadada"
                                             strokeWidth="2"

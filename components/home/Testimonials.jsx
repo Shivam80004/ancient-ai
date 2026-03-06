@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
+import SplitText from '../ui/SplitText';
 
 const Testimonials = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,44 +25,44 @@ const Testimonials = () => {
         //     statStatus: "Excellent",
         // },
         {
-            quote: "Working with this platform has transformed my approach to life. The blend of ancient wisdom and modern technology is truly revolutionary — I feel more grounded every day.",
+            quote: "I had the privilege of working with the mentors of Ancient AI for nearly six months, They were always available to clear my doubts, pull me out of hopeless phases and equip me with real knowledge to face real-world challenges.",
             author: "Ashtesh Kumar",
             company: "Co-Founder & CTO, Manastu Space, IIT Bombay",
             image: "/images/testimonial/testimonial-person-2.png",
-            statLabel: "Life Purpose",
-            statValue: "3mo",
-            statChange: "Found direction in 3 months",
+            statLabel: "Mentorship Impact",
+            statValue: "6mo",
+            statChange: "Real-world confidence gained",
             statStatus: "Great",
         },
         {
-            quote: "The depth of knowledge and spiritual insight provided through this platform has been life-changing. I've discovered a level of self-awareness I never knew existed.",
-            author: "Raj Kumar",
-            company: "Wellness Coach, Delhi",
+            quote: "I fondly remember Braj Ras 2026 (the Vrindavan retreat), never have I ever been on such a soulful trip, all the arrangements including the travel, accommodation and local travels were taken care of so well.",
+            author: "Tejas Sonar",
+            company: "Associate Executive, AMD",
             image: "/images/testimonial/testimonial-person-3.png",
-            statLabel: "Meditation Streak",
-            statValue: "90%",
-            statChange: "+90% consistency improvement",
+            statLabel: "Retreat Experience",
+            statValue: "100%",
+            statChange: "Perfect arrangement satisfaction",
             statStatus: "Excellent",
         },
         {
             quote: "An exceptional platform that bridges the gap between traditional wisdom and contemporary needs. My stress levels dropped dramatically and my relationships improved.",
-            author: "Emily Rodriguez",
-            company: "Mindful Living, USA",
+            author: "Smeet Chavan",
+            company: "Application Developer, Deloitte USI",
             image: "/images/testimonial/testimonial-person-4.png",
-            statLabel: "Anxiety Reduced",
+            statLabel: "Overall Well-being",
             statValue: "70%",
-            statChange: "+70% improvement naturally",
+            statChange: "Dramatic improvement in relationships",
             statStatus: "Good",
         },
         {
-            quote: "An exceptional platform that bridges the gap between traditional wisdom and contemporary needs. My stress levels dropped dramatically and my relationships improved.",
-            author: "Emily Rodriguez",
-            company: "Mindful Living, USA",
+            quote: "Let me start off by complimenting the Prasadam and events — they truly are the highlight of everything Ancient AI has to offer. The events are meticulously planned with excellent discourse, meditation, kirtan clubbing, and of course my favorite — PRASADAM!",
+            author: "Sugriv Kumar",
+            company: "Atom Consultancy - R&D Head",
             image: "/images/testimonial/testimonial-person-5.png",
-            statLabel: "Anxiety Reduced",
-            statValue: "70%",
-            statChange: "+70% improvement naturally",
-            statStatus: "Good",
+            statLabel: "Events & Prasadam",
+            statValue: "10/10",
+            statChange: "Meticulously planned offerings",
+            statStatus: "Excellent",
         },
     ];
 
@@ -134,10 +135,15 @@ const Testimonials = () => {
             {/* Main Content */}
             <div className="relative z-10 container mx-auto px-4">
 
-                <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mb-12 md:mb-28">
-                    People Sharing Better
-                    <span className="text-3xl text-center md:text-5xl lg:text-6xl font-semibold text-white">&nbsp;Experiences</span>
-                </h3>
+                <SplitText
+                    text="People Sharing Better"
+                    className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white mb-12 md:mb-28"
+                    highlightText="Experiences"
+                    highlightClassName="font-semibold text-white ml-2"
+                    duration={1}
+                    y={15}
+                    delay={0.05}
+                />
 
                 {/* Testimonial Card Container */}
                 <div
@@ -164,7 +170,7 @@ const Testimonials = () => {
                         <div className="flex flex-col md:flex-row min-h-[340px] md:min-h-[420px]">
 
                             {/* Right - Person Image */}
-                            <div className="relative w-full md:w-[320px] lg:w-[380px] flex-shrink-0 overflow-hidden">
+                            <div className="relative w-full h-[300px] md:h-auto md:w-[320px] lg:w-[380px] flex-shrink-0 overflow-hidden">
                                 {/* Gradient overlay on image */}
                                 <div className="absolute inset-0 z-10"
                                 // style={{
@@ -229,7 +235,7 @@ const Testimonials = () => {
                     {/* Persona Badge - Floating Bottom Element */}
                     {/* Stat Card Widget - Floating Bottom */}
                     <div
-                        className="absolute top-4 right-4 md:top-[80%] md:right-6 z-20 rounded-2xl overflow-hidden transform -translate-y-1/2 md:-translate-y-0"
+                        className="absolute hidden md:block top-4 right-4 md:top-[80%] md:right-6 z-20 rounded-2xl overflow-hidden transform -translate-y-1/2 md:-translate-y-0"
                         style={{
                             background: 'rgba(0, 0, 0, 0.45)',
                             backdropFilter: 'blur(24px) saturate(180%)',

@@ -18,7 +18,6 @@ const Hero = () => {
             gsap.set(".hero-sub-text", { y: 30, opacity: 0 });
             gsap.set(".hero-divider", { scaleX: 0 });
             gsap.set(".hero-bg-img", { scale: 1.15, filter: "brightness(0.2) blur(10px)" });
-            gsap.set(".scroll-hint", { opacity: 0, y: -20 });
 
             // Animation sequence
             tl.to(".hero-bg-img", {
@@ -46,12 +45,6 @@ const Hero = () => {
                     scaleX: 1,
                     duration: 1.2,
                     delay: -1
-                })
-                .to(".scroll-hint", {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    delay: -0.5
                 });
 
             // Subtle Mouse Parallax
@@ -136,7 +129,7 @@ const Hero = () => {
                                 alt="Ancient AI"
                                 width={250}
                                 height={60}
-                                className="brightness-200 transform md:-translate-y-5.5 -translate-y-0 -translate-x-0.5"
+                                className="brightness-200 transform md:-translate-y-5.5 translate-y-0 -translate-x-0.5"
                             />
                         </div>
                         <p className="hero-sub-text text-lg md:text-2xl text-white font-light leading-relaxed max-w-8xl text-center">

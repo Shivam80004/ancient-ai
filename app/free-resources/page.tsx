@@ -3,44 +3,7 @@ import React, { useRef } from 'react';
 import PageHero from '@/components/ui/PageHero';
 import ResourceCard from '@/components/resources/ResourceCard';
 
-const RESOURCES = [
-    {
-        title: "Gita Cheat Sheet",
-        description: "A crisp, visual reference to the Bhagavad Gita's most powerful verses — distilled so you can carry the wisdom anywhere.",
-        category: "PDF Download",
-        image: "/gellery-img/gallery-img-5.png",
-        type: "pdf",
-        link: "#",
-        className: "md:col-span-2 md:row-span-1"
-    },
-    {
-        title: "Kirtan Playlist",
-        description: "Carefully curated soul-stirring kirtans from HKM Mumbai — perfect for meditation, morning sadhana, or anytime you need to reset.",
-        category: "Audio",
-        image: "/gellery-img/gallery-img-3.jpg",
-        type: "audio",
-        link: "https://www.youtube.com/@HKMMumbai",
-        className: "md:col-span-2 md:row-span-1"
-    },
-    {
-        title: "Bhagavad Gita PDF",
-        description: "The complete Bhagavad Gita As It Is by Srila Prabhupada — free to read, study, and share. The most translated spiritual text in history.",
-        category: "PDF Download",
-        image: "/images/1-gita.png",
-        type: "pdf",
-        link: "https://www.vedabase.com/en/bg",
-        className: "md:col-span-2 md:row-span-1"
-    },
-    {
-        title: "Mini Documentary Series",
-        description: "Short, impactful films on Vedic philosophy, monk life, and spiritual transformation — produced by HKM Mumbai.",
-        category: "Video Series",
-        image: "/gellery-img/gallery-img-2.webp",
-        type: "video",
-        link: "https://www.youtube.com/@HKMMumbai",
-        className: "md:col-span-2 md:row-span-1"
-    },
-];
+import { RESOURCES } from '@/lib/resources-data';
 
 export default function FreeResourcesPage() {
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -71,7 +34,7 @@ export default function FreeResourcesPage() {
                                     description={item.description}
                                     category={item.category}
                                     image={item.image}
-                                    link={item.link}
+                                    link={`/free-resources/${item.slug}`}
                                     type={item.type as any}
                                 />
                             </div>

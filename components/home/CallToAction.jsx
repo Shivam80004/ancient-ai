@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 import Link from 'next/link';
+import SplitText from '../ui/SplitText';
 
 const CallToAction = () => {
     const [hoveredCard, setHoveredCard] = useState(null);
@@ -48,12 +49,26 @@ const CallToAction = () => {
         <section className="relative py-20 md:py-32 bg-black overflow-hidden">
             <div className="container mx-auto px-4">
                 <div className="justify-center md:max-w-[57vw] mb-9 md:flex-nowrap !flex-wrap !flex mx-auto">
-                    <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white inline-block">
+
+                    {/* <h3 className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white inline-block">
                         Ready to enter the revolution <span className="md:hidden inline-block">of</span>
-                    </h3>
-                    <h3 className="text-3xl md:inline-block hidden text-center mt-2 md:text-5xl lg:text-6xl font-light text-white">
-                        of
-                    </h3>
+                    </h3> */}
+                    <SplitText
+                        text="Ready to enter the revolution"
+                        className="text-3xl text-center md:text-5xl lg:text-6xl font-light text-white"
+                        // highlightText="Experiences"
+                        highlightClassName="font-semibold text-white ml-2"
+                        duration={1}
+                        y={15}
+                        delay={0.05}
+                    />
+                    <SplitText
+                        text="of"
+                        className="text-3xl md:inline-block hidden text-center mt-2 md:text-5xl lg:text-6xl font-light text-white"
+                        duration={1}
+                        y={15}
+                        delay={0.09}
+                    />
                     <span className='transform -translate-y-2 translate-x-3 inline-block'>
                         <Image src="/logo-plain.png" alt="Revolution" width={260} height={250} />
                     </span>
@@ -70,6 +85,7 @@ const CallToAction = () => {
                             className="cta-card relative h-[500px] md:h-[600px] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 border border-white/10"
                             onMouseEnter={(e) => handleMouseEnter(index, e)}
                             onMouseLeave={handleMouseLeave}
+
                         >
                             {/* Dark Background (Initial State) */}
                             <div

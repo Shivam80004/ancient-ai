@@ -51,11 +51,12 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ title, description, categor
         }
     };
 
+    const isExternal = link.startsWith('http');
+
     return (
-        <a
+        <Link
             href={link}
-            target={link !== '#' ? '_blank' : undefined}
-            rel={link !== '#' ? 'noopener noreferrer' : undefined}
+            {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className="block group w-full"
         >
             <div ref={cardRef} className="h-[430px] relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 flex flex-col hover:border-white/20 transition-colors duration-500 shadow-xl">
@@ -99,7 +100,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({ title, description, categor
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 };
 

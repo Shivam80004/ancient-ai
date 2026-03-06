@@ -31,7 +31,7 @@ const TripsCTA = () => {
             description:
                 'Curated spiritual journeys to the holiest dhamas. Walk where the sages walked and experience transformation first-hand.',
             buttonText: 'View All Retreats',
-            href: '/trips',
+            href: '/retreats',
         },
         {
             title: 'Custom',

@@ -102,7 +102,7 @@ const HeroBanner = () => {
     }, []);
 
     return (
-        <section className="relative md:h-dvh h-svh w-full overflow-hidden flex items-center justify-center py-[6rem]">
+        <section className="hero-logo relative md:h-dvh h-svh w-full overflow-hidden flex items-center justify-center py-[6rem]">
             {/* Background Image with Overlay */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 hover:scale-105"
