@@ -5,6 +5,14 @@ import Testimonials from '../components/home/Testimonials'
 import CallToAction from '../components/home/CallToAction'
 import GallerySection from '../components/home/GallerySection'
 import MarqueeLogo from '../components/home/MarqueeLogo'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'AncientAi Academy',
+  alternates: {
+    canonical: '/',
+  }
+}
 
 function page() {
   return (

@@ -4,6 +4,15 @@ import RevealText from '@/components/animation/RevealText';
 import Image from 'next/image';
 import ParallaxImage from '@/components/animation/ParallaxImage';
 import PrabhupadaTimeline from '@/components/inspiration/PrabhupadaTimeline';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Our Inspiration - Srila Prabhupada',
+    description: 'Discover the life, teachings, and global impact of A.C. Bhaktivedanta Swami Prabhupada.',
+    alternates: {
+        canonical: '/our-inspiration',
+    }
+};
 
 export default function InspirationPage() {
     return (

@@ -2,6 +2,15 @@ import React from 'react';
 import RevealText from '@/components/animation/RevealText';
 import MotionPathGallery from '@/components/trips/MotionPathGallery';
 import TripsCTA from '@/components/trips/TripsCTA';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Retreats & Spiritual Journeys',
+    description: 'Explore spiritual journeys and retreats across sacred places.',
+    alternates: {
+        canonical: '/retreats',
+    }
+};
 
 export default function TripsPage() {
     return (

@@ -4,6 +4,15 @@ import MentorshipList from '@/components/mentorship/MentorshipList';
 import MentorshipCTA from '@/components/mentorship/MentorshipCTA';
 import OurMentors from '@/components/mentorship/OurMentors';
 import { MENTORSHIPS } from '@/lib/mentorship-data';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Events & Mentorship',
+    description: "Personalized guidance from experienced mentors to help you navigate life's toughest challenges.",
+    alternates: {
+        canonical: '/events-and-mentorship',
+    }
+};
 
 export default function MentorshipPage() {
     return (
