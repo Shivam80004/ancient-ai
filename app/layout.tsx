@@ -57,13 +57,13 @@ export const metadata: Metadata = {
     default: "Ancient AI Academy",
     template: "%s | Ancient AI Academy",
   },
-  description: "Transformative wisdom for every stage of your journey. Strengthening the mind, body, and soul.",
+  description: "A better human experience. Strengthening the mind, body, and soul.",
   icons: {
     icon: "/favicon.png",
   },
   openGraph: {
     title: "Ancient AI Academy",
-    description: "Transformative wisdom for every stage of your journey.",
+    description: "A better human experience",
     url: '/',
     siteName: 'Ancient AI Academy',
     locale: 'en_US',
