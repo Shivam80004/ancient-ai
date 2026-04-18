@@ -83,12 +83,64 @@ export default function TripDetailPage() {
         return () => ctx.revert();
     }, [trip]);
 
+    // Only show full content for vrindavan-yatra and tattva-x; all other slugs show Coming Soon
+    if (slug !== 'vrindavan-yatra' && slug !== 'tattva-x') {
+        return (
+            <main className="bg-black min-h-screen flex items-center justify-center overflow-hidden relative">
+                {/* Ambient glow */}
+                {/* <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-600/20 rounded-full blur-[120px]" />
+                    <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-red-700/10 rounded-full blur-[80px]" />
+                </div> */}
+
+                <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
+                    {/* Icon / symbol */}
+                    {/* <div className="flex items-center justify-center w-20 h-20 rounded-full border border-orange-500/30 bg-orange-500/10 mx-auto mb-8 backdrop-blur-sm">
+                        <svg className="w-9 h-9 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div> */}
+
+                    <p className="text-orange-400 text-xs tracking-[0.4em] uppercase font-semibold mb-4">Sacred Journey</p>
+                    <h1 className="text-5xl md:text-7xl font-light text-white mb-6 leading-tight tracking-tight">
+                        Coming<br />
+                        <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Soon</span>
+                    </h1>
+                    <p className="text-white/50 text-lg font-light leading-relaxed mb-10">
+                        This retreat is being crafted with care. We are preparing something truly sacred for you. Stay tuned.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link
+                            href="/retreats"
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300 text-sm tracking-wide"
+                        >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Back to Retreats
+                        </Link>
+                        <Link
+                            href="/contact-us"
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-orange-600 to-red-600 text-white text-sm tracking-wide font-medium hover:-translate-y-0.5 transition-all duration-300"
+                        >
+                            Notify Me
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </Link>
+                    </div>
+                </div>
+            </main>
+        );
+    }
+
     if (!trip) {
         return (
             <main className="bg-black min-h-screen flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-5xl font-bold text-white mb-4">Retreat Not Found</h1>
-                    <p className="text-white/60 text-lg mb-8">The spiritual journey you are looking for doesn't exist.</p>
+                    <p className="text-white/60 text-lg mb-8">The spiritual journey you are looking for doesn&apos;t exist.</p>
                     <Link
                         href="/retreats"
                         className="inline-block px-8 py-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"

@@ -5,11 +5,12 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger, Flip } from 'gsap/all';
 import Image from 'next/image';
+import RevealText from '../animation/RevealText';
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
 const ScalingVideoSection = ({
-    videoSrc = "/videos/empty.webm",
+    videoSrc = "https://res.cloudinary.com/dh3fdtkbe/video/upload/v1776500773/empty_ud0fut.webm",
     eyebrowText = "[ Why ANCIENT AI? ]",
     headerTitle = "Everything Works. Yet, Something’s Missing ?",
     secondaryTitle = "This is where AncientAI matters To Reclaim Your Life. But with few Upgrades (No credit cards required!)",
@@ -91,12 +92,12 @@ const ScalingVideoSection = ({
                 if (!header) return;
                 const words = header.querySelectorAll('.reveal-word-2');
                 gsap.fromTo(words,
-                    { y: 20, opacity: 0 },
+                    { y: 5, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
                         stagger: 0.05,
-                        duration: 3.8,
+                        duration: 0.8,
                         ease: "power3.out",
                         scrollTrigger: {
                             trigger: header,
@@ -208,9 +209,9 @@ const ScalingVideoSection = ({
                             <span className="reveal-word-2 inline-block font-semibold">?</span>
                         </h3>
 
-                        <p className="md:text-2xl text-xl font-normal text-center text-white/60">
+                        <RevealText type="words" stagger={0.01} y={10} animationOnScrool delay={0.5} className="md:text-2xl text-xl font-normal text-center text-white/60">
                             skipping real life, we are dwelling in a world of Artificials
-                        </p>
+                        </RevealText>
                     </div>
 
                     {/* Mobile-only: Full-Width Fade-In Video */}

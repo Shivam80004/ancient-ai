@@ -17,26 +17,29 @@ export const metadata: Metadata = {
 export default function InspirationPage() {
     return (
         <main className="bg-black min-h-screen text-white">
-            <div className="relative min-h-[100vh] flex items-center justify-center">
+            <div className="relative md:min-h-[100vh] min-h-[50vh] flex items-center justify-center">
                 {/* Video background */}
-                <div className="absolute inset-0 z-0 pointer-events-none">
+                <div className="absolute md:block hidden inset-0 z-0 pointer-events-none">
                     <ParallaxImage src="/images/hdsp.png" yMove={80} alt="HDSP" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute md:hidden block inset-0 z-0 pointer-events-none">
+                    <Image src="/images/hdsp.png" width={100} height={100} alt="HDSP" className="w-full h-full object-cover" />
                 </div>
 
                 <div className="absolute inset-0 left-1/2 transform -translate-x-[10%] z-10 flex items-center justify-center">
                     <RevealText
                         type="chars"
-                        className="text-5xl md:text-[5rem] font-medium text-white tracking-tight text-center px-4"
+                        className="text-xl md:text-[5rem] font-medium text-white tracking-tight text-center px-4"
                         stagger={0.03}
                     >
                         Our Inspiration
                     </RevealText>
                 </div>
 
-                <div className="absolute inset-0 top-1/2 transform -translate-y-[30%] translate-x-[45%] flex items-center justify-center z-20 text-center px-4 max-w-2xl mx-auto">
+                <div className="absolute inset-0 top-1/2 transform -translate-y-[37%] md:-translate-y-[30%] md:translate-x-[45%] translate-x-[15%] flex items-center justify-center z-20 text-center px-4 max-w-2xl mx-auto">
                     <RevealText
                         type="words"
-                        className="text-xl md:text-3xl text-white/80 font-normal leading-relaxed"
+                        className="text-xs md:text-3xl text-white/80 font-normal leading-relaxed"
                         stagger={0.01}
                         delay={0.5}
                     >

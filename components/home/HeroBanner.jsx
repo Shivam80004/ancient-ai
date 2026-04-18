@@ -107,7 +107,7 @@ const HeroBanner = () => {
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 hover:scale-105"
             >
-                <video src="/videos/try-1.mp4" className='h-full w-full object-cover' autoPlay loop muted />
+                <video src="https://res.cloudinary.com/dh3fdtkbe/video/upload/v1776500774/try-1_g3lwa9.mp4" className='h-full w-full object-cover' autoPlay loop muted />
                 <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
             </div>
 

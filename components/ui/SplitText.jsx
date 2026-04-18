@@ -39,7 +39,7 @@ const SplitText = ({
                     delay: delay,
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: "top 85%",
+                        start: `top ${100 - y}%`,
                         toggleActions: "play none none none"
                     }
                 }

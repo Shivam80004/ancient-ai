@@ -94,6 +94,8 @@ const MarqueeLogo = () => {
                 highlightText="Experiences"
                 highlightClassName="font-semibold text-white ml-2"
                 duration={1}
+                y={5}
+                animationOnScrool
             />
             {/* <SplitText
                 text="Appreciated by professionals across diverse leading institutions"

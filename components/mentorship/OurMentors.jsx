@@ -21,13 +21,13 @@ const MENTORS = [
         image: "/images/mentors/mentor-2.jpeg",
         link: "https://taponn.me/ShubhamAAI",
     },
-    {
-        name: "Gourav Gupta",
-        role: "Chief Mentor",
-        desc: "Experienced in ancient Vedic wisdom",
-        image: "/images/mentors/mentor-3.jpeg",
-        link: "https://taponn.me/GauravAAI",
-    },
+    // {
+    //     name: "Gourav Gupta",
+    //     role: "Chief Mentor",
+    //     desc: "Experienced in ancient Vedic wisdom",
+    //     image: "/images/mentors/mentor-3.jpeg",
+    //     link: "https://taponn.me/GauravAAI",
+    // },
     {
         name: "Mukunda Javanjal",
         role: "Chief Mentor",

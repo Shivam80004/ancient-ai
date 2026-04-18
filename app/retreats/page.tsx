@@ -22,7 +22,7 @@ export default function TripsPage() {
                 {/* Video background */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
                     <video
-                        src="/videos/trips.mp4"
+                        src="https://res.cloudinary.com/dh3fdtkbe/video/upload/v1776500789/trips_pthio6.mp4"
                         autoPlay loop muted playsInline
                         className="w-full h-full object-cover"
                     />

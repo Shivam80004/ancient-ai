@@ -14,7 +14,7 @@ const TEAM_MEMBERS = [
         image: "/images/team-1.png"
     },
     {
-        name: "Roshan Saw",
+        name: "Roshan Shaw",
         role: "Co-Founder and COO",
         desc: "Turns depth into form — without diluting meaning.",
         image: "/images/team-3.png"
@@ -24,7 +24,14 @@ const TEAM_MEMBERS = [
         role: "Co-Founder and CTO",
         desc: "Designs digital spaces that slow you down.",
         image: "/images/team-2.png"
-    }
+    },
+    {
+        name: "Gourav Gupta",
+        role: "Co-Founder and Manager",
+        desc: "Experienced in ancient Vedic wisdom",
+        image: "/images/mentors/mentor-3.jpeg",
+        link: "https://taponn.me/GauravAAI",
+    },
 ];
 
 const CUSTOM_GRADIENT = 'linear-gradient(261.26deg, rgba(246, 32, 3, 0) -11.86%, rgb(246, 32, 3) 30.99%, rgb(246, 32, 3) 101.39%, rgb(253, 124, 52) 103.82%)';

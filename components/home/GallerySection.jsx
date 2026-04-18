@@ -132,6 +132,8 @@ const GallerySection = () => {
                     className="text-3xl text-center md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4"
                     highlightClassName="font-semibold text-white ml-2"
                     duration={1}
+                    y={15}
+                    animationOnScrool
                 />
             </div>
             {renderImageMarquee()}

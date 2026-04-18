@@ -150,4 +150,37 @@ export const TRIPS_DATA: Record<string, TripData> = {
             '/images/trips/vrindavan/5.png'
         ],
     },
+    'tattva-x': {
+        slug: 'tattva-x',
+        title: 'Tattva X',
+        label: 'Experience 002',
+        image: '/images/trips/vrindavan/6.png',
+        description: 'For 1 day in a month, escape the crazy rush of Mumbai and reconnect with nature and yourself. Tattva X takes you to serene local spots — like Hare Krishna Valley and other hidden sanctuaries near Mumbai — where you chant, read, and absorb the timeless teachings of Vedas through Srila Prabhupada\'s wisdom. With fun gamification, soul-nourishing prasadam, easy travel, and memories that last a lifetime, this is your monthly reset button.',
+        highlights: [
+            'Monthly 1-day escape to nature sanctuaries near Mumbai',
+            'Soulful chanting sessions and group japa meditation',
+            'Teachings from Srila Prabhupada\'s books — read, hear, and reflect',
+            'Fun Vedic gamification activities for deeper learning',
+            'Wholesome prasadam and easy, organized travel from Mumbai',
+            'Visits to places like Hare Krishna Valley and other nearby sacred spots',
+        ],
+        duration: '1 Day',
+        groupSize: '15-30 participants',
+        price: '₹1,999',
+        dates: 'Monthly — every first Sunday',
+        galleryImages: [
+            '/images/trips/vrindavan/2.png',
+            '/images/trips/vrindavan/3.png',
+            '/images/trips/vrindavan/4.png',
+            '/images/trips/vrindavan/5.png',
+            '/images/trips/vrindavan/7.png',
+            '/images/trips/vrindavan/8.png',
+        ],
+        itinerary: [
+            { day: 'Morning', title: 'Departure & Arrival', description: 'Early morning group assembly at a central Mumbai pickup point. Easy, organized travel to the day\'s destination — Hare Krishna Valley or another nearby nature sanctuary.' },
+            { day: 'Mid-Morning', title: 'Chanting & Japa', description: 'Begin with guided japa meditation in nature, followed by group kirtan. Immerse in the vibration of the holy names in a peaceful, open-air setting.' },
+            { day: 'Afternoon', title: 'Learning & Gamification', description: 'Interactive sessions from Srila Prabhupada\'s teachings with fun Vedic quizzes, storytelling rounds, and group discussions. Soul-nourishing prasadam served together.' },
+            { day: 'Evening', title: 'Reflection & Return', description: 'A quiet closing session for personal reflection, gratitude sharing, and group photos. Return journey to Mumbai, carrying memories and inner stillness.' },
+        ],
+    },
 };

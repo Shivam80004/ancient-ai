@@ -16,29 +16,35 @@ const DEFAULT_ITEMS = [
         slug: 'vrindavan-yatra',
     },
     {
-        image: '/gellery-img/gallery-img-2.webp',
+        image: '/gellery-img/gallery-img-7.png',
         label: 'Experience 002',
+        title: 'Tattva X',
+        slug: 'tattva-x',
+    },
+    {
+        image: '/gellery-img/gallery-img-2.webp',
+        label: 'Experience 003',
         title: 'Mayapur Retreat',
         slug: 'mayapur-retreat',
     },
-    {
-        image: '/gellery-img/gallery-img-3.jpg',
-        label: 'Experience 003',
-        title: 'Himalayan Trek',
-        slug: 'himalayan-trek',
-    },
+    // {
+    //     image: '/gellery-img/gallery-img-3.jpg',
+    //     label: 'Experience 003',
+    //     title: 'Himalayan Trek',
+    //     slug: 'himalayan-trek',
+    // },
     {
         image: '/gellery-img/gallery-img-4.jpeg',
         label: 'Experience 004',
         title: 'Govardhan Parikrama',
         slug: 'govardhan-parikrama',
     },
-    {
-        image: '/gellery-img/gallery-img-5.png',
-        label: 'Experience 005',
-        title: 'Sacred Ganga Aarti',
-        slug: 'sacred-ganga-aarti',
-    },
+    // {
+    //     image: '/gellery-img/gallery-img-5.png',
+    //     label: 'Experience 005',
+    //     title: 'Sacred Ganga Aarti',
+    //     slug: 'sacred-ganga-aarti',
+    // },
 ];
 
 function debounce(fn, delay = 200) {
