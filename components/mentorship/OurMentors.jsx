@@ -7,13 +7,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const MENTORS = [
-    {
-        name: "Ashesh Govind Dasa",
-        role: "Chief Monk Mentor",
-        desc: "Guide through ancient Vedic wisdom",
-        image: "/images/mentors/mentor-1.png",
-        link: "https://taponn.me/AsheshAAI",
-    },
+    // {
+    //     name: "Ashesh Govind Dasa",
+    //     role: "Chief Monk Mentor",
+    //     desc: "Guide through ancient Vedic wisdom",
+    //     image: "/images/mentors/mentor-1.png",
+    //     link: "https://taponn.me/AsheshAAI",
+    // },
     {
         name: "Shubham Mahawar",
         role: "Chief Mentor",

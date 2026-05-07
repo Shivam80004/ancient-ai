@@ -7,12 +7,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const TEAM_MEMBERS = [
-    {
-        name: "Anuttam Hari Das",
-        role: "Co-Founder and Chief Monk Officer (CMO)",
-        desc: "Works on the hardest problem of all — the human mind",
-        image: "/images/team-1.png"
-    },
+    // {
+    //     name: "Anuttam Hari Das",
+    //     role: "Co-Founder and Chief Monk Officer (CMO)",
+    //     desc: "Works on the hardest problem of all — the human mind",
+    //     image: "/images/team-1.png"
+    // },
     {
         name: "Roshan Shaw",
         role: "Co-Founder and COO",
