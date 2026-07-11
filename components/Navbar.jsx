@@ -10,10 +10,6 @@ const Navbar = () => {
     const tabsRef = useRef([]);
     const [activeRect, setActiveRect] = useState({ left: 0, width: 0, opacity: 0 });
 
-    if (pathname?.startsWith('/dashboard')) {
-        return null;
-    }
-
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
@@ -74,7 +70,7 @@ const Navbar = () => {
     };
 
     // Hidden inside the dashboard/app shell and on auth screens.
-    const hideOn = ['/login', '/signup', '/dashboard'];
+    const hideOn = ['/login', '/signup', '/dashboard', '/admin'];
     if (hideOn.some((p) => pathname === p || pathname?.startsWith(p + '/'))) {
         return null;
     }

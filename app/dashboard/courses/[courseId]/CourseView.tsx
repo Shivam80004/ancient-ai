@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
 import { Check, Play, ArrowLeft, CircleCheck, Loader2 } from "lucide-react";
 import { GlassCard } from "@/components/dashboard/GlassCard";
+import { VideoPlayer, isEmbedUrl } from "@/components/dashboard/VideoPlayer";
 import { enrollAction } from "../actions";
 import { cn } from "@/lib/utils";
 
@@ -171,15 +172,19 @@ export function CourseView({ course, lessons, completedIds, enrolled }: Props) {
                                 <h2 className="text-xl font-semibold text-white">{selected.title}</h2>
                                 <div className="mt-4">
                                     {selected.content_type === "video" && selected.content_url ? (
-                                        <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-black">
-                                            <iframe
-                                                src={selected.content_url}
-                                                title={selected.title}
-                                                className="h-full w-full"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                            />
-                                        </div>
+                                        isEmbedUrl(selected.content_url) ? (
+                                            <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-black">
+                                                <iframe
+                                                    src={selected.content_url}
+                                                    title={selected.title}
+                                                    className="h-full w-full"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                />
+                                            </div>
+                                        ) : (
+                                            <VideoPlayer src={selected.content_url} />
+                                        )
                                     ) : selected.content_type === "article" ? (
                                         <div className="whitespace-pre-wrap rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 text-sm leading-relaxed text-white/75">
                                             {selected.body}
