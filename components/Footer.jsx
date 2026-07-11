@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -9,6 +10,11 @@ if (typeof window !== 'undefined') {
 }
 
 const Footer = () => {
+    const pathname = usePathname();
+    if (pathname?.startsWith('/dashboard')) {
+        return null;
+    }
+
     // const footerRef = useRef(null);
     // const logoRef = useRef(null);
 
