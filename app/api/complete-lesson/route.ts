@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { evaluateRewards } from "@/lib/rewards/engine";
+import { touchStreak } from "@/lib/rewards/streak";
 
 const Body = z.object({ lessonId: z.string().uuid() });
 
@@ -57,6 +58,13 @@ export async function POST(req: Request) {
         .eq("user_id", user.id)
         .in("lesson_id", lessonIds.length ? lessonIds : ["00000000-0000-0000-0000-000000000000"]);
     const done = (comps ?? []).length;
+
+    // Count today's activity toward the daily streak
+    try {
+        await touchStreak(createSupabaseAdminClient(), user.id);
+    } catch {
+        /* streak is best-effort */
+    }
 
     let courseComplete = false;
     let pointsAwarded = 0;
