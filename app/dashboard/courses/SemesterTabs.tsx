@@ -69,7 +69,7 @@ export function SemesterTabs({ semesters }: { semesters: SemesterVM[] }) {
             {/* Semester banner */}
             {current.thumbnail && (
                 <div className="relative h-[55vh] w-full overflow-hidden rounded-3xl border border-white/[0.08]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {/* eslint-disable -next-line @next/next/no-img-element */}
                     <img src={current.thumbnail} alt={current.title} className="h-full w-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                     <p className="absolute bottom-4 left-5 text-5xl font-semibold text-white">{current.title}</p>
