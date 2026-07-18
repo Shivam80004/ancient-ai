@@ -17,10 +17,11 @@ type Lesson = {
     content_url: string | null;
     body: string | null;
     duration_minutes: number | null;
+    thumbnail_url?: string | null;
 };
 
 type Props = {
-    course: { id: string; title: string; description: string | null; points_reward: number };
+    course: { id: string; title: string; description: string | null; points_reward: number; thumbnail_url?: string | null };
     lessons: Lesson[];
     completedIds: string[];
     enrolled: boolean;
@@ -154,6 +155,10 @@ export function CourseView({ course, lessons, completedIds, enrolled }: Props) {
                                             >
                                                 {isDone ? <Check className="size-3.5" strokeWidth={3} /> : i + 1}
                                             </span>
+                                            {l.thumbnail_url && (
+                                                // eslint-disable-next-line @next/next/no-img-element
+                                                <img src={l.thumbnail_url} alt="" className="h-7 w-10 shrink-0 rounded object-cover" />
+                                            )}
                                             <span className="flex-1 truncate">{l.title}</span>
                                             {l.duration_minutes ? (
                                                 <span className="text-[11px] text-white/30">{l.duration_minutes}m</span>
@@ -183,7 +188,10 @@ export function CourseView({ course, lessons, completedIds, enrolled }: Props) {
                                                 />
                                             </div>
                                         ) : (
-                                            <VideoPlayer src={selected.content_url} />
+                                            <VideoPlayer
+                                                src={selected.content_url}
+                                                poster={selected.thumbnail_url ?? course.thumbnail_url}
+                                            />
                                         )
                                     ) : selected.content_type === "article" ? (
                                         <div className="whitespace-pre-wrap rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 text-sm leading-relaxed text-white/75">

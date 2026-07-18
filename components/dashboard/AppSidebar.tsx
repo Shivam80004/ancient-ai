@@ -81,7 +81,7 @@ export function AppSidebar({ displayName, avatarUrl, level, title, isAdmin }: Pr
                             <motion.span
                                 layoutId="sidebar-pill"
                                 transition={{ type: "spring", stiffness: 400, damping: 34 }}
-                                className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-600 to-red-600 shadow-lg shadow-orange-900/30"
+                                className="absolute inset-0 rounded-2xl bg-gradient-to-bl to-orange-600 from-red-950  shadow-lg shadow-orange-900/30"
                             />
                         )}
                         <Icon className="relative z-10 size-[18px] shrink-0" />

@@ -83,7 +83,7 @@ export default async function DashboardHome() {
     return (
         <div className="space-y-6">
             {/* Hero */}
-            <GlassCard className="relative overflow-hidden p-8">
+            <GlassCard className="relative overflow-hidden p-8" bg_grad="linear-gradient(221deg, rgba(246, 32, 3, 0) -11.86%, #bc5307 -5.96%, #36180e 5.45%, #000000 30.99%, rgba(246, 32, 3, 0) 62.85%, #9d1300 101.39%, #000000 103.82%)">
                 <div
                     aria-hidden="true"
                     className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full bg-[radial-gradient(circle,_rgba(241,89,6,0.20),_transparent_70%)] blur-2xl"
@@ -115,12 +115,12 @@ export default async function DashboardHome() {
                 {stats.map((s) => {
                     const Icon = s.icon;
                     return (
-                        <GlassCard key={s.label} hover className="p-5">
-                            <div className="flex items-center gap-3">
-                                <span className="flex size-10 items-center justify-center rounded-2xl bg-[#f15906]/12 text-[#f15906]">
+                        <GlassCard key={s.label} hover className="p-5 bg-[radial-gradient(circle,_rgba(241,89,6,0.20),_transparent_70%)]" >
+                            <div className="flex items-center gap-0">
+                                <span className="flex size-10 items-center justify-center rounded-2xl bg-[#f15906]/0 text-[#f15906]">
                                     <Icon className="size-5" />
                                 </span>
-                                <p className="text-xs uppercase tracking-[0.15em] text-white/45">{s.label}</p>
+                                <p className="text-xs uppercase tracking-[0.15em] text-white/85">{s.label}</p>
                             </div>
                             <p className="mt-4 text-3xl font-semibold text-white">{s.display}</p>
                         </GlassCard>
@@ -136,11 +136,21 @@ export default async function DashboardHome() {
                     </p>
                     {resume ? (
                         <div className="mt-4 flex items-center justify-between gap-4">
-                            <div>
-                                <h2 className="text-2xl font-semibold text-white">
-                                    {resume.course?.title ?? "Your course"}
-                                </h2>
-                                <p className="mt-1 text-sm text-white/50">Pick up where you left off.</p>
+                            <div className="flex items-center gap-4">
+                                {resume.course?.thumbnail_url && (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        src={resume.course.thumbnail_url}
+                                        alt=""
+                                        className="hidden h-16 w-24 shrink-0 rounded-xl object-cover sm:block"
+                                    />
+                                )}
+                                <div>
+                                    <h2 className="text-2xl font-semibold text-white">
+                                        {resume.course?.title ?? "Your course"}
+                                    </h2>
+                                    <p className="mt-1 text-sm text-white/50">Pick up where you left off.</p>
+                                </div>
                             </div>
                             <Link
                                 href={`/dashboard/courses/${resume.course_id}`}
@@ -170,7 +180,7 @@ export default async function DashboardHome() {
                 </GlassCard>
 
                 <GlassCard hover className="p-8">
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#f15906]/80">
+                    <p className="text-xs text-center font-semibold uppercase tracking-[0.3em] text-[#f15906]/80">
                         Next reward
                     </p>
                     <div className="mt-6 flex flex-col items-center justify-center gap-3 text-center">

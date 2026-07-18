@@ -11,7 +11,7 @@ export default async function AdminCoursesPage() {
     const { data: semesters } = await admin
         .from("semesters")
         .select(
-            "id, title, is_published, courses(id, title, description, difficulty, points_reward, is_published, order_index, lessons(id, title, content_type, order_index))"
+            "id, title, is_published, thumbnail_url, courses(id, title, description, difficulty, points_reward, is_published, thumbnail_url, order_index, lessons(id, title, content_type, thumbnail_url, order_index))"
         )
         .order("order_index");
 
@@ -19,6 +19,7 @@ export default async function AdminCoursesPage() {
         id: s.id,
         title: s.title,
         is_published: s.is_published,
+        thumbnail_url: s.thumbnail_url,
         courses: [...(s.courses ?? [])]
             .sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0))
             .map((c) => ({
@@ -28,6 +29,7 @@ export default async function AdminCoursesPage() {
                 difficulty: c.difficulty,
                 points_reward: c.points_reward,
                 is_published: c.is_published,
+                thumbnail_url: c.thumbnail_url,
                 lessons: [...(c.lessons ?? [])].sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0)),
             })),
     }));

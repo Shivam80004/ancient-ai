@@ -18,10 +18,12 @@ async function nextOrder(db: Awaited<ReturnType<typeof createSupabaseServerClien
     return ((data?.order_index as number | undefined) ?? 0) + 1;
 }
 
-export async function createSemester(title: string) {
+export async function createSemester(title: string, thumbnailUrl?: string | null) {
     const db = await adminDb();
     const order_index = await nextOrder(db, "semesters", "", null);
-    const { error } = await db.from("semesters").insert({ title, order_index, is_published: false });
+    const { error } = await db
+        .from("semesters")
+        .insert({ title, order_index, is_published: false, thumbnail_url: thumbnailUrl ?? null });
     revalidatePath("/admin/courses");
     return error ? { error: error.message } : { ok: true };
 }
@@ -32,6 +34,7 @@ export async function createCourse(input: {
     description: string;
     difficulty: string;
     points: number;
+    thumbnailUrl?: string | null;
 }) {
     const db = await adminDb();
     const order_index = await nextOrder(db, "courses", "semester_id", input.semesterId);
@@ -41,6 +44,7 @@ export async function createCourse(input: {
         description: input.description,
         difficulty: input.difficulty,
         points_reward: input.points,
+        thumbnail_url: input.thumbnailUrl ?? null,
         order_index,
         is_published: false,
     });
@@ -55,6 +59,7 @@ export async function createLesson(input: {
     contentUrl?: string | null;
     body?: string | null;
     duration?: number;
+    thumbnailUrl?: string | null;
 }) {
     const db = await adminDb();
     const order_index = await nextOrder(db, "lessons", "course_id", input.courseId);
@@ -65,8 +70,17 @@ export async function createLesson(input: {
         content_url: input.contentUrl ?? null,
         body: input.body ?? null,
         duration_minutes: input.duration ?? 0,
+        thumbnail_url: input.thumbnailUrl ?? null,
         order_index,
     });
+    revalidatePath("/admin/courses");
+    return error ? { error: error.message } : { ok: true };
+}
+
+/** Set/replace the thumbnail on an existing semester, course, or lesson. */
+export async function setThumbnail(table: "semesters" | "courses" | "lessons", id: string, url: string) {
+    const db = await adminDb();
+    const { error } = await db.from(table).update({ thumbnail_url: url }).eq("id", id);
     revalidatePath("/admin/courses");
     return error ? { error: error.message } : { ok: true };
 }

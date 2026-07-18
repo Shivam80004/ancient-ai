@@ -15,7 +15,7 @@ export default async function CoursesPage() {
     // RLS returns only published semesters/courses.
     const { data: semesters } = await supabase
         .from("semesters")
-        .select("id, title, courses(id, title, description, difficulty, points_reward, order_index)")
+        .select("id, title, thumbnail_url, courses(id, title, description, difficulty, points_reward, thumbnail_url, order_index)")
         .eq("is_published", true)
         .order("order_index")
         .order("order_index", { referencedTable: "courses" });
@@ -50,6 +50,7 @@ export default async function CoursesPage() {
     const vm: SemesterVM[] = (semesters ?? []).map((s) => ({
         id: s.id,
         title: s.title,
+        thumbnail: s.thumbnail_url ?? null,
         courses: (s.courses ?? []).map((c) => {
             const enrollStatus = statusByCourse.get(c.id);
             const status: "none" | "in_progress" | "completed" =
@@ -64,6 +65,7 @@ export default async function CoursesPage() {
                 description: c.description,
                 difficulty: c.difficulty,
                 points_reward: c.points_reward,
+                thumbnail: c.thumbnail_url ?? null,
                 total: totalByCourse.get(c.id) ?? 0,
                 done: doneByCourse.get(c.id) ?? 0,
                 status,

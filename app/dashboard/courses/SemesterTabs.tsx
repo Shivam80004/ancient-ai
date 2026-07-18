@@ -15,6 +15,7 @@ export type CourseVM = {
     description: string | null;
     difficulty: string | null;
     points_reward: number;
+    thumbnail: string | null;
     total: number;
     done: number;
     status: "none" | "in_progress" | "completed";
@@ -23,6 +24,7 @@ export type CourseVM = {
 export type SemesterVM = {
     id: string;
     title: string;
+    thumbnail: string | null;
     courses: CourseVM[];
 };
 
@@ -64,6 +66,16 @@ export function SemesterTabs({ semesters }: { semesters: SemesterVM[] }) {
                 ))}
             </div>
 
+            {/* Semester banner */}
+            {current.thumbnail && (
+                <div className="relative h-[55vh] w-full overflow-hidden rounded-3xl border border-white/[0.08]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={current.thumbnail} alt={current.title} className="h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                    <p className="absolute bottom-4 left-5 text-5xl font-semibold text-white">{current.title}</p>
+                </div>
+            )}
+
             {/* Course grid */}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {current.courses.map((c) => (
@@ -87,56 +99,68 @@ function CourseCard({ course }: { course: CourseVM }) {
     }
 
     return (
-        <GlassCard hover className="flex flex-col p-6">
-            <div className="flex items-start justify-between gap-2">
-                <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-0.5 text-[11px] font-medium capitalize text-white/60">
-                    {course.difficulty ?? "beginner"}
-                </span>
-                <span className="text-xs font-semibold text-[#f15906]">+{course.points_reward} pts</span>
-            </div>
-
-            <h3 className="mt-3 text-lg font-semibold text-white">{course.title}</h3>
-            <p className="mt-1 line-clamp-2 flex-1 text-sm text-white/50">{course.description}</p>
-
-            {course.status !== "none" && (
-                <div className="mt-4">
-                    <div className="mb-1 flex justify-between text-xs text-white/40">
-                        <span>{course.done}/{course.total} lessons</span>
-                        <span>{pct}%</span>
-                    </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                        <div
-                            className="h-full rounded-full bg-gradient-to-r from-orange-600 to-red-600"
-                            style={{ width: `${pct}%` }}
-                        />
-                    </div>
+        <GlassCard hover className="flex flex-col overflow-hidden">
+            {course.thumbnail ? (
+                <div className="relative aspect-video w-full overflow-hidden border-b border-white/[0.06]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={course.thumbnail} alt={course.title} className="h-full w-full object-cover" />
+                </div>
+            ) : (
+                <div className="flex aspect-video w-full items-center justify-center border-b border-white/[0.06] bg-gradient-to-br from-[#221b17] to-[#0d0a09]">
+                    <BookOpen className="size-8 text-white/15" />
                 </div>
             )}
+            <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-start justify-between gap-2">
+                    <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-0.5 text-[11px] font-medium capitalize text-white/60">
+                        {course.difficulty ?? "beginner"}
+                    </span>
+                    <span className="text-xs font-semibold text-[#f15906]">+{course.points_reward} pts</span>
+                </div>
 
-            <div className="mt-5">
-                {course.status === "completed" ? (
-                    <Link
-                        href={`/dashboard/courses/${course.id}`}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-sm font-semibold text-emerald-300"
-                    >
-                        <Check className="size-4" /> Completed
-                    </Link>
-                ) : course.status === "in_progress" ? (
-                    <Link
-                        href={`/dashboard/courses/${course.id}`}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/40 transition hover:brightness-110"
-                    >
-                        Resume ({pct}%) <ArrowRight className="size-4" />
-                    </Link>
-                ) : (
-                    <button
-                        onClick={enroll}
-                        disabled={pending}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.12] disabled:opacity-60"
-                    >
-                        {pending ? "Enrolling…" : "Enroll"}
-                    </button>
+                <h3 className="mt-3 text-lg font-semibold text-white">{course.title}</h3>
+                <p className="mt-1 line-clamp-2 flex-1 text-sm text-white/50">{course.description}</p>
+
+                {course.status !== "none" && (
+                    <div className="mt-4">
+                        <div className="mb-1 flex justify-between text-xs text-white/40">
+                            <span>{course.done}/{course.total} lessons</span>
+                            <span>{pct}%</span>
+                        </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                            <div
+                                className="h-full rounded-full bg-gradient-to-r from-orange-600 to-red-600"
+                                style={{ width: `${pct}%` }}
+                            />
+                        </div>
+                    </div>
                 )}
+
+                <div className="mt-5">
+                    {course.status === "completed" ? (
+                        <Link
+                            href={`/dashboard/courses/${course.id}`}
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-sm font-semibold text-emerald-300"
+                        >
+                            <Check className="size-4" /> Completed
+                        </Link>
+                    ) : course.status === "in_progress" ? (
+                        <Link
+                            href={`/dashboard/courses/${course.id}`}
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/40 transition hover:brightness-110"
+                        >
+                            Resume ({pct}%) <ArrowRight className="size-4" />
+                        </Link>
+                    ) : (
+                        <button
+                            onClick={enroll}
+                            disabled={pending}
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.12] disabled:opacity-60"
+                        >
+                            {pending ? "Enrolling…" : "Enroll"}
+                        </button>
+                    )}
+                </div>
             </div>
         </GlassCard>
     );

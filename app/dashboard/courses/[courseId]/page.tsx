@@ -20,14 +20,14 @@ export default async function CourseDetailPage({
     // RLS returns the course only if it's published
     const { data: course } = await supabase
         .from("courses")
-        .select("id, title, description, points_reward")
+        .select("id, title, description, points_reward, thumbnail_url")
         .eq("id", courseId)
         .maybeSingle();
     if (!course) notFound();
 
     const { data: lessons } = await supabase
         .from("lessons")
-        .select("id, title, content_type, content_url, body, duration_minutes")
+        .select("id, title, content_type, content_url, body, duration_minutes, thumbnail_url")
         .eq("course_id", courseId)
         .order("order_index");
 
