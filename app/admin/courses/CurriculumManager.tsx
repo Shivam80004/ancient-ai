@@ -2,14 +2,25 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Trash2, Eye, EyeOff, ChevronDown, Video, FileText, Loader2, ImageIcon } from "lucide-react";
+import { Plus, Trash2, Eye, EyeOff, ChevronDown, Video, FileText, Loader2, ImageIcon, Pencil, Check, X } from "lucide-react";
 import { GlassCard } from "@/components/dashboard/GlassCard";
 import { VideoUpload } from "./VideoUpload";
 import { ImageUpload } from "./ImageUpload";
 import { cn } from "@/lib/utils";
-import { createSemester, createCourse, createLesson, togglePublish, deleteRow, setThumbnail } from "./actions";
+import {
+    createSemester, createCourse, createLesson, togglePublish, deleteRow, setThumbnail,
+    updateSemester, updateCourse, updateLesson,
+} from "./actions";
 
-export type LessonNode = { id: string; title: string; content_type: string | null; thumbnail_url?: string | null };
+export type LessonNode = {
+    id: string;
+    title: string;
+    content_type: string | null;
+    content_url?: string | null;
+    body?: string | null;
+    duration_minutes?: number | null;
+    thumbnail_url?: string | null;
+};
 export type CourseNode = {
     id: string;
     title: string;
@@ -30,40 +41,39 @@ export type SemesterNode = {
 
 const input = "w-full rounded-xl border border-white/10 bg-[#0f0c0b] px-3 py-2 text-sm text-white placeholder-white/30 focus:border-[#f15906] focus:outline-none focus:ring-2 focus:ring-[#f15906]/30";
 const btn = "inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60";
+const ghostBtn = "inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white/70 transition hover:bg-white/[0.08]";
 
-/** Thumbnail preview + upload for an existing semester / course / lesson. */
-function ThumbControl({
-    table,
-    id,
-    url,
-    onDone,
-    size = "h-16 w-28",
-}: {
-    table: "semesters" | "courses" | "lessons";
-    id: string;
-    url?: string | null;
-    onDone: () => void;
-    size?: string;
-}) {
-    const [, start] = useTransition();
+function Field({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
     return (
-        <div className="flex items-center gap-2">
-            <div className={cn("shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]", size)}>
-                {url ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={url} alt="thumbnail" className="h-full w-full object-cover" />
-                ) : (
-                    <div className="flex h-full w-full items-center justify-center text-white/20">
-                        <ImageIcon className="size-4" />
-                    </div>
-                )}
-            </div>
-            <ImageUpload
-                compact
-                label={url ? "Replace" : "Add thumbnail"}
-                onUploaded={(u) => start(async () => { await setThumbnail(table, id, u); onDone(); })}
-            />
+        <label className={cn("block", className)}>
+            <span className="mb-1 block text-xs font-medium text-white/50">{label}</span>
+            {children}
+        </label>
+    );
+}
+
+function FieldLabel({ label, children }: { label: string; children: React.ReactNode }) {
+    return (
+        <div>
+            <span className="mb-1 block text-xs font-medium text-white/50">{label}</span>
+            {children}
         </div>
+    );
+}
+
+function IconBtn({ onClick, title, children, tone = "ghost" }: { onClick: () => void; title: string; children: React.ReactNode; tone?: "ghost" | "danger" }) {
+    return (
+        <button
+            onClick={onClick}
+            title={title}
+            aria-label={title}
+            className={cn(
+                "rounded-full border border-white/10 bg-white/[0.04] p-1.5 transition",
+                tone === "danger" ? "text-white/50 hover:border-rose-500/30 hover:text-rose-300" : "text-white/50 hover:text-white"
+            )}
+        >
+            {children}
+        </button>
     );
 }
 
@@ -77,9 +87,13 @@ export function CurriculumManager({ semesters }: { semesters: SemesterNode[] }) 
     return (
         <div className="space-y-6">
             {/* Add semester */}
-            <GlassCard className="flex flex-wrap items-center gap-3 p-4">
-                <input className={cn(input, "flex-1")} placeholder="New semester title (e.g. Semester 3: Mind & Focus)" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <ImageUpload compact label={thumb ? "Thumbnail ✓" : "Thumbnail"} onUploaded={setThumb} />
+            <GlassCard className="flex flex-wrap items-end gap-3 p-4">
+                <Field label="Semester title" className="flex-1">
+                    <input className={input} placeholder="e.g. Semester 3: Mind & Focus" value={title} onChange={(e) => setTitle(e.target.value)} />
+                </Field>
+                <FieldLabel label="Thumbnail">
+                    <ImageUpload compact label={thumb ? "Thumbnail ✓" : "Upload"} onUploaded={setThumb} />
+                </FieldLabel>
                 <button
                     className={btn}
                     disabled={pending || !title.trim()}
@@ -96,30 +110,70 @@ export function CurriculumManager({ semesters }: { semesters: SemesterNode[] }) 
             </GlassCard>
 
             {semesters.map((s) => (
-                <GlassCard key={s.id} className="p-5">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
-                        <h2 className="text-lg font-semibold text-white">{s.title}</h2>
-                        <div className="flex items-center gap-2">
-                            <PublishToggle table="semesters" id={s.id} value={!!s.is_published} onDone={refresh} />
-                            <DeleteBtn table="semesters" id={s.id} onDone={refresh} />
-                        </div>
-                    </div>
-                    <div className="mt-3">
-                        <ThumbControl table="semesters" id={s.id} url={s.thumbnail_url} onDone={refresh} />
-                    </div>
-
-                    <div className="mt-4 space-y-3 border-l border-white/[0.06] pl-4">
-                        {s.courses.map((c) => (
-                            <CourseBlock key={c.id} course={c} onDone={refresh} />
-                        ))}
-                        <CourseAdder semesterId={s.id} onDone={refresh} />
-                    </div>
-                </GlassCard>
+                <SemesterBlock key={s.id} semester={s} onDone={refresh} />
             ))}
 
-            {semesters.length === 0 && (
-                <p className="text-sm text-white/50">No semesters yet — add one above.</p>
-            )}
+            {semesters.length === 0 && <p className="text-sm text-white/50">No semesters yet — add one above.</p>}
+        </div>
+    );
+}
+
+function SemesterBlock({ semester: s, onDone }: { semester: SemesterNode; onDone: () => void }) {
+    const [editing, setEditing] = useState(false);
+    const [title, setTitle] = useState(s.title);
+    const [pending, start] = useTransition();
+
+    return (
+        <GlassCard className="p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                {editing ? (
+                    <div className="flex flex-1 items-end gap-2">
+                        <Field label="Semester title" className="flex-1">
+                            <input className={input} value={title} onChange={(e) => setTitle(e.target.value)} />
+                        </Field>
+                        <button className={btn} disabled={pending || !title.trim()} onClick={() => start(async () => { await updateSemester(s.id, { title: title.trim() }); setEditing(false); onDone(); })}>
+                            <Check className="size-4" /> Save
+                        </button>
+                        <button className={ghostBtn} onClick={() => { setTitle(s.title); setEditing(false); }}>Cancel</button>
+                    </div>
+                ) : (
+                    <>
+                        <h2 className="text-lg font-semibold text-white">{s.title}</h2>
+                        <div className="flex items-center gap-2">
+                            <IconBtn onClick={() => setEditing(true)} title="Edit semester"><Pencil className="size-3.5" /></IconBtn>
+                            <PublishToggle table="semesters" id={s.id} value={!!s.is_published} onDone={onDone} />
+                            <DeleteBtn table="semesters" id={s.id} onDone={onDone} />
+                        </div>
+                    </>
+                )}
+            </div>
+            <div className="mt-3">
+                <ThumbControl table="semesters" id={s.id} url={s.thumbnail_url} onDone={onDone} />
+            </div>
+
+            <div className="mt-4 space-y-3 border-l border-white/[0.06] pl-4">
+                {s.courses.map((c) => (
+                    <CourseBlock key={c.id} course={c} onDone={onDone} />
+                ))}
+                <CourseAdder semesterId={s.id} onDone={onDone} />
+            </div>
+        </GlassCard>
+    );
+}
+
+function ThumbControl({ table, id, url, onDone, size = "h-16 w-28" }: { table: "semesters" | "courses" | "lessons"; id: string; url?: string | null; onDone: () => void; size?: string }) {
+    const [, start] = useTransition();
+    return (
+        <div className="flex items-center gap-2">
+            <div className={cn("shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]", size)}>
+                {url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={url} alt="thumbnail" className="h-full w-full object-cover" />
+                ) : (
+                    <div className="flex h-full w-full items-center justify-center text-white/20"><ImageIcon className="size-4" /></div>
+                )}
+            </div>
+            <ImageUpload compact label={url ? "Replace" : "Add thumbnail"} onUploaded={(u) => start(async () => { await setThumbnail(table, id, u); onDone(); })} />
         </div>
     );
 }
@@ -130,10 +184,7 @@ function PublishToggle({ table, id, value, onDone }: { table: "semesters" | "cou
         <button
             onClick={() => start(async () => { await togglePublish(table, id, !value); onDone(); })}
             disabled={pending}
-            className={cn(
-                "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition",
-                value ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300" : "border-white/10 bg-white/[0.04] text-white/50"
-            )}
+            className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition", value ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300" : "border-white/10 bg-white/[0.04] text-white/50")}
         >
             {value ? <Eye className="size-3.5" /> : <EyeOff className="size-3.5" />}
             {value ? "Published" : "Draft"}
@@ -145,10 +196,7 @@ function DeleteBtn({ table, id, onDone }: { table: "semesters" | "courses" | "le
     const [pending, start] = useTransition();
     return (
         <button
-            onClick={() => {
-                if (!confirm("Delete this and everything under it?")) return;
-                start(async () => { await deleteRow(table, id); onDone(); });
-            }}
+            onClick={() => { if (!confirm("Delete this and everything under it?")) return; start(async () => { await deleteRow(table, id); onDone(); }); }}
             disabled={pending}
             className="rounded-full border border-white/10 bg-white/[0.04] p-1.5 text-white/50 transition hover:border-rose-500/30 hover:text-rose-300"
             aria-label="Delete"
@@ -160,6 +208,10 @@ function DeleteBtn({ table, id, onDone }: { table: "semesters" | "courses" | "le
 
 function CourseBlock({ course, onDone }: { course: CourseNode; onDone: () => void }) {
     const [open, setOpen] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [form, setForm] = useState({ title: course.title, description: course.description ?? "", difficulty: course.difficulty ?? "beginner", points: course.points_reward });
+    const [pending, start] = useTransition();
+
     return (
         <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4">
             <div className="flex items-center justify-between gap-3">
@@ -173,29 +225,108 @@ function CourseBlock({ course, onDone }: { course: CourseNode; onDone: () => voi
                     <span className="text-xs text-white/40">· {course.lessons.length} lessons · +{course.points_reward} pts</span>
                 </button>
                 <div className="flex items-center gap-2">
+                    <IconBtn onClick={() => { setOpen(true); setEditing((e) => !e); }} title="Edit course"><Pencil className="size-3.5" /></IconBtn>
                     <PublishToggle table="courses" id={course.id} value={!!course.is_published} onDone={onDone} />
                     <DeleteBtn table="courses" id={course.id} onDone={onDone} />
                 </div>
             </div>
 
             {open && (
-                <div className="mt-3 space-y-2 border-l border-white/[0.06] pl-4">
-                    <ThumbControl table="courses" id={course.id} url={course.thumbnail_url} onDone={onDone} />
-                    {course.lessons.map((l) => (
-                        <div key={l.id} className="flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2">
-                            <span className="flex items-center gap-2 text-sm text-white/80">
-                                {l.content_type === "video" ? <Video className="size-3.5 text-[#f15906]" /> : <FileText className="size-3.5 text-white/40" />}
-                                {l.title}
-                            </span>
-                            <div className="flex items-center gap-2">
-                                <ThumbControl table="lessons" id={l.id} url={l.thumbnail_url} onDone={onDone} size="h-9 w-14" />
-                                <DeleteBtn table="lessons" id={l.id} onDone={onDone} />
+                <div className="mt-3 space-y-3 border-l border-white/[0.06] pl-4">
+                    {editing && (
+                        <div className="space-y-2 rounded-2xl border border-[#f15906]/20 bg-[#f15906]/[0.04] p-3">
+                            <Field label="Course title"><input className={input} value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></Field>
+                            <Field label="Description"><textarea className={input} rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></Field>
+                            <div className="flex gap-2">
+                                <Field label="Difficulty" className="flex-1">
+                                    <select className={input} value={form.difficulty} onChange={(e) => setForm({ ...form, difficulty: e.target.value })}>
+                                        <option value="beginner">Beginner</option>
+                                        <option value="intermediate">Intermediate</option>
+                                        <option value="advanced">Advanced</option>
+                                    </select>
+                                </Field>
+                                <Field label="Points reward" className="w-32"><input className={input} type="number" value={form.points} onChange={(e) => setForm({ ...form, points: Number(e.target.value) })} /></Field>
+                            </div>
+                            <div className="flex gap-2">
+                                <button className={btn} disabled={pending || !form.title.trim()} onClick={() => start(async () => { await updateCourse(course.id, form); setEditing(false); onDone(); })}><Check className="size-4" /> Save</button>
+                                <button className={ghostBtn} onClick={() => setEditing(false)}>Cancel</button>
                             </div>
                         </div>
+                    )}
+
+                    <ThumbControl table="courses" id={course.id} url={course.thumbnail_url} onDone={onDone} />
+                    {course.lessons.map((l) => (
+                        <LessonRow key={l.id} lesson={l} onDone={onDone} />
                     ))}
                     <LessonAdder courseId={course.id} onDone={onDone} />
                 </div>
             )}
+        </div>
+    );
+}
+
+function LessonRow({ lesson: l, onDone }: { lesson: LessonNode; onDone: () => void }) {
+    const [editing, setEditing] = useState(false);
+    const [title, setTitle] = useState(l.title);
+    const [duration, setDuration] = useState(l.duration_minutes ?? 0);
+    const [type, setType] = useState<"video" | "article">(l.content_type === "article" ? "article" : "video");
+    const [contentUrl, setContentUrl] = useState(l.content_url ?? "");
+    const [body, setBody] = useState(l.body ?? "");
+    const [pending, start] = useTransition();
+
+    if (editing) {
+        return (
+            <div className="space-y-2 rounded-xl border border-[#f15906]/20 bg-[#f15906]/[0.04] p-3">
+                <Field label="Lesson title"><input className={input} value={title} onChange={(e) => setTitle(e.target.value)} /></Field>
+                <div className="flex gap-2">
+                    <Field label="Content type" className="flex-1">
+                        <select className={input} value={type} onChange={(e) => setType(e.target.value as "video" | "article")}>
+                            <option value="video">Video</option>
+                            <option value="article">Article</option>
+                        </select>
+                    </Field>
+                    <Field label="Duration (min)" className="w-32"><input className={input} type="number" value={duration} onChange={(e) => setDuration(Number(e.target.value))} /></Field>
+                </div>
+                {type === "video" ? (
+                    <FieldLabel label="Replace video (optional)">
+                        <VideoUpload onUploaded={setContentUrl} />
+                        {contentUrl && <p className="mt-1 truncate text-xs text-emerald-300/80">Video set ✓</p>}
+                    </FieldLabel>
+                ) : (
+                    <Field label="Article content"><textarea className={input} rows={4} value={body} onChange={(e) => setBody(e.target.value)} /></Field>
+                )}
+                <div className="flex gap-2">
+                    <button
+                        className={btn}
+                        disabled={pending || !title.trim()}
+                        onClick={() => start(async () => {
+                            await updateLesson(l.id, {
+                                title, duration, contentType: type,
+                                contentUrl: type === "video" ? (contentUrl || null) : null,
+                                body: type === "article" ? body : null,
+                            });
+                            setEditing(false); onDone();
+                        })}
+                    >
+                        <Check className="size-4" /> Save
+                    </button>
+                    <button className={ghostBtn} onClick={() => setEditing(false)}>Cancel</button>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2">
+            <span className="flex items-center gap-2 text-sm text-white/80">
+                {l.content_type === "video" ? <Video className="size-3.5 text-[#f15906]" /> : <FileText className="size-3.5 text-white/40" />}
+                {l.title}
+            </span>
+            <div className="flex items-center gap-2">
+                <ThumbControl table="lessons" id={l.id} url={l.thumbnail_url} onDone={onDone} size="h-9 w-14" />
+                <IconBtn onClick={() => setEditing(true)} title="Edit lesson"><Pencil className="size-3.5" /></IconBtn>
+                <DeleteBtn table="lessons" id={l.id} onDone={onDone} />
+            </div>
         </div>
     );
 }
@@ -215,34 +346,26 @@ function CourseAdder({ semesterId, onDone }: { semesterId: string; onDone: () =>
 
     return (
         <div className="space-y-2 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3">
-            <input className={input} placeholder="Course title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
-            <textarea className={input} placeholder="Description" rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+            <Field label="Course title"><input className={input} placeholder="e.g. Breathwork Fundamentals" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></Field>
+            <Field label="Description"><textarea className={input} placeholder="What this course covers" rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></Field>
             <div className="flex gap-2">
-                <select className={input} value={form.difficulty} onChange={(e) => setForm({ ...form, difficulty: e.target.value })}>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                <input className={input} type="number" placeholder="Points" value={form.points} onChange={(e) => setForm({ ...form, points: Number(e.target.value) })} />
+                <Field label="Difficulty" className="flex-1">
+                    <select className={input} value={form.difficulty} onChange={(e) => setForm({ ...form, difficulty: e.target.value })}>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </Field>
+                <Field label="Points reward" className="w-32"><input className={input} type="number" placeholder="100" value={form.points} onChange={(e) => setForm({ ...form, points: Number(e.target.value) })} /></Field>
             </div>
-            <ImageUpload compact label={thumb ? "Thumbnail ✓" : "Course thumbnail"} onUploaded={setThumb} />
+            <FieldLabel label="Course thumbnail">
+                <ImageUpload compact label={thumb ? "Thumbnail ✓" : "Upload image"} onUploaded={setThumb} />
+            </FieldLabel>
             <div className="flex gap-2">
-                <button
-                    className={btn}
-                    disabled={pending || !form.title.trim()}
-                    onClick={() =>
-                        start(async () => {
-                            await createCourse({ semesterId, ...form, thumbnailUrl: thumb });
-                            setForm({ title: "", description: "", difficulty: "beginner", points: 100 });
-                            setThumb(null);
-                            setOpen(false);
-                            onDone();
-                        })
-                    }
-                >
-                    Save course
+                <button className={btn} disabled={pending || !form.title.trim()} onClick={() => start(async () => { await createCourse({ semesterId, ...form, thumbnailUrl: thumb }); setForm({ title: "", description: "", difficulty: "beginner", points: 100 }); setThumb(null); setOpen(false); onDone(); })}>
+                    <Check className="size-4" /> Save course
                 </button>
-                <button onClick={() => setOpen(false)} className="rounded-full border border-white/15 px-4 py-2 text-sm text-white/60">Cancel</button>
+                <button onClick={() => setOpen(false)} className={ghostBtn}>Cancel</button>
             </div>
         </div>
     );
@@ -267,50 +390,42 @@ function LessonAdder({ courseId, onDone }: { courseId: string; onDone: () => voi
 
     return (
         <div className="space-y-2 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3">
-            <input className={input} placeholder="Lesson title" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Field label="Lesson title"><input className={input} placeholder="e.g. Box Breathing" value={title} onChange={(e) => setTitle(e.target.value)} /></Field>
             <div className="flex gap-2">
-                <select className={input} value={type} onChange={(e) => setType(e.target.value as "video" | "article")}>
-                    <option value="video">Video</option>
-                    <option value="article">Article</option>
-                </select>
-                <input className={input} type="number" placeholder="Minutes" value={duration} onChange={(e) => setDuration(Number(e.target.value))} />
+                <Field label="Content type" className="flex-1">
+                    <select className={input} value={type} onChange={(e) => setType(e.target.value as "video" | "article")}>
+                        <option value="video">Video</option>
+                        <option value="article">Article</option>
+                    </select>
+                </Field>
+                <Field label="Duration (min)" className="w-32"><input className={input} type="number" placeholder="8" value={duration} onChange={(e) => setDuration(Number(e.target.value))} /></Field>
             </div>
 
             {type === "video" ? (
-                <div className="space-y-2">
+                <FieldLabel label="Lesson video">
                     <VideoUpload onUploaded={setContentUrl} />
-                    {contentUrl && <p className="truncate text-xs text-emerald-300/80">Video ready ✓</p>}
-                </div>
+                    {contentUrl && <p className="mt-1 truncate text-xs text-emerald-300/80">Video ready ✓</p>}
+                </FieldLabel>
             ) : (
-                <textarea className={input} placeholder="Article content (markdown/plain text)" rows={4} value={body} onChange={(e) => setBody(e.target.value)} />
+                <Field label="Article content"><textarea className={input} placeholder="Markdown or plain text" rows={4} value={body} onChange={(e) => setBody(e.target.value)} /></Field>
             )}
 
-            <ImageUpload compact label={thumb ? "Thumbnail ✓" : "Lesson thumbnail (poster)"} onUploaded={setThumb} />
+            <FieldLabel label="Lesson thumbnail (video poster)">
+                <ImageUpload compact label={thumb ? "Thumbnail ✓" : "Upload image"} onUploaded={setThumb} />
+            </FieldLabel>
 
             <div className="flex gap-2">
                 <button
                     className={btn}
                     disabled={pending || !title.trim() || (type === "video" && !contentUrl)}
-                    onClick={() =>
-                        start(async () => {
-                            await createLesson({
-                                courseId,
-                                title,
-                                contentType: type,
-                                contentUrl: type === "video" ? contentUrl : null,
-                                body: type === "article" ? body : null,
-                                duration,
-                                thumbnailUrl: thumb,
-                            });
-                            setTitle(""); setContentUrl(""); setBody(""); setDuration(0); setThumb(null);
-                            setOpen(false);
-                            onDone();
-                        })
-                    }
+                    onClick={() => start(async () => {
+                        await createLesson({ courseId, title, contentType: type, contentUrl: type === "video" ? contentUrl : null, body: type === "article" ? body : null, duration, thumbnailUrl: thumb });
+                        setTitle(""); setContentUrl(""); setBody(""); setDuration(0); setThumb(null); setOpen(false); onDone();
+                    })}
                 >
-                    Save lesson
+                    <Check className="size-4" /> Save lesson
                 </button>
-                <button onClick={() => setOpen(false)} className="rounded-full border border-white/15 px-4 py-2 text-sm text-white/60">Cancel</button>
+                <button onClick={() => setOpen(false)} className={ghostBtn}>Cancel</button>
             </div>
         </div>
     );

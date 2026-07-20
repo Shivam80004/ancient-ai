@@ -4,8 +4,8 @@ import { useState } from "react";
 import { UploadCloud, Loader2, Check } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-/** Uploads a video to the public `lesson-videos` bucket and returns its public URL. */
-export function VideoUpload({ onUploaded }: { onUploaded: (url: string) => void }) {
+/** Uploads a video to a public bucket (default `lesson-videos`) and returns its public URL. */
+export function VideoUpload({ onUploaded, bucket = "lesson-videos" }: { onUploaded: (url: string) => void; bucket?: string }) {
     const [uploading, setUploading] = useState(false);
     const [done, setDone] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export function VideoUpload({ onUploaded }: { onUploaded: (url: string) => void 
         const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
         const path = `${Date.now()}-${safe}`;
         const { error } = await supabase.storage
-            .from("lesson-videos")
+            .from(bucket)
             .upload(path, file, { upsert: false, contentType: file.type });
 
         if (error) {
@@ -31,7 +31,7 @@ export function VideoUpload({ onUploaded }: { onUploaded: (url: string) => void 
             setUploading(false);
             return;
         }
-        const { data } = supabase.storage.from("lesson-videos").getPublicUrl(path);
+        const { data } = supabase.storage.from(bucket).getPublicUrl(path);
         onUploaded(data.publicUrl);
         setDone(true);
         setUploading(false);

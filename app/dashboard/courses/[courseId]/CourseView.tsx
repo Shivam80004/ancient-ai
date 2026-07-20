@@ -4,7 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
-import { Check, Play, ArrowLeft, CircleCheck, Loader2 } from "lucide-react";
+import { Check, Play, ArrowLeft, ArrowRight, ChevronLeft, CircleCheck, Loader2 } from "lucide-react";
 import { GlassCard } from "@/components/dashboard/GlassCard";
 import { VideoPlayer, isEmbedUrl } from "@/components/dashboard/VideoPlayer";
 import { enrollAction } from "../actions";
@@ -25,9 +25,10 @@ type Props = {
     lessons: Lesson[];
     completedIds: string[];
     enrolled: boolean;
+    nextCourseId?: string | null;
 };
 
-export function CourseView({ course, lessons, completedIds, enrolled }: Props) {
+export function CourseView({ course, lessons, completedIds, enrolled, nextCourseId }: Props) {
     const router = useRouter();
     const [done, setDone] = useState<Set<string>>(new Set(completedIds));
     const [enrolling, startEnroll] = useTransition();
@@ -44,6 +45,12 @@ export function CourseView({ course, lessons, completedIds, enrolled }: Props) {
     const total = lessons.length;
     const completedCount = done.size;
     const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+    const index = lessons.findIndex((l) => l.id === selected?.id);
+    const isFirst = index <= 0;
+    const isLast = index === lessons.length - 1;
+    const goPrev = () => !isFirst && setSelectedId(lessons[index - 1].id);
+    const goNext = () => !isLast && setSelectedId(lessons[index + 1].id);
 
     function enroll() {
         startEnroll(async () => {
@@ -204,21 +211,56 @@ export function CourseView({ course, lessons, completedIds, enrolled }: Props) {
                                     )}
                                 </div>
 
-                                <div className="mt-6 flex items-center justify-end">
-                                    {done.has(selected.id) ? (
-                                        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2.5 text-sm font-semibold text-emerald-300">
-                                            <CircleCheck className="size-4" /> Completed
-                                        </span>
-                                    ) : (
-                                        <button
-                                            onClick={markComplete}
-                                            disabled={saving}
-                                            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/40 transition hover:brightness-110 disabled:opacity-60"
-                                        >
-                                            {saving ? <Loader2 className="size-4 animate-spin" /> : <Play className="size-4 fill-current" />}
-                                            Mark complete
-                                        </button>
-                                    )}
+                                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                                    {/* Previous */}
+                                    <button
+                                        onClick={goPrev}
+                                        disabled={isFirst}
+                                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.12] disabled:cursor-not-allowed disabled:opacity-40"
+                                    >
+                                        <ChevronLeft className="size-4" /> Previous
+                                    </button>
+
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        {done.has(selected.id) ? (
+                                            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-5 py-2.5 text-sm font-semibold text-emerald-300">
+                                                <CircleCheck className="size-4" /> Completed
+                                            </span>
+                                        ) : (
+                                            <button
+                                                onClick={markComplete}
+                                                disabled={saving}
+                                                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.12] disabled:opacity-60"
+                                            >
+                                                {saving ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" />}
+                                                Mark complete
+                                            </button>
+                                        )}
+
+                                        {/* Next lesson / Next course / Finish */}
+                                        {!isLast ? (
+                                            <button
+                                                onClick={goNext}
+                                                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/40 transition hover:brightness-110"
+                                            >
+                                                Next lesson <ArrowRight className="size-4" />
+                                            </button>
+                                        ) : nextCourseId ? (
+                                            <Link
+                                                href={`/dashboard/courses/${nextCourseId}`}
+                                                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/40 transition hover:brightness-110"
+                                            >
+                                                Next course <ArrowRight className="size-4" />
+                                            </Link>
+                                        ) : (
+                                            <Link
+                                                href="/dashboard/courses"
+                                                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange-600 to-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/40 transition hover:brightness-110"
+                                            >
+                                                Finish <Check className="size-4" />
+                                            </Link>
+                                        )}
+                                    </div>
                                 </div>
                             </>
                         ) : (

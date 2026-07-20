@@ -11,7 +11,7 @@ export default async function AdminCoursesPage() {
     const { data: semesters } = await admin
         .from("semesters")
         .select(
-            "id, title, is_published, thumbnail_url, courses(id, title, description, difficulty, points_reward, is_published, thumbnail_url, order_index, lessons(id, title, content_type, thumbnail_url, order_index))"
+            "id, title, is_published, thumbnail_url, courses(id, title, description, difficulty, points_reward, is_published, thumbnail_url, order_index, lessons(id, title, content_type, content_url, body, duration_minutes, thumbnail_url, order_index))"
         )
         .order("order_index");
 

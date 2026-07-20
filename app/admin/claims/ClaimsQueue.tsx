@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { GlassCard } from "@/components/dashboard/GlassCard";
 import { cn } from "@/lib/utils";
-import { resolveClaim } from "./actions";
+import { setClaimStatus, type ClaimStatus } from "./actions";
 
 export type ClaimRow = {
     id: string;
@@ -23,9 +23,9 @@ export function ClaimsQueue({ claims }: { claims: ClaimRow[] }) {
     const [pending, start] = useTransition();
     const rows = claims.filter((c) => c.status === filter);
 
-    function act(id: string, action: "approve" | "ship" | "reject" | "uproot") {
+    function act(id: string, target: ClaimStatus) {
         start(async () => {
-            await resolveClaim(id, action);
+            await setClaimStatus(id, target);
             router.refresh();
         });
     }
@@ -62,20 +62,26 @@ export function ClaimsQueue({ claims }: { claims: ClaimRow[] }) {
                             <div className="flex flex-wrap gap-2">
                                 {c.status === "requested" && (
                                     <>
-                                        <Btn onClick={() => act(c.id, "approve")} disabled={pending} tone="ember">Approve</Btn>
-                                        <Btn onClick={() => act(c.id, "reject")} disabled={pending} tone="ghost">Reject{c.cost != null ? " + refund" : ""}</Btn>
+                                        <Btn onClick={() => act(c.id, "approved")} disabled={pending} tone="ember">Approve</Btn>
+                                        <Btn onClick={() => act(c.id, "rejected")} disabled={pending} tone="ghost">Reject{c.cost != null ? " + refund" : ""}</Btn>
                                     </>
                                 )}
                                 {c.status === "approved" && (
                                     <>
-                                        <Btn onClick={() => act(c.id, "ship")} disabled={pending} tone="ember">Mark shipped</Btn>
-                                        <Btn onClick={() => act(c.id, "uproot")} disabled={pending} tone="danger">Uproot</Btn>
+                                        <Btn onClick={() => act(c.id, "shipped")} disabled={pending} tone="ember">Mark shipped</Btn>
+                                        <Btn onClick={() => act(c.id, "requested")} disabled={pending} tone="ghost">Revert to requested</Btn>
+                                        <Btn onClick={() => act(c.id, "rejected")} disabled={pending} tone="danger">Reject</Btn>
                                     </>
                                 )}
                                 {c.status === "shipped" && (
-                                    <Btn onClick={() => act(c.id, "uproot")} disabled={pending} tone="danger">Uproot{c.cost != null ? " + refund" : ""}</Btn>
+                                    <>
+                                        <Btn onClick={() => act(c.id, "approved")} disabled={pending} tone="ghost">Revert to approved</Btn>
+                                        <Btn onClick={() => act(c.id, "rejected")} disabled={pending} tone="danger">Uproot{c.cost != null ? " + refund" : ""}</Btn>
+                                    </>
                                 )}
-                                {c.status === "rejected" && <span className="text-xs text-white/40">Resolved</span>}
+                                {c.status === "rejected" && (
+                                    <Btn onClick={() => act(c.id, "requested")} disabled={pending} tone="ember">Reopen{c.cost != null ? " (re-charge)" : ""}</Btn>
+                                )}
                             </div>
                         </GlassCard>
                     ))}

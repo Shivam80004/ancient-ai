@@ -45,6 +45,49 @@ export async function createGift(input: {
     return error ? { error: error.message } : { ok: true };
 }
 
+export async function updateRule(
+    id: string,
+    input: { name: string; rule_type: string; threshold: number; reward_kind: string }
+) {
+    const db = await adminDb();
+    const { error } = await db
+        .from("reward_rules")
+        .update({
+            name: input.name,
+            rule_type: input.rule_type,
+            threshold: input.threshold,
+            reward_kind: input.reward_kind,
+        })
+        .eq("id", id);
+    revalidatePath("/admin/rules");
+    return error ? { error: error.message } : { ok: true };
+}
+
+export async function updateGift(
+    id: string,
+    input: { title: string; description: string; point_cost: number | null; stock: number | null }
+) {
+    const db = await adminDb();
+    const { error } = await db
+        .from("gifts")
+        .update({
+            title: input.title,
+            description: input.description,
+            point_cost: input.point_cost,
+            stock: input.stock,
+        })
+        .eq("id", id);
+    revalidatePath("/admin/rules");
+    return error ? { error: error.message } : { ok: true };
+}
+
+export async function deleteRewardRow(table: "reward_rules" | "gifts", id: string) {
+    const db = await adminDb();
+    const { error } = await db.from(table).delete().eq("id", id);
+    revalidatePath("/admin/rules");
+    return error ? { error: error.message } : { ok: true };
+}
+
 export async function toggleActive(table: "reward_rules" | "gifts", id: string, value: boolean) {
     const db = await adminDb();
     const { error } = await db.from(table).update({ is_active: value }).eq("id", id);

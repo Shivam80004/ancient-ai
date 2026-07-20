@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Play, Pause, Volume2, VolumeX, Maximize, Loader2 } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Maximize, Loader2, Settings, RotateCw, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 function fmt(t: number) {
@@ -11,19 +11,39 @@ function fmt(t: number) {
     return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-const RATES = [1, 1.25, 1.5, 2];
+const RATES = [0.5, 0.75, 1, 1.25, 1.5, 2];
 
-/** Custom HTML5 video player for self-hosted lesson videos (Supabase Storage now, S3 later). */
-export function VideoPlayer({ src, poster }: { src: string; poster?: string | null }) {
+export type VideoQuality = { label: string; src: string };
+
+/**
+ * Custom HTML5 video player for self-hosted lesson videos (Supabase Storage now, S3 later).
+ * Supports playback-speed control, a quality menu (pass multiple `sources` for real
+ * quality switching; a single MP4 shows "Auto"), and a mobile rotate-to-fullscreen button.
+ */
+export function VideoPlayer({
+    src,
+    poster,
+    sources,
+}: {
+    src: string;
+    poster?: string | null;
+    sources?: VideoQuality[];
+}) {
+    const qualities: VideoQuality[] = sources && sources.length ? sources : [{ label: "Auto", src }];
+
     const videoRef = useRef<HTMLVideoElement>(null);
     const wrapRef = useRef<HTMLDivElement>(null);
+    const resumeRef = useRef<{ time: number; playing: boolean } | null>(null);
+
     const [playing, setPlaying] = useState(false);
     const [current, setCurrent] = useState(0);
     const [duration, setDuration] = useState(0);
     const [muted, setMuted] = useState(false);
     const [volume, setVolume] = useState(1);
     const [rate, setRate] = useState(1);
+    const [qualityIdx, setQualityIdx] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [settingsOpen, setSettingsOpen] = useState(false);
 
     const toggle = useCallback(() => {
         const v = videoRef.current;
@@ -41,6 +61,13 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
         const onMeta = () => {
             setDuration(v.duration);
             setLoading(false);
+            v.playbackRate = rate;
+            // restore position after a quality switch
+            if (resumeRef.current) {
+                v.currentTime = resumeRef.current.time;
+                if (resumeRef.current.playing) v.play().catch(() => {});
+                resumeRef.current = null;
+            }
         };
         const onWaiting = () => setLoading(true);
         const onPlaying = () => setLoading(false);
@@ -58,7 +85,7 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
             v.removeEventListener("waiting", onWaiting);
             v.removeEventListener("playing", onPlaying);
         };
-    }, [src]);
+    }, [rate, qualityIdx]);
 
     function seek(e: React.ChangeEvent<HTMLInputElement>) {
         const v = videoRef.current;
@@ -85,16 +112,32 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
         setMuted(v.muted);
     }
 
-    function cycleRate() {
+    function applyRate(r: number) {
         const v = videoRef.current;
-        if (!v) return;
-        const next = RATES[(RATES.indexOf(rate) + 1) % RATES.length];
-        v.playbackRate = next;
-        setRate(next);
+        if (v) v.playbackRate = r;
+        setRate(r);
+    }
+
+    function changeQuality(i: number) {
+        if (i === qualityIdx) return;
+        const v = videoRef.current;
+        resumeRef.current = { time: v?.currentTime ?? 0, playing: !!v && !v.paused };
+        setLoading(true);
+        setQualityIdx(i);
     }
 
     function fullscreen() {
         wrapRef.current?.requestFullscreen?.();
+    }
+
+    async function rotate() {
+        try {
+            if (!document.fullscreenElement) await wrapRef.current?.requestFullscreen?.();
+            const orient = (screen as unknown as { orientation?: { lock?: (o: string) => Promise<void> } }).orientation;
+            await orient?.lock?.("landscape");
+        } catch {
+            /* orientation lock unsupported (e.g. desktop) — fullscreen still applied */
+        }
     }
 
     const pct = duration ? (current / duration) * 100 : 0;
@@ -107,7 +150,7 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video
                 ref={videoRef}
-                src={src}
+                src={qualities[qualityIdx].src}
                 poster={poster ?? undefined}
                 onClick={toggle}
                 className="h-full w-full"
@@ -121,7 +164,6 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
                 </div>
             )}
 
-            {/* Center play button when paused */}
             {!playing && !loading && (
                 <button
                     onClick={toggle}
@@ -132,6 +174,37 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
                         <Play className="size-7 fill-current" />
                     </span>
                 </button>
+            )}
+
+            {/* Settings popover */}
+            {settingsOpen && (
+                <div className="absolute bottom-16 right-3 z-10 w-44 rounded-2xl border border-white/10 bg-black/85 p-2 text-sm text-white backdrop-blur-xl">
+                    <p className="px-2 pb-1 pt-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/40">Speed</p>
+                    <div className="grid grid-cols-3 gap-1">
+                        {RATES.map((r) => (
+                            <button
+                                key={r}
+                                onClick={() => applyRate(r)}
+                                className={cn("rounded-lg px-1.5 py-1 text-xs transition", r === rate ? "bg-[#f15906] text-white" : "hover:bg-white/10")}
+                            >
+                                {r}×
+                            </button>
+                        ))}
+                    </div>
+                    <p className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/40">Quality</p>
+                    <div className="flex flex-col">
+                        {qualities.map((q, i) => (
+                            <button
+                                key={q.label}
+                                onClick={() => changeQuality(i)}
+                                className="flex items-center justify-between rounded-lg px-2 py-1.5 text-xs transition hover:bg-white/10"
+                            >
+                                {q.label}
+                                {i === qualityIdx && <Check className="size-3.5 text-[#f15906]" />}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             )}
 
             {/* Controls */}
@@ -169,8 +242,16 @@ export function VideoPlayer({ src, poster }: { src: string; poster?: string | nu
                         {fmt(current)} / {fmt(duration)}
                     </span>
                     <div className="ml-auto flex items-center gap-3">
-                        <button onClick={cycleRate} className="rounded px-1.5 text-xs font-semibold text-white/80 hover:text-white">
-                            {rate}×
+                        <button
+                            onClick={() => setSettingsOpen((o) => !o)}
+                            aria-label="Settings"
+                            className={cn("transition", settingsOpen ? "text-[#f15906]" : "hover:text-white")}
+                        >
+                            <Settings className="size-5" />
+                        </button>
+                        {/* Rotate to landscape — most useful on mobile */}
+                        <button onClick={rotate} aria-label="Rotate to fullscreen" className="sm:hidden">
+                            <RotateCw className="size-5" />
                         </button>
                         <button onClick={fullscreen} aria-label="Fullscreen">
                             <Maximize className="size-5" />

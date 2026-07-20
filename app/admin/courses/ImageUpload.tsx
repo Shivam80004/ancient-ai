@@ -10,10 +10,12 @@ export function ImageUpload({
     onUploaded,
     label = "Upload thumbnail",
     compact = false,
+    bucket = "course-thumbnails",
 }: {
     onUploaded: (url: string) => void;
     label?: string;
     compact?: boolean;
+    bucket?: string;
 }) {
     const [uploading, setUploading] = useState(false);
     const [done, setDone] = useState(false);
@@ -30,7 +32,7 @@ export function ImageUpload({
         const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
         const path = `${Date.now()}-${safe}`;
         const { error } = await supabase.storage
-            .from("course-thumbnails")
+            .from(bucket)
             .upload(path, file, { upsert: false, contentType: file.type });
 
         if (error) {
@@ -38,7 +40,7 @@ export function ImageUpload({
             setUploading(false);
             return;
         }
-        const { data } = supabase.storage.from("course-thumbnails").getPublicUrl(path);
+        const { data } = supabase.storage.from(bucket).getPublicUrl(path);
         onUploaded(data.publicUrl);
         setDone(true);
         setUploading(false);

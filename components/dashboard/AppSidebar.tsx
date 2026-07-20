@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -15,6 +15,7 @@ import {
     LogOut,
     Menu,
     X,
+    Clapperboard,
 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { cn } from "@/lib/utils";
@@ -22,6 +23,7 @@ import { cn } from "@/lib/utils";
 const NAV = [
     { href: "/dashboard", label: "Home", icon: Home },
     { href: "/dashboard/courses", label: "Courses", icon: GraduationCap },
+    { href: "/dashboard/vibe", label: "Ancient Vibe", icon: Clapperboard },
     { href: "/dashboard/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/dashboard/goodies", label: "Goodies", icon: Gift },
     { href: "/dashboard/tasks", label: "Tasks", icon: ListChecks },
@@ -41,6 +43,21 @@ export function AppSidebar({ displayName, avatarUrl, level, title, isAdmin }: Pr
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [signingOut, setSigningOut] = useState(false);
+    const [barHidden, setBarHidden] = useState(false);
+
+    // Mobile top bar: hide when scrolling down, reveal when scrolling up.
+    useEffect(() => {
+        let lastY = window.scrollY;
+        const onScroll = () => {
+            const y = window.scrollY;
+            if (y < 8) setBarHidden(false);
+            else if (y > lastY) setBarHidden(true); // scrolling down → hide
+            else if (y < lastY) setBarHidden(false); // scrolling up → reveal
+            lastY = y;
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     const isActive = (href: string) =>
         href === "/dashboard" ? pathname === href : pathname.startsWith(href);
@@ -129,7 +146,10 @@ export function AppSidebar({ displayName, avatarUrl, level, title, isAdmin }: Pr
             </aside>
 
             {/* Mobile top bar */}
-            <div className="fixed inset-x-0 top-0 z-40 flex h-16 items-center justify-between border-b border-white/[0.08] bg-[#0A0A0A]/80 px-4 backdrop-blur-xl lg:hidden">
+            <div className={cn(
+                "fixed inset-x-0 top-0 z-40 flex h-16 items-center justify-between border-b border-white/[0.08] bg-[#0A0A0A]/80 px-4 backdrop-blur-xl transition-transform duration-300 lg:hidden",
+                barHidden ? "-translate-y-full" : "translate-y-0"
+            )}>
                 <Link href="/" className="flex items-center">
                     <img src="/logo-plain.png" alt="Ancient AI University" className="h-8 w-auto" />
                 </Link>

@@ -20,10 +20,24 @@ export default async function CourseDetailPage({
     // RLS returns the course only if it's published
     const { data: course } = await supabase
         .from("courses")
-        .select("id, title, description, points_reward, thumbnail_url")
+        .select("id, title, description, points_reward, thumbnail_url, semester_id, order_index")
         .eq("id", courseId)
         .maybeSingle();
     if (!course) notFound();
+
+    // Next published course in the same semester (for the "Next course" hand-off)
+    let nextCourseId: string | null = null;
+    if (course.semester_id != null && course.order_index != null) {
+        const { data: nextCourse } = await supabase
+            .from("courses")
+            .select("id")
+            .eq("semester_id", course.semester_id)
+            .gt("order_index", course.order_index)
+            .order("order_index")
+            .limit(1)
+            .maybeSingle();
+        nextCourseId = nextCourse?.id ?? null;
+    }
 
     const { data: lessons } = await supabase
         .from("lessons")
@@ -51,6 +65,7 @@ export default async function CourseDetailPage({
             lessons={lessons ?? []}
             completedIds={(comps ?? []).map((c) => c.lesson_id!).filter(Boolean)}
             enrolled={!!enrollment}
+            nextCourseId={nextCourseId}
         />
     );
 }

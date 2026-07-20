@@ -77,6 +77,52 @@ export async function createLesson(input: {
     return error ? { error: error.message } : { ok: true };
 }
 
+export async function updateSemester(id: string, input: { title: string }) {
+    const db = await adminDb();
+    const { error } = await db.from("semesters").update({ title: input.title }).eq("id", id);
+    revalidatePath("/admin/courses");
+    return error ? { error: error.message } : { ok: true };
+}
+
+export async function updateCourse(
+    id: string,
+    input: { title: string; description: string; difficulty: string; points: number }
+) {
+    const db = await adminDb();
+    const { error } = await db
+        .from("courses")
+        .update({
+            title: input.title,
+            description: input.description,
+            difficulty: input.difficulty,
+            points_reward: input.points,
+        })
+        .eq("id", id);
+    revalidatePath("/admin/courses");
+    return error ? { error: error.message } : { ok: true };
+}
+
+export async function updateLesson(
+    id: string,
+    input: {
+        title: string;
+        duration?: number;
+        contentType?: "video" | "article" | "quiz";
+        contentUrl?: string | null;
+        body?: string | null;
+    }
+) {
+    const db = await adminDb();
+    const patch: Record<string, unknown> = { title: input.title };
+    if (input.duration != null) patch.duration_minutes = input.duration;
+    if (input.contentType) patch.content_type = input.contentType;
+    if (input.contentUrl !== undefined) patch.content_url = input.contentUrl;
+    if (input.body !== undefined) patch.body = input.body;
+    const { error } = await db.from("lessons").update(patch).eq("id", id);
+    revalidatePath("/admin/courses");
+    return error ? { error: error.message } : { ok: true };
+}
+
 /** Set/replace the thumbnail on an existing semester, course, or lesson. */
 export async function setThumbnail(table: "semesters" | "courses" | "lessons", id: string, url: string) {
     const db = await adminDb();
