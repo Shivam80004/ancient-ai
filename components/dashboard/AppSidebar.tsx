@@ -165,7 +165,7 @@ export function AppSidebar({ displayName, avatarUrl, level, title, isAdmin }: Pr
                         aria-label="Open menu"
                         className="flex size-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.06] text-white"
                     >
-                        <Menu className="size-5" />
+                        <Menu className="size-5 opacity-1" />
                     </button>
                 </div>
             </div>
