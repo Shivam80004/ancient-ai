@@ -16,6 +16,8 @@ import {
     Menu,
     X,
     Clapperboard,
+    BookOpen,
+    MessageCircle,
 } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { cn } from "@/lib/utils";
@@ -24,6 +26,7 @@ const NAV = [
     { href: "/dashboard", label: "Home", icon: Home },
     { href: "/dashboard/courses", label: "Courses", icon: GraduationCap },
     { href: "/dashboard/vibe", label: "Ancient Vibe", icon: Clapperboard },
+    { href: "/dashboard/resources", label: "Free Resources", icon: BookOpen },
     { href: "/dashboard/leaderboard", label: "Leaderboard", icon: Trophy },
     { href: "/dashboard/goodies", label: "Goodies", icon: Gift },
     { href: "/dashboard/tasks", label: "Tasks", icon: ListChecks },
@@ -153,20 +156,25 @@ export function AppSidebar({ displayName, avatarUrl, level, title, isAdmin }: Pr
                 <Link href="/" className="flex items-center">
                     <img src="/logo-plain.png" alt="Ancient AI University" className="h-8 w-auto" />
                 </Link>
-                <button
-                    onClick={() => setOpen(true)}
-                    aria-label="Open menu"
-                    className="flex size-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.06] text-white"
-                >
-                    <Menu className="size-5" />
-                </button>
+                <div className="flex items-center gap-3">
+                    <Link href="/dashboard/vibe" className="flex size-9 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.06] text-white">
+                        <Clapperboard className="size-5" />
+                    </Link>
+                    <button
+                        onClick={() => setOpen(true)}
+                        aria-label="Open menu"
+                        className="flex size-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.06] text-white"
+                    >
+                        <Menu className="size-5" />
+                    </button>
+                </div>
             </div>
 
             {/* Mobile drawer */}
             {open && (
                 <div className="fixed inset-0 z-50 lg:hidden">
                     <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
-                    <aside className="absolute inset-y-0 left-0 flex w-72 flex-col border-r border-white/[0.08] bg-[#0A0A0A] shadow-2xl">
+                    <aside className="absolute inset-y-0 right-0 flex w-72 flex-col border-r border-white/[0.08] bg-[#0A0A0A] shadow-2xl">
                         <div className="flex items-center justify-between pr-3">
                             {brand}
                             <button

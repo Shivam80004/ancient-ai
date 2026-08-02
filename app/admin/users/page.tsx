@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/dashboard/GlassCard";
 import { RoleToggle } from "./RoleToggle";
@@ -58,7 +59,11 @@ export default async function AdminUsersPage() {
                     <tbody className="divide-y divide-white/[0.06]">
                         {rows.map((u) => (
                             <tr key={u.id} className="text-white/85">
-                                <td className="px-4 py-3 font-medium">{u.full_name ?? "—"}</td>
+                                <td className="px-4 py-3 font-medium">
+                                    <Link href={`/admin/users/${u.id}`} className="text-white transition hover:text-[#f15906] hover:underline">
+                                        {u.full_name ?? "—"}
+                                    </Link>
+                                </td>
                                 <td className="px-4 py-3 text-white/50">{emailById.get(u.id) || "—"}</td>
                                 <td className="px-4 py-3">
                                     <span

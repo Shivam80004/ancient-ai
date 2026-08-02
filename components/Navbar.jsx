@@ -70,7 +70,7 @@ const Navbar = () => {
     };
 
     // Hidden inside the dashboard/app shell and on auth screens.
-    const hideOn = ['/login', '/signup', '/dashboard', '/admin'];
+    const hideOn = ['/login', '/signup', '/dashboard', '/admin', '/onboarding'];
     if (hideOn.some((p) => pathname === p || pathname?.startsWith(p + '/'))) {
         return null;
     }

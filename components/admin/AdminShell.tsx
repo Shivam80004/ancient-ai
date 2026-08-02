@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, GraduationCap, Trophy, ListChecks, Gift, Users, ArrowLeft, Clapperboard } from "lucide-react";
+import { LayoutDashboard, GraduationCap, Trophy, ListChecks, Gift, Users, ArrowLeft, Clapperboard, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
     { href: "/admin", label: "Overview", icon: LayoutDashboard },
     { href: "/admin/courses", label: "Curriculum", icon: GraduationCap },
     { href: "/admin/vibe", label: "Ancient Vibe", icon: Clapperboard },
+    { href: "/admin/resources", label: "Free Resources", icon: BookOpen },
     { href: "/admin/rules", label: "Reward Rules", icon: Trophy },
     { href: "/admin/tasks", label: "Tasks", icon: ListChecks },
     { href: "/admin/claims", label: "Claims", icon: Gift },

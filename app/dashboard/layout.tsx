@@ -37,6 +37,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
     const level = Math.floor(xp / XP_PER_LEVEL) + 1;
     const isAdmin = profile?.role === "admin";
 
+    // First-time learners complete the onboarding wizard before entering the app.
+    if (profile && !profile.onboarded && !isAdmin) redirect("/onboarding");
+
     return (
         <div className="relative min-h-screen w-full overflow-hidden bg-[#0A0A0A] text-white">
             {/* Ambient ember glow */}

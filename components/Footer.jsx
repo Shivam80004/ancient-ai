@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 
 const Footer = () => {
     const pathname = usePathname();
-    if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin')) {
+    if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin') || pathname?.startsWith('/onboarding')) {
         return null;
     }
 
