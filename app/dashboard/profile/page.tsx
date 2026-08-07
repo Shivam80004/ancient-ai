@@ -57,17 +57,17 @@ export default async function ProfilePage() {
         <div className="space-y-6">
             {/* Header */}
             <GlassCard className="flex flex-col items-center gap-6 p-8 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-5">
+                <div className="flex md:items-center gap-5">
                     {profile?.avatar_url ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={profile.avatar_url} alt={name} className="size-20 rounded-full border-2 border-[#f15906]/40 object-cover" />
+                        <img src={profile.avatar_url} alt={name} className="md:size-20 size-10 rounded-full border-2 border-[#f15906]/40 object-cover" />
                     ) : (
-                        <span className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-orange-600 to-red-600 text-3xl font-bold text-white">
+                        <span className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-orange-600 to-red-600 text-3xl font-bold text-white">
                             {name.charAt(0).toUpperCase()}
                         </span>
                     )}
                     <div>
-                        <h1 className="text-3xl font-semibold text-white">{name}</h1>
+                        <h1 className="md:text-3xl text-xl font-semibold text-white">{name}</h1>
                         <p className="text-sm text-white/50">{user.email}</p>
                         <p className="mt-1 text-xs text-white/40">Joined {joined} · {titleFor(level)}</p>
                     </div>

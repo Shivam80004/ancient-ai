@@ -135,7 +135,7 @@ export default async function DashboardHome() {
                         Resume learning
                     </p>
                     {resume ? (
-                        <div className="mt-4 flex items-center justify-between gap-4">
+                        <div className="mt-4 flex md:items-center items-start justify-between gap-4 flex-col md:flex-row">
                             <div className="flex items-center gap-4">
                                 {resume.course?.thumbnail_url && (
                                     // eslint-disable-next-line @next/next/no-img-element

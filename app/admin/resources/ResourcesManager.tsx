@@ -64,12 +64,12 @@ function CategoryItem({ c }: { c: CategoryRow }) {
         );
     }
     return (
-        <div className="flex items-center justify-between rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3">
-            <div>
-                <p className="text-sm font-medium text-white">{c.name}</p>
-                {c.description && <p className="text-xs text-white/45">{c.description}</p>}
+        <div className="flex items-center justify-between gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-3">
+            <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-white">{c.name}</p>
+                {c.description && <p className="truncate text-xs text-white/45">{c.description}</p>}
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
                 <button onClick={() => setEditing(true)} aria-label="Edit" className="rounded-full border border-white/10 bg-white/[0.04] p-1.5 text-white/50 transition hover:text-white"><Pencil className="size-3.5" /></button>
                 <button onClick={() => { if (!confirm("Delete this category? Its resources become uncategorized.")) return; start(async () => { await deleteCategory(c.id); router.refresh(); }); }} disabled={pending} aria-label="Delete" className="rounded-full border border-white/10 bg-white/[0.04] p-1.5 text-white/50 transition hover:border-rose-500/30 hover:text-rose-300">
                     {pending ? <Loader2 className="size-3.5 animate-spin" /> : <Trash2 className="size-3.5" />}
