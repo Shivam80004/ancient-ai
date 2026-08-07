@@ -88,7 +88,7 @@ const Hero = () => {
             <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 mt-32 text-center pointer-events-none">
                 {/* Intro Line */}
                 <div className="overflow-hidden md:mb-6 mb-4">
-                    <p className="hero-sub-text text-white/90 text-xs md:text-sm uppercase tracking-[0.6em] font-medium selection:bg-[#fb1e01]">
+                    <p className="hero-sub-text text-white/90 text-xs md:text-sm tracking-[0.4em] font-medium selection:bg-[#fb1e01]">
                         Everyone is looking for
                     </p>
                 </div>
@@ -103,7 +103,7 @@ const Hero = () => {
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col items-center">
                                 <div className="overflow-hidden">
-                                    <span className="hero-title-word inline-block text-6xl md:text-7xl font-bold text-white uppercase px-3 italic">
+                                    <span className="hero-title-word inline-block text-6xl md:text-7xl font-bold text-white uppercase px-3">
                                         {item.label}
                                     </span>
                                 </div>

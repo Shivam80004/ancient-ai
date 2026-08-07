@@ -200,13 +200,13 @@ const ScalingVideoSection = ({
                     </span> */}
 
                     <div className="flex flex-col items-center justify-center">
-                        <h3 ref={header1Ref} className="text-4xl md:text-7xl font-light text-white text-center mb-2">
+                        <h3 ref={header1Ref} className="text-2xl md:text-6xl font-light text-white text-center mb-2">
                             <span className="reveal-word-2 inline-block">Everything</span>&nbsp;
                             <span className="reveal-word-2 inline-block">Works. </span> <br />
-                            <span className="reveal-word-2 inline-block font-semibold">Yet,</span>&nbsp;
-                            <span className="reveal-word-2 inline-block font-semibold">Something’s</span>&nbsp;
-                            <span className="reveal-word-2 inline-block bg-clip-text font-semibold leading-[1.3]">Missing</span>
-                            <span className="reveal-word-2 inline-block font-semibold">?</span>
+                            <span className="reveal-word-2 inline-block font-medium">Yet,</span>&nbsp;
+                            <span className="reveal-word-2 inline-block font-medium">Something’s</span>&nbsp;
+                            <span className="reveal-word-2 inline-block bg-clip-text font-medium leading-[1.3]">Missing</span>
+                            <span className="reveal-word-2 inline-block font-normal">?</span>
                         </h3>
 
                         <RevealText type="words" stagger={0.01} y={10} animationOnScrool delay={0.5} className="md:text-2xl text-xl font-normal text-center text-white/60">
@@ -215,7 +215,7 @@ const ScalingVideoSection = ({
                     </div>
 
                     {/* Mobile-only: Full-Width Fade-In Video */}
-                    <div
+                    {/* <div
                         ref={mobileVideoRef}
                         className="md:hidden relative w-full rounded-2xl overflow-hidden opacity-0"
                         style={{ aspectRatio: '16/9' }}
@@ -229,10 +229,10 @@ const ScalingVideoSection = ({
                         >
                             <source src={videoSrc} type="video/mp4" />
                         </video>
-                    </div>
+                    </div> */}
 
                     {/* Desktop-only: Small Box Container (Flip animation target) */}
-                    <div className="hidden md:block relative w-80 rounded-2xl">
+                    <div className="block relative w-80 rounded-2xl">
                         {/* Aspect Ratio Spacer (16:9) */}
                         <div className="pt-[56.25%]" />
 
@@ -325,7 +325,7 @@ const ScalingVideoSection = ({
                     <div className="w-full max-w-8xl mx-auto px-8 space-y-8">
                         {/* Line 1 - from right */}
                         <div className="line-1 text-center overflow-hidden">
-                            <h2 className="font-array text-2xl md:text-5xl lg:text-7xl leading-[0.9] tracking-wide font-thin"
+                            <h2 className="text-2xl md:text-5xl lg:text-7xl leading-[0.9] tracking-wide font-normal"
                                 style={{
                                     background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
                                     WebkitBackgroundClip: 'text',
@@ -338,7 +338,7 @@ const ScalingVideoSection = ({
 
                         {/* Line 2 - from left */}
                         <div className="line-2 text-center overflow-hidden">
-                            <h2 className="font-array text-2xl md:text-5xl lg:text-7xl leading-normal tracking-wide font-thin text-white"
+                            <h2 className="text-2xl md:text-5xl lg:text-7xl leading-normal tracking-wide font-normal text-white"
                                 style={{
                                     background: 'linear-gradient(0deg, #000000 -50%, #fff 50%)',
                                     WebkitBackgroundClip: 'text',
@@ -351,7 +351,7 @@ const ScalingVideoSection = ({
 
                         {/* Line 3 - from right */}
                         <div className="line-3 text-center overflow-hidden">
-                            <h2 className="font-array text-2xl md:text-5xl lg:text-7xl font-thin tracking-wide rounded-2xl w-fit mx-auto px-2 md:px-3 text-white "
+                            <h2 className="text-2xl md:text-5xl lg:text-6xl font-normal tracking-wide rounded-2xl w-fit mx-auto px-2 md:px-5 py-3 text-white "
                                 style={{
                                     background: 'linear-gradient(261.26deg, #fb1e01 -11.86%, #fc964c -5.96% 5.45%, #f62003 30.99%, #f61f0362 62.85%, #f62003 101.39%, #fd7c34 103.82%)',
                                 }}
