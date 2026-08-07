@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Eye, ShieldCheck } from "lucide-react";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { GlassCard } from "@/components/dashboard/GlassCard";
 import { RoleToggle } from "./RoleToggle";
@@ -54,6 +55,7 @@ export default async function AdminUsersPage() {
                             <th className="px-4 py-3 text-right">XP</th>
                             <th className="px-4 py-3 text-right">Courses done</th>
                             <th className="px-4 py-3 text-right">Role action</th>
+                            <th className="px-4 py-3 text-right">Details</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/[0.06]">
@@ -81,6 +83,14 @@ export default async function AdminUsersPage() {
                                 <td className="px-4 py-3 text-right text-white/60">{coursesByUser.get(u.id) ?? 0}</td>
                                 <td className="px-4 py-3 text-right">
                                     <RoleToggle userId={u.id} role={u.role} />
+                                </td>
+                                <td className="px-4 py-3 text-right">
+                                    <Link
+                                        href={`/admin/users/${u.id}`}
+                                        className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#f15906]/90 px-3 py-1.5 text-xs font-semibold text-white transition hover:border-[#f15906]/40 hover:bg-[#f15906]/70"
+                                    >
+                                        detail <Eye className="size-3.5" />
+                                    </Link>
                                 </td>
                             </tr>
                         ))}

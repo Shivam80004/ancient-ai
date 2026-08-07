@@ -13,7 +13,8 @@ const RevealText = ({
     stagger = 0.02,
     duration = 1,
     y = "100%",
-    animationOnScrool = true // Legacy prop support (typo preserved)
+    animationOnScrool = true, // Legacy prop support (typo preserved)
+    style = {}
 }) => {
     const elRef = useRef(null);
 
@@ -56,7 +57,7 @@ const RevealText = ({
     // Handle non-string children gracefully (fallback)
     if (typeof children !== 'string') {
         return (
-            <div ref={elRef} className={className} style={{ lineHeight: 1.2 }}>
+            <div ref={elRef} className={className} style={{ ...style, lineHeight: 1.2 }}>
                 <span className="reveal-inner inline-block opacity-0">
                     {children}
                 </span>
@@ -82,7 +83,7 @@ const RevealText = ({
         ));
 
         return (
-            <div ref={elRef} className={className} style={{ lineHeight: 1.2 }}>
+            <div ref={elRef} className={className} style={{ lineHeight: 1.2, ...style }}>
                 {content}
             </div>
         );
@@ -101,7 +102,7 @@ const RevealText = ({
     ));
 
     return (
-        <div ref={elRef} className={className} style={{ lineHeight: 1.2 }}>
+        <div ref={elRef} className={className} style={{ lineHeight: 1.2, ...style }}>
             {content}
         </div>
     );
