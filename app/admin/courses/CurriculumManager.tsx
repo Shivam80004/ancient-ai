@@ -214,17 +214,17 @@ function CourseBlock({ course, onDone }: { course: CourseNode; onDone: () => voi
 
     return (
         <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4">
-            <div className="flex items-center justify-between gap-3">
-                <button onClick={() => setOpen((o) => !o)} className="flex items-center gap-2 text-left">
-                    <ChevronDown className={cn("size-4 text-white/40 transition", open && "rotate-180")} />
+            <div className="flex flex-wrap items-center justify-between gap-2">
+                <button onClick={() => setOpen((o) => !o)} className="flex min-w-0 flex-1 items-center gap-2 text-left">
+                    <ChevronDown className={cn("size-4 shrink-0 text-white/40 transition", open && "rotate-180")} />
                     {course.thumbnail_url && (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={course.thumbnail_url} alt="" className="h-8 w-12 rounded object-cover" />
+                        <img src={course.thumbnail_url} alt="" className="h-8 w-12 shrink-0 rounded object-cover" />
                     )}
-                    <span className="font-medium text-white">{course.title}</span>
-                    <span className="text-xs text-white/40">· {course.lessons.length} lessons · +{course.points_reward} pts</span>
+                    <span className="truncate font-medium text-white">{course.title}</span>
+                    <span className="hidden shrink-0 text-xs text-white/40 sm:inline">· {course.lessons.length} lessons · +{course.points_reward} pts</span>
                 </button>
-                <div className="flex items-center gap-2">
+                <div className="flex shrink-0 items-center gap-2">
                     <IconBtn onClick={() => { setOpen(true); setEditing((e) => !e); }} title="Edit course"><Pencil className="size-3.5" /></IconBtn>
                     <PublishToggle table="courses" id={course.id} value={!!course.is_published} onDone={onDone} />
                     <DeleteBtn table="courses" id={course.id} onDone={onDone} />
@@ -317,12 +317,12 @@ function LessonRow({ lesson: l, onDone }: { lesson: LessonNode; onDone: () => vo
     }
 
     return (
-        <div className="flex items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2">
-            <span className="flex items-center gap-2 text-sm text-white/80">
-                {l.content_type === "video" ? <Video className="size-3.5 text-[#f15906]" /> : <FileText className="size-3.5 text-white/40" />}
-                {l.title}
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2">
+            <span className="flex min-w-0 flex-1 items-center gap-2 text-sm text-white/80">
+                {l.content_type === "video" ? <Video className="size-3.5 shrink-0 text-[#f15906]" /> : <FileText className="size-3.5 shrink-0 text-white/40" />}
+                <span className="truncate">{l.title}</span>
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
                 <ThumbControl table="lessons" id={l.id} url={l.thumbnail_url} onDone={onDone} size="h-9 w-14" />
                 <IconBtn onClick={() => setEditing(true)} title="Edit lesson"><Pencil className="size-3.5" /></IconBtn>
                 <DeleteBtn table="lessons" id={l.id} onDone={onDone} />
