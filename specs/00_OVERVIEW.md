@@ -5,7 +5,7 @@
 > **Auth already implemented:** Google OAuth **and** email/password (login + sign up). A dashboard route exists with a static gamified prototype.
 > **Look & feel:** iPhone/Mac-style **premium glassmorphism**, **dark-only**, near-black canvas with **orange (ember) gradients**, **Poppins** throughout. See `06_UI_DESIGN_SYSTEM.md`.
 
-## What we're building
+    ## What we're building
 
 A gamified, university-style learning platform — *not* a plain LMS. Learning is organized by **University → Semester → Course → Lessons**. Users earn **reward points** from completing courses and tasks, climb a **leaderboard**, and **claim goodies / gifts / certifications** as they hit benchmarks. An **admin panel** manages courses, defines the reward rules, approves gift claims, and sees every user's full progress.
 
