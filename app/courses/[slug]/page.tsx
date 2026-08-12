@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { COURSES } from '@/lib/course-data';
+import JsonLd from "@/components/seo/JsonLd";
+import { courseSchema, breadcrumbSchema } from "@/lib/seo/structured-data";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -19,6 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${course.title} — Ancient AI Academy`,
         description: course.description,
+        alternates: { canonical: `/courses/${course.slug}` },
+        openGraph: {
+            title: `${course.title} — Ancient AI Academy`,
+            description: course.description,
+            url: `/courses/${course.slug}`,
+            type: "article",
+            images: [{ url: course.heroImage }],
+        },
+        twitter: { card: "summary_large_image", title: course.title, description: course.description, images: [course.heroImage] },
     };
 }
 
@@ -28,6 +39,8 @@ export default async function CourseDetailPage({ params }: Props) {
     if (!course) notFound();
 
     return (
+        <>
+            <JsonLd data={[courseSchema(course), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Courses", path: "/courses" }, { name: course.title, path: `/courses/${course.slug}` }])]} />
         <main className="bg-black min-h-screen text-white">
 
             {/* ── Hero ───────────────────────────────────────────────────────── */}
@@ -227,5 +240,6 @@ export default async function CourseDetailPage({ params }: Props) {
                 </div>
             </section>
         </main>
+        </>
     );
 }

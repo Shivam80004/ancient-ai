@@ -14,9 +14,11 @@ const RevealText = ({
     duration = 1,
     y = "100%",
     animationOnScrool = true, // Legacy prop support (typo preserved)
-    style = {}
+    style = {},
+    as = "div"
 }) => {
     const elRef = useRef(null);
+    const Tag = as || "div";
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -57,11 +59,11 @@ const RevealText = ({
     // Handle non-string children gracefully (fallback)
     if (typeof children !== 'string') {
         return (
-            <div ref={elRef} className={className} style={{ ...style, lineHeight: 1.2 }}>
+            <Tag ref={elRef} className={className} style={{ ...style, lineHeight: 1.2 }}>
                 <span className="reveal-inner inline-block opacity-0">
                     {children}
                 </span>
-            </div>
+            </Tag>
         );
     }
 
@@ -83,9 +85,9 @@ const RevealText = ({
         ));
 
         return (
-            <div ref={elRef} className={className} style={{ lineHeight: 1.2, ...style }}>
+            <Tag ref={elRef} className={className} style={{ lineHeight: 1.2, ...style }}>
                 {content}
-            </div>
+            </Tag>
         );
     }
 
@@ -102,9 +104,9 @@ const RevealText = ({
     ));
 
     return (
-        <div ref={elRef} className={className} style={{ lineHeight: 1.2, ...style }}>
+        <Tag ref={elRef} className={className} style={{ lineHeight: 1.2, ...style }}>
             {content}
-        </div>
+        </Tag>
     );
 };
 

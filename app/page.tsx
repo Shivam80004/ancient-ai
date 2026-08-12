@@ -5,18 +5,30 @@ import Testimonials from '../components/home/Testimonials'
 import CallToAction from '../components/home/CallToAction'
 import GallerySection from '../components/home/GallerySection'
 import MarqueeLogo from '../components/home/MarqueeLogo'
+import JsonLd from "@/components/seo/JsonLd"
+import { organizationSchema, websiteSchema } from "@/lib/seo/structured-data"
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'AncientAi Academy',
+  title: 'Ancient AI Academy — A Better Human Experience',
+  description:
+    'Strengthen your mind, body, and soul with Ancient AI Academy. Explore transformative courses, mentorship, free resources, and sacred retreats rooted in timeless wisdom.',
   alternates: {
     canonical: '/',
-  }
+  },
+  openGraph: {
+    title: 'Ancient AI Academy — A Better Human Experience',
+    description:
+      'Transformative wisdom for every stage of your journey — courses, mentorship, and retreats.',
+    url: '/',
+    type: 'website',
+  },
 }
 
 function page() {
   return (
     <>
+      <JsonLd data={[organizationSchema(), websiteSchema()]} />
 
       <div id="home">
         <HeroBanner />

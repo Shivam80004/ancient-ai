@@ -135,6 +135,7 @@ export default function ContactPage() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center px-4 w-full">
                     <div className="overflow-hidden mb-3">
                         <RevealText
+                            as="h1"
                             type="chars"
                             className="text-5xl md:text-7xl font-semibold text-white tracking-tight"
                             stagger={0.03}

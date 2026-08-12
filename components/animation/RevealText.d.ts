@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, FC } from 'react';
+import { CSSProperties, ReactNode, FC, ElementType } from 'react';
 
 export interface RevealTextProps {
   children: ReactNode;
@@ -10,6 +10,7 @@ export interface RevealTextProps {
   y?: string;
   animationOnScrool?: boolean;
   style?: CSSProperties;
+  as?: ElementType;
 }
 
 declare const RevealText: FC<RevealTextProps>;

@@ -9,7 +9,7 @@ const PageHero = ({ title, subtitle, image }) => {
         <section ref={heroRef} className="relative h-[80dvh] flex items-center justify-center overflow-hidden bg-black">
             {/* Background Image/Overlay */}
             <div className="absolute inset-0 z-0">
-                {image && <img src={image} alt="Hero Background" className="w-full h-full object-cover opacity-80" />}
+                {image && <img src={image} alt="" className="w-full h-full object-cover opacity-80" />}
                 <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
             </div>
 
@@ -17,6 +17,7 @@ const PageHero = ({ title, subtitle, image }) => {
             <div className="relative z-10 text-center px-4 max-w-7xl mx-auto">
                 <div className="overflow-hidden mb-3">
                     <RevealText
+                        as="h1"
                         type="chars"
                         className="text-5xl md:text-[7rem] font-medium text-white tracking-tight text-center px-4"
                         stagger={0.03}

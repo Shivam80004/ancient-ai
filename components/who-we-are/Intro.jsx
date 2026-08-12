@@ -15,6 +15,7 @@ const Intro = () => {
                 <div className="max-w-6xl w-full mx-auto text-center space-y-12 z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-4">
                     <div className="overflow-hidden m-0">
                         <RevealText
+                            as="h1"
                             type="chars"
                             className="text-5xl md:text-8xl font-bold text-center mb-1 tracking-tight text-white"
                             stagger={0.03}

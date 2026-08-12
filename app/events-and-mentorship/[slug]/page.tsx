@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { MENTORSHIPS, type MentorshipProgram } from '@/lib/mentorship-data';
 import MentorshipCTA from '@/components/mentorship/MentorshipCTA';
+import JsonLd from "@/components/seo/JsonLd";
+import { mentorshipSchema, breadcrumbSchema } from "@/lib/seo/structured-data";
 import type { Metadata } from 'next';
 
 interface Props {
@@ -20,6 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${program.title} — Ancient AI Mentorship`,
         description: program.description,
+        alternates: { canonical: `/events-and-mentorship/${program.slug}` },
+        openGraph: {
+            title: `${program.title} — Ancient AI Mentorship`,
+            description: program.description,
+            url: `/events-and-mentorship/${program.slug}`,
+            type: "article",
+            images: [{ url: program.heroImage }],
+        },
+        twitter: { card: "summary_large_image", title: program.title, description: program.description, images: [program.heroImage] },
     };
 }
 
@@ -29,6 +40,8 @@ export default async function MentorshipProgramPage({ params }: Props) {
     if (!program) notFound();
 
     return (
+        <>
+            <JsonLd data={[mentorshipSchema(program), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Events & Mentorship", path: "/events-and-mentorship" }, { name: program.title, path: `/events-and-mentorship/${program.slug}` }])]} />
         <main className="bg-black min-h-screen text-white">
 
             {/* ── Hero ───────────────────────────────────────────────────────── */}
@@ -230,5 +243,6 @@ export default async function MentorshipProgramPage({ params }: Props) {
 
             <MentorshipCTA />
         </main>
+        </>
     );
 }

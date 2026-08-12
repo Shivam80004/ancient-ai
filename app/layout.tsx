@@ -52,7 +52,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ancient-ai.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ancientai.in'),
   title: {
     default: "Ancient AI Academy",
     template: "%s | Ancient AI Academy",
