@@ -28,6 +28,7 @@ export default function InspirationPage() {
 
                 <div className="absolute inset-0 md:left-1/2 left-38 transform md:-translate-x-[30%] z-10 flex items-center justify-center">
                     <RevealText
+                        as="h1"
                         type="chars"
                         className="text-[22px] xl:text-[4rem] lg:text-[3.5rem] md:text-[2.8rem] font-semibold uppercase text-[#e84200] tracking-tight text-center px-4"
                         stagger={0.03}

@@ -84,7 +84,7 @@ const Navbar = () => {
                     <Link href="/" className="flex items-center gap-2 group mr-4 relative z-20">
                         <img
                             src="/logo-plain.png"
-                            alt="Logo"
+                            alt="Ancient AI Academy"
                             className="h-14 w-auto opacity-100 transition-opacity duration-300"
                         />
                     </Link>
@@ -135,7 +135,7 @@ const Navbar = () => {
                     <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
                         <img
                             src="/logo-plain.png"
-                            alt="Logo"
+                            alt="Ancient AI Academy"
                             className="h-8 w-auto brightness-0 invert opacity-90"
                         />
                     </Link>

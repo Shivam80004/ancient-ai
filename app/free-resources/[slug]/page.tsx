@@ -2,6 +2,8 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { RESOURCES } from '@/lib/resources-data';
+import JsonLd from "@/components/seo/JsonLd";
+import { resourceSchema, breadcrumbSchema } from "@/lib/seo/structured-data";
 import type { Metadata } from 'next';
 
 interface Props {
@@ -19,6 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `${resource.title} — Ancient AI Free Resources`,
         description: resource.description,
+        alternates: { canonical: `/free-resources/${resource.slug}` },
+        openGraph: {
+            title: `${resource.title} — Ancient AI Free Resources`,
+            description: resource.description,
+            url: `/free-resources/${resource.slug}`,
+            type: "article",
+            images: [{ url: resource.heroImage }],
+        },
+        twitter: { card: "summary_large_image", title: resource.title, description: resource.description, images: [resource.heroImage] },
     };
 }
 
@@ -28,6 +39,8 @@ export default async function FreeResourcePage({ params }: Props) {
     if (!resource) notFound();
 
     return (
+        <>
+            <JsonLd data={[resourceSchema(resource), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Free Resources", path: "/free-resources" }, { name: resource.title, path: `/free-resources/${resource.slug}` }])]} />
         <main className="bg-black min-h-screen text-white">
 
             {/* ── Hero ───────────────────────────────────────────────────────── */}
@@ -222,5 +235,6 @@ export default async function FreeResourcePage({ params }: Props) {
                 </div>
             </section>
         </main>
+        </>
     );
 }

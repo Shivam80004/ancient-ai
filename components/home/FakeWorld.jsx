@@ -155,7 +155,7 @@ const FakeWorld = () => {
         >
           <img
             src={img.src}
-            alt="Scattered Visual"
+            alt=""
             className="w-full h-full object-cover grayscale-[0.5] contrast-125 brightness-90 hover:grayscale-0 transition-all duration-1000"
           />
         </div>

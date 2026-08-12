@@ -8,6 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import RevealText from '@/components/animation/RevealText';
 import { TRIPS_DATA } from '@/lib/trips-data';
 import AnimatedText from '@/components/animation/AnimatedText';
+import JsonLd from "@/components/seo/JsonLd";
+import { retreatSchema, breadcrumbSchema } from "@/lib/seo/structured-data";
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -153,6 +155,8 @@ export default function TripDetailPage() {
     }
 
     return (
+        <>
+            <JsonLd data={[retreatSchema(trip), breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Retreats", path: "/retreats" }, { name: trip.title, path: `/retreats/${trip.slug}` }])]} />
         <main className="bg-black min-h-screen text-white/90 selection:bg-orange-500/30 selection:text-white">
 
             {/* ── Immersive Hero ───────────────────────────────────────────── */}
@@ -401,5 +405,6 @@ export default function TripDetailPage() {
                 }
             `}</style>
         </main>
+        </>
     );
 }

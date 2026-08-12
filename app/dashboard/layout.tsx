@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { TopBar } from "@/components/dashboard/TopBar";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const XP_PER_LEVEL = 1000;
 

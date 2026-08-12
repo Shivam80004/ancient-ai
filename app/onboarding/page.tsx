@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { LifeAuditQuiz } from "./LifeAuditQuiz";
 
-export const metadata: Metadata = { title: "Your Life Audit" };
+export const metadata: Metadata = { title: "Your Life Audit", robots: { index: false, follow: false } };
 export const dynamic = "force-dynamic";
 
 export default async function OnboardingPage() {

@@ -6,6 +6,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 export const metadata: Metadata = {
     title: "Create Account",
     description: "Create your Ancient AI Academy account.",
+    robots: { index: false, follow: false },
 };
 
 export default async function SignupPage() {

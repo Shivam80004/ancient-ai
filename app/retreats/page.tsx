@@ -34,6 +34,7 @@ export default function TripsPage() {
                 {/* Large title — mix-blend-difference gives the overlay invert effect */}
                 <div className="absolute mix-blend-difference inset-0 z-20 flex items-center justify-center -translate-y-[10%]">
                     <RevealText
+                        as="h1"
                         type="chars"
                         className="text-5xl md:text-[10rem] font-medium text-white tracking-tight text-center px-4"
                         stagger={0.03}
