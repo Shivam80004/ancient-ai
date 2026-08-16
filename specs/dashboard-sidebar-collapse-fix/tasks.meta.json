@@ -1,0 +1,177 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Add Vitest, React Testing Library, jsdom, and fast-check as dev dependencies; create `vitest.config.ts` (jsdom environment, path alias matching `@/*` from `tsconfig.json`) and a test setup file (e.g. `vitest.setup.ts`) importing `@testing-library/jest-dom`; add a `\"test\": \"vitest run\"` script to `package.json`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622703579
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622717432
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623137279
+      }
+    ],
+    "2.1 Create `components/dashboard/SidebarCollapseContext.tsx`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622703703
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622718100
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623138862
+      }
+    ],
+    "3.1 Create `components/dashboard/DashboardShell.tsx`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622703819
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623146443
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623327234
+      }
+    ],
+    "4.1 Update `components/dashboard/AppSidebar.tsx`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622703909
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623147248
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623328127
+      }
+    ],
+    "5.1 Update `components/dashboard/TopBar.tsx`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622704048
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622718722
+      },
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623138075
+      }
+    ],
+    "6. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622704137
+      }
+    ],
+    "7.1 Update `app/dashboard/layout.tsx`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622704239
+      },
+      {
+        "executionId": "bef21b76-487b-47a2-b09f-c262b8cb49e0",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623376392
+      },
+      {
+        "executionId": "bef21b76-487b-47a2-b09f-c262b8cb49e0",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623487558
+      }
+    ],
+    "8.1 Update `app/globals.css`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622704328
+      }
+    ],
+    "9. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622704415
+      }
+    ],
+    "12.1 Run the project's build and typecheck, and confirm no unintended changes to mobile-only code paths": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786622704520
+      }
+    ],
+    "1. Set up frontend testing infrastructure": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623137402
+      }
+    ],
+    "5. Add the brand logo to `TopBar`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623138180
+      }
+    ],
+    "2. Implement the sidebar collapse context and hook": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623139066
+      }
+    ],
+    "3. Implement `DashboardShell`": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623327321
+      }
+    ],
+    "4. Modify `AppSidebar` to consume shared context and relocate the logo": [
+      {
+        "executionId": "790ce8ff-c871-458e-ac73-9267e0465674",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623328218
+      }
+    ],
+    "7. Wire `DashboardShell` into `app/dashboard/layout.tsx`": [
+      {
+        "executionId": "bef21b76-487b-47a2-b09f-c262b8cb49e0",
+        "chatSessionId": "sess_2e8af1ac-554a-4a65-ac5d-156fee203667",
+        "timestamp": 1786623487623
+      }
+    ]
+  }
+}

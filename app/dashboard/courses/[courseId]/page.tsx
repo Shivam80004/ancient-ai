@@ -20,10 +20,23 @@ export default async function CourseDetailPage({
     // RLS returns the course only if it's published
     const { data: course } = await supabase
         .from("courses")
-        .select("id, title, description, points_reward, thumbnail_url, semester_id, order_index")
+        .select(
+            "id, title, description, difficulty, points_reward, thumbnail_url, semester_id, order_index, created_at"
+        )
         .eq("id", courseId)
         .maybeSingle();
     if (!course) notFound();
+
+    // Parent semester (context badge — "Semester N")
+    let semester: { id: string; title: string } | null = null;
+    if (course.semester_id) {
+        const { data: sem } = await supabase
+            .from("semesters")
+            .select("id, title")
+            .eq("id", course.semester_id)
+            .maybeSingle();
+        semester = sem ?? null;
+    }
 
     // Next published course in the same semester (for the "Next course" hand-off)
     let nextCourseId: string | null = null;
@@ -54,7 +67,7 @@ export default async function CourseDetailPage({
 
     const { data: enrollment } = await supabase
         .from("enrollments")
-        .select("id")
+        .select("id, enrolled_at, completed_at, status")
         .eq("user_id", user.id)
         .eq("course_id", courseId)
         .maybeSingle();
@@ -62,9 +75,11 @@ export default async function CourseDetailPage({
     return (
         <CourseView
             course={course}
+            semester={semester}
             lessons={lessons ?? []}
             completedIds={(comps ?? []).map((c) => c.lesson_id!).filter(Boolean)}
             enrolled={!!enrollment}
+            enrollment={enrollment ?? null}
             nextCourseId={nextCourseId}
         />
     );

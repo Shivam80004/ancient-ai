@@ -64,7 +64,7 @@ export function Leaderboard({
                 <>
                     {/* Podium */}
                     {podium.length > 0 && (
-                        <div className="grid grid-cols-3 gap-3 sm:gap-5">
+                        <div className="grid md:grid-cols-3 grid-cols-2 gap-3 sm:gap-5">
                             {podium.map((r, i) => (
                                 <GlassCard
                                     key={r.id}
@@ -79,7 +79,7 @@ export function Leaderboard({
                                         {i === 0 ? <Crown className="size-4" /> : r.rank}
                                     </span>
                                     <Avatar name={r.name} avatar={r.avatar} size="size-14" />
-                                    <p className="truncate text-sm font-semibold text-white">{r.name}</p>
+                                    <p className="truncate text-sm font-semibold text-white w-full">{r.name}</p>
                                     <p className="text-xs font-semibold text-[#f15906]">{r.points.toLocaleString()} pts</p>
                                 </GlassCard>
                             ))}
