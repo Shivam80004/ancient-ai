@@ -1,8 +1,7 @@
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { AppSidebar } from "@/components/dashboard/AppSidebar";
-import { TopBar } from "@/components/dashboard/TopBar";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -44,27 +43,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
     if (profile && !profile.onboarded && !isAdmin) redirect("/onboarding");
 
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-[#0A0A0A] text-white">
-            {/* Ambient ember glow */}
-            <div
-                aria-hidden="true"
-                className="pointer-events-none fixed -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,_rgba(241,89,6,0.10),_transparent_70%)] blur-3xl"
-            />
-
-            <AppSidebar
-                displayName={displayName}
-                avatarUrl={avatarUrl}
-                level={level}
-                title={titleFor(level)}
-                isAdmin={isAdmin}
-            />
-
-            <div className="relative z-10 lg:pl-64">
-                <TopBar displayName={displayName} avatarUrl={avatarUrl} points={points} />
-                <main className="mx-auto max-w-6xl px-5 pb-24 pt-20 sm:px-6 lg:px-8 lg:pt-6">
-                    {children}
-                </main>
-            </div>
-        </div>
+        <DashboardShell
+            displayName={displayName}
+            avatarUrl={avatarUrl}
+            level={level}
+            title={titleFor(level)}
+            isAdmin={isAdmin}
+            points={points}
+        >
+            {children}
+        </DashboardShell>
     );
 }

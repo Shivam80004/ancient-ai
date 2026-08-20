@@ -32,6 +32,7 @@ html.lenis body {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --sidebar-w: 16rem;
 }
 
 @theme inline {

@@ -4,7 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import confetti from "canvas-confetti";
-import { Check, Play, ArrowLeft, ArrowRight, ChevronLeft, CircleCheck, Loader2 } from "lucide-react";
+import { Check, Play, ArrowLeft, ArrowRight, ChevronLeft, CircleCheck, Loader2, BarChart3, Clock, GraduationCap, Layers, CalendarCheck2 } from "lucide-react";
 import { GlassCard } from "@/components/dashboard/GlassCard";
 import { VideoPlayer, isEmbedUrl } from "@/components/dashboard/VideoPlayer";
 import { enrollAction } from "../actions";
@@ -21,14 +21,24 @@ type Lesson = {
 };
 
 type Props = {
-    course: { id: string; title: string; description: string | null; points_reward: number; thumbnail_url?: string | null };
+    course: {
+        id: string;
+        title: string;
+        description: string | null;
+        difficulty?: string | null;
+        points_reward: number;
+        thumbnail_url?: string | null;
+        created_at?: string | null;
+    };
+    semester?: { id: string; title: string } | null;
     lessons: Lesson[];
     completedIds: string[];
     enrolled: boolean;
+    enrollment?: { id: string; enrolled_at: string | null; completed_at: string | null; status: string | null } | null;
     nextCourseId?: string | null;
 };
 
-export function CourseView({ course, lessons, completedIds, enrolled, nextCourseId }: Props) {
+export function CourseView({ course, semester, lessons, completedIds, enrolled, enrollment, nextCourseId }: Props) {
     const router = useRouter();
     const [done, setDone] = useState<Set<string>>(new Set(completedIds));
     const [enrolling, startEnroll] = useTransition();
@@ -45,6 +55,28 @@ export function CourseView({ course, lessons, completedIds, enrolled, nextCourse
     const total = lessons.length;
     const completedCount = done.size;
     const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+    const totalMinutes = lessons.reduce((sum, l) => sum + (l.duration_minutes ?? 0), 0);
+    const totalHours = Math.floor(totalMinutes / 60);
+    const remMinutes = totalMinutes % 60;
+    const durationLabel =
+        totalMinutes === 0
+            ? null
+            : totalHours > 0
+                ? `${totalHours}h ${remMinutes > 0 ? `${remMinutes}m` : ""}`.trim()
+                : `${remMinutes}m`;
+    const videoCount = lessons.filter((l) => l.content_type === "video").length;
+    const articleCount = lessons.filter((l) => l.content_type === "article").length;
+    const quizCount = lessons.filter((l) => l.content_type && !["video", "article"].includes(l.content_type)).length;
+    const difficultyLabel = course.difficulty
+        ? course.difficulty.charAt(0).toUpperCase() + course.difficulty.slice(1)
+        : null;
+    const enrolledDateLabel = enrollment?.enrolled_at
+        ? new Date(enrollment.enrolled_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+        : null;
+    const completedDateLabel = enrollment?.completed_at
+        ? new Date(enrollment.completed_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+        : null;
 
     const index = lessons.findIndex((l) => l.id === selected?.id);
     const isFirst = index <= 0;
@@ -97,22 +129,94 @@ export function CourseView({ course, lessons, completedIds, enrolled, nextCourse
 
     return (
         <div className="space-y-6">
-            <div className="flex items-center justify-between gap-4">
-                <div>
-                    <Link
-                        href="/dashboard/courses"
-                        className="inline-flex items-center gap-1.5 text-sm text-white/50 transition hover:text-white"
-                    >
-                        <ArrowLeft className="size-4" /> All courses
-                    </Link>
-                    <h1 className="mt-2 text-3xl font-semibold text-white">{course.title}</h1>
-                    <p className="mt-1 max-w-xl text-sm text-white/50">{course.description}</p>
-                </div>
-                <div className="hidden shrink-0 text-right sm:block">
-                    <p className="text-3xl font-semibold text-white">{pct}%</p>
-                    <p className="text-xs text-white/40">{completedCount}/{total} lessons</p>
-                </div>
+            <div>
+                <Link
+                    href="/dashboard/courses"
+                    className="inline-flex items-center gap-1.5 text-sm text-white/50 transition hover:text-white"
+                >
+                    <ArrowLeft className="size-4" /> All courses
+                </Link>
             </div>
+
+            <GlassCard className="overflow-hidden">
+                <div className="grid grid-cols-1 sm:grid-cols-[390px_1fr]">
+                    {course.thumbnail_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                            src={course.thumbnail_url}
+                            alt={course.title}
+                            className="h-40 w-full object-cover sm:h-full"
+                        />
+                    ) : (
+                        <div className="flex h-40 w-full items-center justify-center bg-gradient-to-br from-orange-600/20 to-red-600/20 sm:h-full">
+                            <GraduationCap className="size-10 text-white/30" />
+                        </div>
+                    )}
+
+                    <div className="flex flex-col justify-between gap-4 p-6">
+                        <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                                {semester && (
+                                    <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/60">
+                                        {semester.title}
+                                    </span>
+                                )}
+                                {difficultyLabel && (
+                                    <span className="inline-flex items-center gap-1 rounded-full border border-[#f15906]/30 bg-[#f15906]/10 px-3 py-1 text-xs font-semibold text-[#f15906]">
+                                        <BarChart3 className="size-3" /> {difficultyLabel}
+                                    </span>
+                                )}
+                                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/60">
+                                    +{course.points_reward} pts
+                                </span>
+                            </div>
+                            <h1 className="mt-3 text-3xl font-semibold text-white">{course.title}</h1>
+                            {course.description && (
+                                <p className="mt-1 max-w-2xl text-sm text-white/50">{course.description}</p>
+                            )}
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-white/50">
+                            <span className="inline-flex items-center gap-1.5">
+                                <Layers className="size-3.5" /> {total} lesson{total === 1 ? "" : "s"}
+                            </span>
+                            {durationLabel && (
+                                <span className="inline-flex items-center gap-1.5">
+                                    <Clock className="size-3.5" /> {durationLabel} total
+                                </span>
+                            )}
+                            {videoCount > 0 && <span>{videoCount} video{videoCount === 1 ? "" : "s"}</span>}
+                            {articleCount > 0 && <span>{articleCount} article{articleCount === 1 ? "" : "s"}</span>}
+                            {quizCount > 0 && <span>{quizCount} quiz{quizCount === 1 ? "" : "zes"}</span>}
+                            {enrolledDateLabel && (
+                                <span className="inline-flex items-center gap-1.5">
+                                    <CalendarCheck2 className="size-3.5" /> Enrolled {enrolledDateLabel}
+                                </span>
+                            )}
+                            {completedDateLabel && (
+                                <span className="inline-flex items-center gap-1.5 text-emerald-300">
+                                    <CalendarCheck2 className="size-3.5" /> Completed {completedDateLabel}
+                                </span>
+                            )}
+                        </div>
+
+                        {enrolled && (
+                            <div>
+                                <div className="flex items-center justify-between text-xs text-white/40">
+                                    <span>{completedCount}/{total} lessons complete</span>
+                                    <span className="font-semibold text-white">{pct}%</span>
+                                </div>
+                                <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                                    <div
+                                        className="h-full rounded-full bg-gradient-to-r from-orange-600 to-red-600 transition-all"
+                                        style={{ width: `${pct}%` }}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </GlassCard>
 
             {banner && (
                 <div
