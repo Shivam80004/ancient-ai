@@ -20,6 +20,7 @@ const Navbar = () => {
 
     const navLinks = [
         { href: '/about', label: 'Who We Are' },
+        { href: '/academy', label: 'The Academy' },
         { href: '/events-and-mentorship', label: 'Events and Mentorship' },
         { href: '/courses', label: 'Courses' },
         { href: '/free-resources', label: 'Free Resources' },

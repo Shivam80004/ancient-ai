@@ -1,9 +1,8 @@
-import Hero from '@/components/about/hero'
-import AnimatedText from '@/components/animation/AnimatedText'
-import EasyPeasySection from '@/components/about/EasyPeasySection'
 import ImpactStats from '@/components/who-we-are/ImpactStats'
 import OurTeam from '@/components/who-we-are/OurTeam'
 import type { Metadata } from 'next'
+import NewHero from '@/components/about/NewHero'
+import LayeredSlider from '@/components/about/LayeredSlider'
 
 export const metadata: Metadata = {
     title: 'About Us',
@@ -16,21 +15,13 @@ export const metadata: Metadata = {
 function AboutPage() {
     return (
         <main className="bg-black">
-            <Hero />
+            {/* <Hero /> */}
 
-            <section className="px-4 md:px-8">
-                <AnimatedText className="mx-auto max-w-6xl my-2 md:py-32 py-16 h-auto text-center">
-                    <div className="text-4xl md:text-[2rem] text-center font-normal md:p-16 p-1 text-white relative">
-                        {/* Background Gradient Blur */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-full p-5 rounded-full blur-[40px] pointer-events-none  bg-gradient-to-br from-[#F62003] via-[#000000] to-[#F62003]" />
-                        <h2 className='font-semibold md:text-4xl text-xl'>In our well-designed sessions people understand:</h2>
-                        <p className='mt-4 font-light md:text-3xl text-lg'>The science behind how they should live their lives with a higher sense of purpose and cultivate the Spiritual Intelligence which is exclusively meant to be done in the rare human for of life.</p>
-                        <p className='md:!m-0 !mt-8 font-light md:text-3xl text-lg'>because with<span className='font-semibold text-[#f15906] ml-3 md:text-3xl text-lg'>GREAT POWER COMES GREAT RESPONSIBILITY!</span></p>
-                    </div>
-                </AnimatedText>
-            </section >
+           <NewHero />
 
-            <EasyPeasySection />
+            <LayeredSlider />
+
+            {/* <EasyPeasySection /> */}
 
             <ImpactStats />
 

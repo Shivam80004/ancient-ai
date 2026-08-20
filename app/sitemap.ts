@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const staticRoutes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
         { path: "/", priority: 1.0, changeFrequency: "weekly" },
         { path: "/about", priority: 0.7, changeFrequency: "monthly" },
+        { path: "/academy", priority: 0.9, changeFrequency: "monthly" },
         { path: "/who-we-are", priority: 0.7, changeFrequency: "monthly" },
         { path: "/our-inspiration", priority: 0.6, changeFrequency: "monthly" },
         { path: "/courses", priority: 0.9, changeFrequency: "weekly" },
