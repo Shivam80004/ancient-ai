@@ -463,7 +463,7 @@ export default function SpatialSlider() {
     return (
         <section className="demo-section">
             <div className="demo-section__intro">
-                <h2 className="text-3xl text-center md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4">Activities We Organize</h2>
+                <h2 className="text-3xl text-center md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4">Activities We <span className="font-medium">Organize</span></h2>
                 <p className="demo-section__subtitle">
                     We organize and train in a wide range of activities designed to engage the mind,
                     body, and spirit.
@@ -501,7 +501,7 @@ export default function SpatialSlider() {
                                     </div>
                                     <div className="demo-card__info">
                                         <h3 className="demo-card__h">{slide.title}</h3>
-                                        <p className="demo-card__p">{slide.desc}</p>
+                                        {/* <p className="demo-card__p">{slide.desc}</p> */}
                                     </div>
                                 </div>
                             </div>
@@ -540,7 +540,7 @@ export default function SpatialSlider() {
                     align-items: center;
                     padding: 5em 1.5em 4em;
                     background-color: #1a1614;
-                    background:linear-gradient(261.26deg, rgba(246, 32, 3, 0) -11.86%, rgb(252, 150, 76) -5.96%, rgb(252, 150, 76) 5.45%, rgb(246, 32, 3) 30.99%, rgba(246, 32, 3, 0) 62.85%, rgb(246, 32, 3) 101.39%, rgb(253, 124, 52) 103.82%);
+                    background:linear-gradient(1.26deg, rgba(246, 32, 3, 0) -11.86%, rgb(0, 0, 0) -5.96%, rgb(0,0, 0) 5.45%, rgb(246, 32, 3) 30.99%, rgba(246, 32, 3, 0) 62.85%, rgb(246, 32, 3) 101.39%, rgb(253, 124, 52) 103.82%);
                 }
 
                 .demo-section__intro {
@@ -562,7 +562,7 @@ export default function SpatialSlider() {
                 }
 
                 .demo-section__subtitle {
-                    color: #a8b9b9;
+                    color: #dadada;
                     font-size: clamp(0.95rem, 1.6vw, 1.15rem);
                     line-height: 1.6;
                     margin: 0;
@@ -629,7 +629,7 @@ export default function SpatialSlider() {
                 .demo-card {
                     color: #f5f5f5;
                     text-align: center;
-                    background-color: rgba(41, 27, 22, 0.72);
+                    // background-color: rgba(11, 27, 22, 0.32);
                     border: 1px solid rgba(245, 245, 245, 0.08);
                     box-shadow: 0 1.5em 3em rgba(0, 0, 0, 0.45);
                     backdrop-filter: blur(6px);
@@ -686,7 +686,7 @@ export default function SpatialSlider() {
                     align-items: center;
                     gap: 0.35em;
                     width: 100%;
-                    min-height: 6em;
+                    min-height: 4em;
                     padding: 1em 1em 0.75em;
                     display: flex;
                 }
@@ -702,7 +702,7 @@ export default function SpatialSlider() {
                 }
 
                 .demo-card__p {
-                    color: #a8b9b9;
+                    color: white;
                     margin: 0;
                     font-size: 0.85em;
                     font-weight: 400;
@@ -742,7 +742,7 @@ export default function SpatialSlider() {
                 }
 
                 .spatial-gsap-slider__control-btn.is--next {
-                    color: #1a1614;
+                    color: #fff;
                     border-color: transparent;
                     background-image: linear-gradient(
                         261deg,
