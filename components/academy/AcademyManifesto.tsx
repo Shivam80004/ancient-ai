@@ -9,7 +9,7 @@ export function AcademyManifesto() {
                 Why we exist
             </p>
 
-            <AnimatedText className="mx-auto mt-6 max-w-5xl text-center text-2xl font-light leading-snug md:text-[2.8rem]">
+            <AnimatedText className="mx-auto mt-6 max-w-5xl text-center text-2xl leading-snug md:text-[2.8rem]">
                 We spend the prime years of our lives preparing for a career — and almost no time preparing for what actually decides its quality: our mind, our health, our relationships, our purpose. Ancient AI teaches what school left out.
             </AnimatedText>
 

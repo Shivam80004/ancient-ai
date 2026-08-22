@@ -2,7 +2,7 @@ import ImpactStats from '@/components/who-we-are/ImpactStats'
 import OurTeam from '@/components/who-we-are/OurTeam'
 import type { Metadata } from 'next'
 import NewHero from '@/components/about/NewHero'
-import LayeredSlider from '@/components/about/LayeredSlider'
+import EasyPeasySection from '@/components/about/EasyPeasySection'
 
 export const metadata: Metadata = {
     title: 'About Us',
@@ -19,9 +19,8 @@ function AboutPage() {
 
            <NewHero />
 
-            <LayeredSlider />
 
-            {/* <EasyPeasySection /> */}
+            <EasyPeasySection />
 
             <ImpactStats />
 

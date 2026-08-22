@@ -25,7 +25,10 @@ export default function AcademyPage() {
             <AcademyManifesto />
             <SpatialSlider />
 
-            <div className="h-screen w-full flex items-center justify-center p-18">
+            <div className="h-screen w-full flex flex-col gap-10 my-[100px] items-center justify-center p-18">
+
+                <h2 className="text-3xl text-center md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4">Our <span className="font-semibold">Platform</span></h2>
+
                 <Image src="/images/acadmey/mokup.png" alt="Placeholder" width={500} height={500} className="h-full w-[80%] object-cover"/>
             </div>
             {/* <AcademyDifference /> */}
