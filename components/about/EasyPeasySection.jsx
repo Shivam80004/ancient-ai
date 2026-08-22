@@ -158,7 +158,7 @@ const EasyPeasySection = () => {
                                     </span>
                                 </div>
 
-                                <h3 className="feature-title text-4xl md:text-7xl font-poppins font-bold leading-tight text-white mb-1 drop-shadow-2xl">
+                                <h3 className="feature-title text-4xl md:text-7xl font-poppins font leading-tight text-white mb-1 drop-shadow-2xl">
                                     {item.title}
                                 </h3>
 

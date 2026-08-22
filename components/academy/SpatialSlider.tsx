@@ -4,29 +4,71 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable, InertiaPlugin, CustomEase } from "gsap/all";
 
-type Slide = { img: string; title: string };
+type Slide = { img: string; fallback: string; title: string; desc: string };
 
+// Thematic imagery pulled from the internet (Unsplash), with a guaranteed
+// keyword-matched fallback (loremflickr) so a card never renders broken.
 const SLIDES: Slide[] = [
     {
-        img: "https://cdn.prod.website-files.com/6a798376b45151908ea24de4/6a798376b45151908ea24e13_Contemplative%20Man%20by%20the%20Ocean.avif",
-        title: "CÄP",
+        img: "https://images.unsplash.com/photo-1558008258-3256797b43f3?auto=format&fit=crop&w=800&q=80",
+        fallback: "https://loremflickr.com/800/800/workshop,seminar",
+        title: "Workshops & Seminars",
+        desc: "Philosophy, art and culture presentations",
     },
     {
-        img: "https://cdn.prod.website-files.com/6a798376b45151908ea24de4/6a79b1ea765244038a6b380b_elegant-curved-wood-grain-abstract-small.avif",
-        title: "WØOD",
+        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80",
+        fallback: "https://loremflickr.com/800/800/yoga,retreat",
+        title: "Yoga Retreats",
+        desc: "Getaway towards the inner self",
     },
     {
-        img: "https://cdn.prod.website-files.com/6a798376b45151908ea24de4/6a798376b45151908ea24e12_Sunset%20Mountain%20Trail.avif",
-        title: "GRĀSS",
+        img: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=800&q=80",
+        fallback: "https://loremflickr.com/800/800/picnic,nature",
+        title: "Picnics & Outings",
+        desc: "Trips to charming places seemingly lost in time",
     },
     {
-        img: "https://cdn.prod.website-files.com/6a798376b45151908ea24de4/6a79b3bab5cd07a60d207204_stylish-man-walking-on-coastal-rocks-under-soft-sky-small.avif",
-        title: "STĒPS",
+        img: "https://bhaktimarga.in/cdn/shop/files/project-mantra-chanting-the-divine-name.webp?v=1761660079&width=860",
+        fallback: "https://loremflickr.com/800/800/meditation,candle",
+        title: "Mantra Meditation",
+        desc: "Tips and techniques to keep the spirit active",
     },
     {
-        img: "https://cdn.prod.website-files.com/6a798376b45151908ea24de4/6a79b35e7f258156a7998a0b_close-up-of-a-human-eye-with-warm-tones-small.avif",
-        title: "SK!N",
+        img: "/images/kirtan/bonfire.jpg",
+        fallback: "https://loremflickr.com/800/800/music,dance",
+        title: "Music, Dance & Drama",
+        desc: "For those unforgettable moments of cultural expression",
     },
+    {
+        img: "/gellery-img/gallery-img-5.png",
+        fallback: "https://loremflickr.com/800/800/counseling,conversation",
+        title: "Lifestyle Counseling",
+        desc: "Balance pressures from all corners of life",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80",
+        fallback: "https://loremflickr.com/800/800/etiquette,dining",
+        title: "Culture & Etiquette",
+        desc: "Do the right thing at the right time in the right place",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+        fallback: "https://loremflickr.com/800/800/leadership,team",
+        title: "Leadership & Management",
+        desc: "Confidently and smartly go ahead in life",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80",
+        fallback: "https://loremflickr.com/800/800/public,speaking",
+        title: "Public Speaking",
+        desc: "Debates and quizzes for words to make impact",
+    },
+    // {
+    //     img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
+    //     fallback: "https://loremflickr.com/800/800/confidence,portrait",
+    //     title: "Personality Development",
+    //     desc: "Character development to stand out of the crowd",
+    // },
 ];
 
 export default function SpatialSlider() {
@@ -420,6 +462,13 @@ export default function SpatialSlider() {
 
     return (
         <section className="demo-section">
+            <div className="demo-section__intro">
+                <h2 className="text-3xl text-center md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-4">Activities We Organize</h2>
+                <p className="demo-section__subtitle">
+                    We organize and train in a wide range of activities designed to engage the mind,
+                    body, and spirit.
+                </p>
+            </div>
             <div
                 ref={containerRef}
                 data-spatial-slider-init
@@ -440,12 +489,19 @@ export default function SpatialSlider() {
                                         <img
                                             src={slide.img}
                                             loading="lazy"
-                                            alt=""
+                                            alt={slide.title}
                                             className="cover-image"
+                                            onError={(e) => {
+                                                const img = e.currentTarget;
+                                                if (img.dataset.fallbackApplied) return;
+                                                img.dataset.fallbackApplied = "true";
+                                                img.src = slide.fallback;
+                                            }}
                                         />
                                     </div>
                                     <div className="demo-card__info">
                                         <h3 className="demo-card__h">{slide.title}</h3>
+                                        <p className="demo-card__p">{slide.desc}</p>
                                     </div>
                                 </div>
                             </div>
@@ -479,17 +535,47 @@ export default function SpatialSlider() {
                 .demo-section {
                     min-height: 100dvh;
                     display: flex;
-                    // background-color: #5a4239;
+                    flex-flow: column;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 5em 1.5em 4em;
+                    background-color: #1a1614;
+                    background:linear-gradient(261.26deg, rgba(246, 32, 3, 0) -11.86%, rgb(252, 150, 76) -5.96%, rgb(252, 150, 76) 5.45%, rgb(246, 32, 3) 30.99%, rgba(246, 32, 3, 0) 62.85%, rgb(246, 32, 3) 101.39%, rgb(253, 124, 52) 103.82%);
+                }
+
+                .demo-section__intro {
+                    max-width: 46em;
+                    text-align: center;
+                    margin-bottom: 1em;
+                }
+
+                .demo-section__title {
+                    color: #f5f5f5;
+                    font-size: clamp(1.75rem, 4vw, 2.75rem);
+                    font-weight: 500;
+                    letter-spacing: -0.01em;
+                    margin: 0 0 0.5em;
+                    // background: linear-gradient(90deg, #f5f5f5 0%, #f7b98d 60%, #f15906 100%);
+                    -webkit-background-clip: text;
+                    // background-clip: text;
+                    // -webkit-text-fill-color: transparent;
+                }
+
+                .demo-section__subtitle {
+                    color: #a8b9b9;
+                    font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+                    line-height: 1.6;
+                    margin: 0;
                 }
 
                 .spatial-gsap-slider {
                     grid-column-gap: 5em;
-                    grid-row-gap: 5em;
+                    grid-row-gap: 3em;
                     flex-flow: column;
                     justify-content: center;
                     align-items: center;
                     width: 100%;
-                    padding-top: 5em;
+                    padding-top: 3em;
                     display: flex;
                     position: relative;
                 }
@@ -541,9 +627,12 @@ export default function SpatialSlider() {
 
                 /* Demo Card */
                 .demo-card {
-                    color: #ebe0cf;
+                    color: #f5f5f5;
                     text-align: center;
-                    background-color: #291b16;
+                    background-color: rgba(41, 27, 22, 0.72);
+                    border: 1px solid rgba(245, 245, 245, 0.08);
+                    box-shadow: 0 1.5em 3em rgba(0, 0, 0, 0.45);
+                    backdrop-filter: blur(6px);
                     border-radius: 1.375em;
                     flex-flow: column;
                     align-items: flex-start;
@@ -551,6 +640,7 @@ export default function SpatialSlider() {
                     padding-top: 0.625em;
                     padding-left: 0.625em;
                     padding-right: 0.625em;
+                    padding-bottom: 0.25em;
                     display: flex;
                 }
 
@@ -565,6 +655,19 @@ export default function SpatialSlider() {
                     border-radius: 0.75em;
                     width: 100%;
                     position: relative;
+                    overflow: hidden;
+                }
+
+                .demo-card__media::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    border-radius: inherit;
+                    background: linear-gradient(
+                        to top,
+                        rgba(26, 22, 20, 0.85) 0%,
+                        rgba(26, 22, 20, 0) 55%
+                    );
                 }
 
                 .cover-image {
@@ -578,22 +681,32 @@ export default function SpatialSlider() {
                 }
 
                 .demo-card__info {
+                    flex-flow: column;
                     justify-content: center;
                     align-items: center;
+                    gap: 0.35em;
                     width: 100%;
-                    height: 3.5em;
-                    padding-left: 0.75em;
-                    padding-right: 0.75em;
+                    min-height: 6em;
+                    padding: 1em 1em 0.75em;
                     display: flex;
                 }
 
                 .demo-card__h {
-                    text-transform: uppercase;
+                    color: #f5f5f5;
                     margin-top: 0;
                     margin-bottom: 0;
-                    font-size: 1.25em;
-                    font-weight: 800;
-                    line-height: 1;
+                    font-size: 1.15em;
+                    font-weight: 500;
+                    letter-spacing: -0.01em;
+                    line-height: 1.1;
+                }
+
+                .demo-card__p {
+                    color: #a8b9b9;
+                    margin: 0;
+                    font-size: 0.85em;
+                    font-weight: 400;
+                    line-height: 1.4;
                 }
 
                 /* Controls */
@@ -610,21 +723,33 @@ export default function SpatialSlider() {
 
                 .spatial-gsap-slider__control-btn {
                     z-index: 1;
-                    color: #ebe0cf;
+                    color: #f5f5f5;
                     letter-spacing: -0.02em;
                     cursor: pointer;
-                    background-color: #291b16;
+                    background-color: rgba(41, 27, 22, 0.85);
+                    border: 1px solid rgba(245, 245, 245, 0.12);
                     border-radius: 50em;
                     height: 3em;
                     padding: 0 1.5em;
                     font-size: 1em;
                     font-weight: 600;
                     position: relative;
+                    transition: transform 0.2s ease, background-color 0.2s ease;
+                }
+
+                .spatial-gsap-slider__control-btn:hover {
+                    transform: translateY(-1px);
                 }
 
                 .spatial-gsap-slider__control-btn.is--next {
-                    color: #27150f;
-                    background-color: #ebe0cf;
+                    color: #1a1614;
+                    border-color: transparent;
+                    background-image: linear-gradient(
+                        261deg,
+                        #fc964c -6%,
+                        #f15906 45%,
+                        #f62003 101%
+                    );
                 }
 
                 .spatial-gsap-slider__dots {
@@ -636,10 +761,10 @@ export default function SpatialSlider() {
                 .spatial-gsap-slider__control-dot {
                     z-index: 1;
                     outline-offset: 0px;
-                    color: #866b61;
+                    color: #6b5750;
                     cursor: pointer;
                     background-color: currentColor;
-                    border: 0.1875em solid #5a4239;
+                    border: 0.1875em solid #1a1614;
                     border-radius: 50em;
                     width: 0.875em;
                     height: 0.875em;
@@ -656,7 +781,7 @@ export default function SpatialSlider() {
                 }
 
                 .spatial-gsap-slider__control-dot[data-spatial-slider-control-status="active"] {
-                    color: #ebe0cf;
+                    color: #f15906;
                 }
             `}</style>
         </section>

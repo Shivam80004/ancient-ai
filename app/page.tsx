@@ -1,4 +1,5 @@
 import HeroBanner from '../components/home/HeroBanner'
+import HomeHeroLandingScrollAnimation from '@/components/ui/home-hero-landing-scroll-animation'
 import React from 'react'
 import ScalingVideoSection from '../components/home/ScalingVideoSection'
 import Testimonials from '../components/home/Testimonials'
@@ -8,6 +9,7 @@ import MarqueeLogo from '../components/home/MarqueeLogo'
 import JsonLd from "@/components/seo/JsonLd"
 import { organizationSchema, websiteSchema } from "@/lib/seo/structured-data"
 import type { Metadata } from 'next'
+import LayeredSlider from '@/components/about/LayeredSlider'
 
 export const metadata: Metadata = {
   title: 'Ancient AI Academy — A Better Human Experience',
@@ -30,12 +32,17 @@ function page() {
     <>
       <JsonLd data={[organizationSchema(), websiteSchema()]} />
 
-      <div id="home">
+
+      {/* <div id="home">
         <HeroBanner />
       </div>
 
       <div id="experience">
         <ScalingVideoSection />
+      </div> */}
+
+      <div id="landing-hero">
+        <HomeHeroLandingScrollAnimation />
       </div>
 
       <div id="gallery">
@@ -51,6 +58,8 @@ function page() {
       <div id="partners">
         <MarqueeLogo />
       </div>
+
+        <LayeredSlider />
 
       <div id="testimonials">
         <Testimonials />
