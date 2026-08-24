@@ -3,6 +3,7 @@ import { AcademyHero } from "@/components/academy/AcademyHero";
 import { AcademyManifesto } from "@/components/academy/AcademyManifesto";
 import { AcademyDifference } from "@/components/academy/AcademyDifference";
 import SpatialSlider from "@/components/academy/SpatialSlider";
+import MembershipPerks from "@/components/academy/MembershipPerks";
 import Image from "next/image";
 import CallToAction from "@/components/academy/CallToAction";
 
@@ -33,6 +34,8 @@ export default function AcademyPage() {
                 <Image src="/images/acadmey/mokup.png" alt="Placeholder" width={500} height={500} className="h-full w-[80%] object-cover"/>
             </div>
             {/* <AcademyDifference /> */}
+
+            <MembershipPerks />
 
             <CallToAction />
         </main>

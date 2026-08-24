@@ -539,8 +539,9 @@ export default function SpatialSlider() {
                     justify-content: center;
                     align-items: center;
                     padding: 5em 1.5em 4em;
+                    overflow: hidden;
                     background-color: #1a1614;
-                    background:linear-gradient(1.26deg, rgba(246, 32, 3, 0) -11.86%, rgb(0, 0, 0) -5.96%, rgb(0,0, 0) 5.45%, rgb(246, 32, 3) 30.99%, rgba(246, 32, 3, 0) 62.85%, rgb(246, 32, 3) 101.39%, rgb(253, 124, 52) 103.82%);
+                    background:linear-gradient(1.26deg, rgba(246, 32, 3, 0) -11.86%, rgb(0, 0, 0) -5.96%, rgb(0,0, 0) 5.45%, #362320 30.99%, rgba(246, 32, 3, 0) 62.85%, rgb(246, 32, 3) 101.39%, rgb(253, 124, 52) 103.82%);
                 }
 
                 .demo-section__intro {
